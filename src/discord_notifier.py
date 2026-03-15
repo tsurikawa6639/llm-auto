@@ -114,7 +114,7 @@ class DiscordNotifier:
         channel = video_info.get("channel", "不明")
         video_id = video_info.get("video_id", "")
         url = f"https://www.youtube.com/watch?v={video_id}" if video_id else ""
-        published_at = video_info.get("published_at", "不明")
+        published_at = self._to_jst(video_info.get("published_at", ""))
         view_count = video_info.get("view_count", "")
 
         # アイデアテキストからタイトルを抽出（# で始まる行）
@@ -238,6 +238,17 @@ class DiscordNotifier:
         if len(text) <= max_len:
             return text
         return text[: max_len - 3] + "..."
+
+    @staticmethod
+    def _to_jst(utc_str: str) -> str:
+        """UTC文字列 (例: '2026-03-14T11:00:01Z') をJST文字列に変換する"""
+        if not utc_str:
+            return "不明"
+        try:
+            dt = datetime.fromisoformat(utc_str.replace("Z", "+00:00"))
+            return dt.astimezone(JST).strftime("%Y-%m-%d %H:%M:%S JST")
+        except (ValueError, AttributeError):
+            return utc_str
 
     @staticmethod
     def _post(webhook_url: str, payload: dict, label: str) -> bool:

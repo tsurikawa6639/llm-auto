@@ -11,7 +11,7 @@ schedule:
 gemini:
   model: "gemini-3.1-flash-lite-preview"
   temperature: 0.3
-  max_requests_per_run: 10  # 1回の実行あたりのGemini APIリクエスト上限
+  max_requests_per_run: 15  # 1回の実行あたりのGemini APIリクエスト上限
 
 discord:
   enabled: true  # false にすると Discord 通知を一時停止
