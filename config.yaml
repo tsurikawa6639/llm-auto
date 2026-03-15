@@ -1,0 +1,16 @@
+youtube:
+  # CLI引数 -k で指定がなければこのデフォルト値を使用
+  search_keywords:
+    - "株式投資 分析"
+    - "決算 銘柄"
+    - "テクニカル分析 日本株"
+  max_results_per_search: 50
+  published_after_hours: 12
+
+schedule:
+  interval_hours: 1
+
+gemini:
+  model: "gemini-3.1-flash-lite-preview"
+  temperature: 0.3
+  max_requests_per_run: 10  # 1回の実行あたりのGemini APIリクエスト上限

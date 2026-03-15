@@ -1,0 +1,6 @@
+google-api-python-client==2.176.0
+google-genai>=1.0.0
+apscheduler==3.11.0
+python-dotenv==1.1.0
+pyyaml==6.0.2
+requests>=2.31.0
