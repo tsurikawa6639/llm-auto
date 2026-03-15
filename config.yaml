@@ -3,7 +3,7 @@ youtube:
   search_keywords:
     - "株"
   max_results_per_search: 50
-  published_after_hours: 2
+  published_after_hours: 3
 
 schedule:
   interval_hours: 1
