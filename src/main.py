@@ -18,6 +18,7 @@ from dotenv import load_dotenv
 
 from youtube_monitor import YouTubeMonitor
 from idea_extractor import IdeaExtractor
+from discord_notifier import DiscordNotifier
 
 # 日本標準時 (JST = UTC+9)
 JST = timezone(timedelta(hours=9))
@@ -101,6 +102,7 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
 
     youtube_config = config.get("youtube", {})
     gemini_config = config.get("gemini", {})
+    discord_config = config.get("discord", {})
     max_gemini_requests = gemini_config.get("max_requests_per_run", 10)
 
     # 各モジュールの初期化
@@ -114,6 +116,16 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
         model=gemini_config.get("model", "gemini-3.1-flash-lite-preview"),
         temperature=gemini_config.get("temperature", 0.3),
     )
+
+    # Discord通知の初期化（enabled=false または URL未設定なら送信スキップ）
+    discord_enabled = discord_config.get("enabled", True)
+    if discord_enabled:
+        notifier = DiscordNotifier(
+            summary_webhook_url=os.getenv("DISCORD_WEBHOOK_URL", ""),
+            idea_webhook_url=os.getenv("DISCORD_IDEA_WEBHOOK_URL", ""),
+        )
+    else:
+        notifier = None
 
     # --- Phase 1: 保留キューの動画を読み込み ---
     pending_videos = monitor.load_pending_videos()
@@ -177,6 +189,9 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
             total_ideas += 1
             logger.info(f"✅ アイディア抽出成功 → {filepath.name}")
             idea_status = f"✅ あり → {filepath.name}"
+            # Discord アイデアチャンネルに個別送信
+            if notifier:
+                notifier.send_idea(video, summary, idea_text)
         else:
             logger.info(f"⏭️ 投資アイディアなし: {title}")
             idea_status = "❌ なし"
@@ -209,6 +224,9 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
     # サマリーレポート出力
     if results:
         save_summary_report(results, len(to_process), total_ideas)
+        # Discord サマリーチャンネルに送信
+        if notifier:
+            notifier.send_summary(results, len(to_process), total_ideas)
 
 
 def save_summary_report(results: list[dict], total_new: int, total_ideas: int) -> None:

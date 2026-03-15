@@ -27,6 +27,8 @@ jobs:
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_IDEA_WEBHOOK_URL: ${{ secrets.DISCORD_IDEA_WEBHOOK_URL }}
         run: python src/main.py --once
 
       - name: Cleanup old reports (keep 7 days)
