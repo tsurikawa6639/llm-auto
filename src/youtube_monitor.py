@@ -17,11 +17,55 @@ PENDING_VIDEOS_PATH = _PROJECT_ROOT / "data" / "pending_videos.json"
 class YouTubeMonitor:
     """YouTube Data API v3 を使って投資関連の新着動画を検索する"""
 
-    def __init__(self, api_key: str, max_results: int = 10, published_after_hours: int = 2):
+    def __init__(self, api_key: str, max_results: int = 10, published_after_hours: int = 2,
+                 channel_blacklist: list[str] | None = None):
         self.youtube = build("youtube", "v3", developerKey=api_key)
         self.max_results = max_results
         self.published_after_hours = published_after_hours
+        self._channel_blacklist = self._resolve_blacklist(channel_blacklist or [])
         self._seen_videos = self._load_seen_videos()
+
+    def _resolve_blacklist(self, entries: list[str]) -> set[str]:
+        """ブラックリストのエントリをチャンネルIDに解決する
+
+        @handle 形式はYouTube APIでチャンネルIDに変換する。
+        UC で始まるIDはそのまま使用する。
+        """
+        resolved: set[str] = set()
+        handles_to_resolve: list[str] = []
+
+        for entry in entries:
+            entry = entry.strip()
+            if not entry:
+                continue
+            if entry.startswith("UC") and len(entry) == 24:
+                resolved.add(entry)
+            else:
+                # @付きでも無しでもOK
+                handle = entry if entry.startswith("@") else f"@{entry}"
+                handles_to_resolve.append(handle)
+
+        # ハンドル名をYouTube APIでチャンネルIDに変換
+        for handle in handles_to_resolve:
+            try:
+                response = self.youtube.channels().list(
+                    forHandle=handle,
+                    part="id,snippet",
+                ).execute()
+                items = response.get("items", [])
+                if items:
+                    channel_id = items[0]["id"]
+                    channel_name = items[0]["snippet"]["title"]
+                    resolved.add(channel_id)
+                    logger.info(f"⛔ ブラックリスト登録: {handle} → {channel_name} [{channel_id}]")
+                else:
+                    logger.warning(f"ブラックリスト: ハンドル '{handle}' が見つかりません")
+            except Exception as e:
+                logger.error(f"ブラックリスト: ハンドル '{handle}' の解決に失敗: {e}")
+
+        if resolved:
+            logger.info(f"ブラックリスト: {len(resolved)}チャンネル登録済み")
+        return resolved
 
     def _load_seen_videos(self) -> set[str]:
         """処理済み動画IDをファイルから読み込む"""
@@ -137,10 +181,16 @@ class YouTubeMonitor:
                 logger.debug(f"スキップ（他キーワードで取得済み）: {video_id}")
                 continue
 
+            channel_id = item["snippet"].get("channelId", "")
+            if channel_id in self._channel_blacklist:
+                logger.info(f"⛔ スキップ（ブラックリスト）: {item['snippet']['channelTitle']} [{channel_id}]")
+                continue
+
             candidates.append({
                 "video_id": video_id,
                 "title": item["snippet"]["title"],
                 "channel": item["snippet"]["channelTitle"],
+                "channel_id": channel_id,
                 "description": item["snippet"].get("description", ""),
                 "published_at": item["snippet"]["publishedAt"],
             })

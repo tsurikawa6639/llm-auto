@@ -110,6 +110,7 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
         api_key=youtube_api_key,
         max_results=youtube_config.get("max_results_per_search", 10),
         published_after_hours=youtube_config.get("published_after_hours", 2),
+        channel_blacklist=youtube_config.get("channel_blacklist", []),
     )
     extractor = IdeaExtractor(
         api_key=gemini_api_key,
@@ -148,6 +149,18 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
 
     # --- Phase 3: 保留キュー（優先）＋ 新着を結合 ---
     all_videos = pending_videos + new_videos
+
+    # ブラックリストによるフィルタリング（保留キューにも適用）
+    if monitor._channel_blacklist:
+        before_count = len(all_videos)
+        all_videos = [
+            v for v in all_videos
+            if v.get("channel_id", "") not in monitor._channel_blacklist
+        ]
+        filtered = before_count - len(all_videos)
+        if filtered:
+            logger.info(f"⛔ ブラックリストにより {filtered}件を除外")
+
     logger.info(
         f"処理対象: 保留={len(pending_videos)}件 + 新着={len(new_videos)}件 "
         f"= 合計{len(all_videos)}件 (上限{max_gemini_requests}件)"
@@ -233,13 +246,15 @@ def save_summary_report(results: list[dict], total_new: int, total_ideas: int) -
     """調査結果のサマリーレポートをCSVとMarkdownで出力する"""
     import csv
 
-    output_dir = PROJECT_ROOT / "output"
-    output_dir.mkdir(parents=True, exist_ok=True)
+    csv_dir = PROJECT_ROOT / "output" / "csv"
+    md_dir = PROJECT_ROOT / "output" / "md"
+    csv_dir.mkdir(parents=True, exist_ok=True)
+    md_dir.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now(JST).strftime("%Y%m%d_%H%M%S")
 
     # --- CSV出力 ---
-    csv_path = output_dir / f"report_{timestamp}.csv"
+    csv_path = csv_dir / f"report_{timestamp}.csv"
     csv_fieldnames = ["keyword", "title", "channel", "url", "idea"]
     with open(csv_path, "w", newline="", encoding="utf-8-sig") as f:
         writer = csv.DictWriter(f, fieldnames=csv_fieldnames)
@@ -249,7 +264,7 @@ def save_summary_report(results: list[dict], total_new: int, total_ideas: int) -
     logger.info(f"📊 CSVレポート保存: {csv_path}")
 
     # --- Markdown出力 ---
-    md_path = output_dir / f"report_{timestamp}.md"
+    md_path = md_dir / f"report_{timestamp}.md"
     lines = [
         f"# YouTube定刻監視レポート",
         f"",

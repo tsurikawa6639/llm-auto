@@ -1,9 +1,12 @@
 youtube:
   # CLI引数 -k で指定がなければこのデフォルト値を使用
   search_keywords:
-    - "株"
+    - "株式"
   max_results_per_search: 50
   published_after_hours: 3
+  # ブラックリスト: 除外するチャンネル（ハンドル名 or チャンネルID）
+  channel_blacklist:
+    - "@tradingnews6165"  # TRADING NEWS
 
 schedule:
   interval_hours: 1

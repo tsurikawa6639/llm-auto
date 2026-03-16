@@ -34,7 +34,8 @@ jobs:
       - name: Cleanup old reports (keep 7 days)
         run: |
           # 7日より古いレポートファイルを削除
-          find output -name "report_*" -type f -mtime +7 -delete 2>/dev/null || true
+          find output/csv -name "report_*" -type f -mtime +7 -delete 2>/dev/null || true
+          find output/md -name "report_*" -type f -mtime +7 -delete 2>/dev/null || true
           # 7日より古いアイディアファイルを削除
           find output/ideas -name "*.md" -type f -mtime +7 -delete 2>/dev/null || true
           echo "Cleanup complete"
