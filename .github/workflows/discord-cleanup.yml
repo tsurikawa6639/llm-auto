@@ -1,0 +1,27 @@
+name: Discord Cleanup
+
+on:
+  schedule:
+    - cron: '0 21 * * *'  # UTC 21:00 = JST 6:00（毎日1回）
+  workflow_dispatch:          # 手動実行も可能
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Discord cleanup
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CLEANUP_CHANNEL_ID: ${{ secrets.DISCORD_CLEANUP_CHANNEL_ID }}
+        run: python src/discord_cleanup.py
