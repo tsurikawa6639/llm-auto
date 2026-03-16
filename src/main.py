@@ -151,12 +151,22 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
     all_videos = pending_videos + new_videos
 
     # ブラックリストによるフィルタリング（保留キューにも適用）
-    if monitor._channel_blacklist:
+    if monitor._channel_blacklist or monitor._blacklist_channel_names:
         before_count = len(all_videos)
-        all_videos = [
-            v for v in all_videos
-            if v.get("channel_id", "") not in monitor._channel_blacklist
-        ]
+
+        def _is_blacklisted(v: dict) -> bool:
+            """channel_id があればIDで、なければチャンネル名でフィルタ"""
+            ch_id = v.get("channel_id", "")
+            if ch_id and ch_id in monitor._channel_blacklist:
+                return True
+            # channel_id が欠落している場合はチャンネル名でフォールバック
+            if not ch_id and monitor._blacklist_channel_names:
+                ch_name = v.get("channel", "")
+                if ch_name in monitor._blacklist_channel_names:
+                    return True
+            return False
+
+        all_videos = [v for v in all_videos if not _is_blacklisted(v)]
         filtered = before_count - len(all_videos)
         if filtered:
             logger.info(f"⛔ ブラックリストにより {filtered}件を除外")

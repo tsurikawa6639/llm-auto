@@ -22,16 +22,20 @@ class YouTubeMonitor:
         self.youtube = build("youtube", "v3", developerKey=api_key)
         self.max_results = max_results
         self.published_after_hours = published_after_hours
-        self._channel_blacklist = self._resolve_blacklist(channel_blacklist or [])
+        self._channel_blacklist, self._blacklist_channel_names = self._resolve_blacklist(channel_blacklist or [])
         self._seen_videos = self._load_seen_videos()
 
-    def _resolve_blacklist(self, entries: list[str]) -> set[str]:
-        """ブラックリストのエントリをチャンネルIDに解決する
+    def _resolve_blacklist(self, entries: list[str]) -> tuple[set[str], set[str]]:
+        """ブラックリストのエントリをチャンネルIDとチャンネル名に解決する
 
         @handle 形式はYouTube APIでチャンネルIDに変換する。
         UC で始まるIDはそのまま使用する。
+
+        Returns:
+            (チャンネルIDのセット, チャンネル名のセット)
         """
         resolved: set[str] = set()
+        resolved_names: set[str] = set()
         handles_to_resolve: list[str] = []
 
         for entry in entries:
@@ -57,6 +61,7 @@ class YouTubeMonitor:
                     channel_id = items[0]["id"]
                     channel_name = items[0]["snippet"]["title"]
                     resolved.add(channel_id)
+                    resolved_names.add(channel_name)
                     logger.info(f"⛔ ブラックリスト登録: {handle} → {channel_name} [{channel_id}]")
                 else:
                     logger.warning(f"ブラックリスト: ハンドル '{handle}' が見つかりません")
@@ -64,8 +69,8 @@ class YouTubeMonitor:
                 logger.error(f"ブラックリスト: ハンドル '{handle}' の解決に失敗: {e}")
 
         if resolved:
-            logger.info(f"ブラックリスト: {len(resolved)}チャンネル登録済み")
-        return resolved
+            logger.info(f"ブラックリスト: {len(resolved)}チャンネル登録済み (名前: {resolved_names})")
+        return resolved, resolved_names
 
     def _load_seen_videos(self) -> set[str]:
         """処理済み動画IDをファイルから読み込む"""
