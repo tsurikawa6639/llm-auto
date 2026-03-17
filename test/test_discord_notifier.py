@@ -94,10 +94,7 @@ class TestSendIdea:
             "## 根拠となった個所\n"
             "> AI需要拡大により半導体需要が増加している\n\n"
             "## 投資アイディア\n"
-            "国内半導体関連銘柄に投資チャンスがある。\n\n"
-            "## 因果関係\n"
-            "1. AI市場の拡大 → GPU需要増\n"
-            "2. 半導体メーカーの業績拡大"
+            "国内半導体関連銘柄に投資チャンスがある。"
         )
 
     @patch("discord_notifier.requests.post")
@@ -115,7 +112,6 @@ class TestSendIdea:
         assert "📺 データソース" in field_names
         assert "📝 要約" in field_names
         assert "🎯 投資アイディア" in field_names
-        assert "🔗 因果関係" in field_names
 
     def test_send_idea_no_url(self):
         """Webhook URL 未設定で送信がスキップされる"""
@@ -146,13 +142,11 @@ class TestUtilities:
         text = (
             "# タイトル\n\n"
             "## データソース\nYouTube - テスト\n\n"
-            "## 投資アイディア\n具体的なアイディア\n\n"
-            "## 因果関係\n1. テスト因果"
+            "## 投資アイディア\n具体的なアイディア"
         )
         sections = DiscordNotifier._parse_idea_sections(text)
         assert "データソース" in sections
         assert "投資アイディア" in sections
-        assert "因果関係" in sections
         assert "具体的なアイディア" in sections["投資アイディア"]
 
     def test_truncate(self):

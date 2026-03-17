@@ -2,7 +2,8 @@ name: Discord Cleanup
 
 on:
   schedule:
-    - cron: '0 21 * * *'  # UTC 21:00 = JST 6:00（毎日1回）
+    - cron: '0 21 * * *'  # UTC 21:00 = JST 6:00
+    - cron: '0 9 * * *'   # UTC 9:00  = JST 18:00
   workflow_dispatch:          # 手動実行も可能
 
 jobs:

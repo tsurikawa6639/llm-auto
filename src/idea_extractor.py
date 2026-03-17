@@ -55,7 +55,6 @@ EXTRACTION_PROMPT = """\
 ## 動画情報
 - タイトル: {title}
 - チャンネル: {channel}
-- 公開日: {published_at}
 
 ## 指示
 動画の映像・音声・字幕をすべて参照して、内容を簡潔に要約し、
@@ -64,10 +63,9 @@ EXTRACTION_PROMPT = """\
 
 ## 出力形式
 
-### ステップ1: 要約（必須）
 「SUMMARY:」の後に、動画内容を3〜5行で簡潔に要約してください。
 
-### ステップ2: 投資アイディア判定
+次に、投資アイディアを判定してください。
 - 具体的な投資アイディアがある場合 → 「IDEAS:」の後にアイディアを記述
 - 投資に無関係、または具体性のない一般論のみの場合 → 「IDEAS: NONE」と記述
 
@@ -80,16 +78,12 @@ IDEAS:
 
 ## データソース
 YouTube - {channel}「{title}」
-公開日: {published_at}
 
 ## 根拠となった個所
 > [動画内の具体的な発言や情報を引用]
 
 ## 投資アイディア
 [具体的なアイディアの説明]
-
-## 因果関係
-1. [因果の連鎖を numbered list で記述]
 
 ## 出力例（アイディアがない場合）
 SUMMARY:
@@ -105,7 +99,6 @@ FALLBACK_PROMPT = """\
 ## 動画情報
 - タイトル: {title}
 - チャンネル: {channel}
-- 公開日: {published_at}
 
 ## 動画の概要欄
 {content}
@@ -120,10 +113,9 @@ FALLBACK_PROMPT = """\
 
 ## 出力形式
 
-### ステップ1: 要約（必須）
 「SUMMARY:」の後に、動画内容を3〜5行で簡潔に要約してください。
 
-### ステップ2: 投資アイディア判定
+次に、投資アイディアを判定してください。
 - 具体的な投資アイディアがある場合 → 「IDEAS:」の後にアイディアを記述
 - 投資に無関係、または具体性のない一般論のみの場合 → 「IDEAS: NONE」と記述
 
@@ -136,16 +128,12 @@ IDEAS:
 
 ## データソース
 YouTube - {channel}「{title}」
-公開日: {published_at}
 
 ## 根拠となった個所
 > [動画内の具体的な発言や情報を引用]
 
 ## 投資アイディア
 [具体的なアイディアの説明]
-
-## 因果関係
-1. [因果の連鎖を numbered list で記述]
 
 ## 出力例（アイディアがない場合）
 SUMMARY:
@@ -179,14 +167,12 @@ class IdeaExtractor:
         """
         title = video_info.get("title", "不明")
         channel = video_info.get("channel", "不明")
-        published_at = video_info.get("published_at", "不明")
 
         # まずYouTube URLを直接渡して処理を試みる
         video_url = f"https://www.youtube.com/watch?v={video_id}"
         prompt_text = EXTRACTION_PROMPT.format(
             title=title,
             channel=channel,
-            published_at=published_at,
         )
 
         try:
@@ -226,7 +212,6 @@ class IdeaExtractor:
         prompt = FALLBACK_PROMPT.format(
             title=video_info.get("title", "不明"),
             channel=video_info.get("channel", "不明"),
-            published_at=video_info.get("published_at", "不明"),
             content=description[:8000],
         )
 

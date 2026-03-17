@@ -163,15 +163,6 @@ class DiscordNotifier:
                 "inline": False,
             })
 
-        # 因果関係
-        causal = sections.get("因果関係", "")
-        if causal:
-            fields.append({
-                "name": "🔗 因果関係",
-                "value": self._truncate(causal, MAX_FIELD_VALUE),
-                "inline": False,
-            })
-
         # URL
         if url:
             fields.append({
