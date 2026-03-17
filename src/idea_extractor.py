@@ -264,9 +264,9 @@ class IdeaExtractor:
         ideas_match = re.search(r"IDEAS:\s*(.*)$", result, re.DOTALL)
         if ideas_match:
             ideas_content = ideas_match.group(1).strip()
-            if (ideas_content.upper() == "NONE"
-                    or not ideas_content
-                    or "該当なし" in ideas_content):
+            if (not ideas_content
+                    or "NONE" in ideas_content.upper()
+                    or "なし" in ideas_content):
                 logger.info(f"投資アイディアなしと判定: {video_info.get('title', '不明')}")
                 idea_text = None
             else:
