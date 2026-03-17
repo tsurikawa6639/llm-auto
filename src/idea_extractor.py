@@ -50,97 +50,26 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = _PROJECT_ROOT / "output" / "ideas"
 
 EXTRACTION_PROMPT = """\
-あなたは投資アナリストです。以下のYouTube動画を分析してください。
+投資アナリストとして、YouTube動画「{title}」({channel})の映像・音声・字幕を分析せよ。
 
-## 動画情報
-- タイトル: {title}
-- チャンネル: {channel}
-
-## 指示
-動画の映像・音声・字幕をすべて参照して、内容を簡潔に要約し、
-次に株式投資に活用できる具体的なアイディアがあるかどうかを判定してください。
-必ず以下の出力形式に従ってください。
-
-## 出力形式
-
-「SUMMARY:」の後に、動画内容を3〜5行で簡潔に要約してください。
-
-次に、投資アイディアを判定してください。
-- 具体的な投資アイディアがある場合 → 「IDEAS:」の後にアイディアを記述
-- 投資に無関係、または具体性のない一般論のみの場合 → 「IDEAS: NONE」と記述
-
-## 出力例（アイディアがある場合）
+出力形式（厳守）:
 SUMMARY:
-動画では○○について解説しており、△△の業績が好調であること、□□の市場拡大が見込まれることなどが紹介されていた。
+（動画内容を3〜5行で要約）
 
 IDEAS:
-# [アイディアのタイトル]
+（具体的な投資アイディアがあれば以下の形式で記述。なければ「NONE」のみ）
 
+# アイディアタイトル
 ## データソース
 YouTube - {channel}「{title}」
-
 ## 根拠となった個所
-> [動画内の具体的な発言や情報を引用]
-
+> 動画内の具体的な発言や情報を引用
 ## 投資アイディア
-[具体的なアイディアの説明]
+具体的なアイディアの説明
 
-## 出力例（アイディアがない場合）
-SUMMARY:
-動画では投資の基本的な考え方について一般論が紹介されていた。
-
-IDEAS: NONE
+判定基準: 投資に無関係、または具体性のない一般論のみ → IDEAS: NONE
 """
 
-# 概要欄フォールバック用プロンプト（動画URLを処理できなかった場合に使用）
-FALLBACK_PROMPT = """\
-あなたは投資アナリストです。以下のYouTube動画の情報を分析してください。
-
-## 動画情報
-- タイトル: {title}
-- チャンネル: {channel}
-
-## 動画の概要欄
-{content}
-
-## 注意
-動画本体にはアクセスできなかったため、概要欄の情報のみで分析してください。
-情報が限られているため、推測は控えめにしてください。
-
-## 指示
-まず動画の内容を簡潔に要約し、次に株式投資に活用できる具体的なアイディアがあるかどうかを判定してください。
-必ず以下の出力形式に従ってください。
-
-## 出力形式
-
-「SUMMARY:」の後に、動画内容を3〜5行で簡潔に要約してください。
-
-次に、投資アイディアを判定してください。
-- 具体的な投資アイディアがある場合 → 「IDEAS:」の後にアイディアを記述
-- 投資に無関係、または具体性のない一般論のみの場合 → 「IDEAS: NONE」と記述
-
-## 出力例（アイディアがある場合）
-SUMMARY:
-動画では○○について解説しており、△△の業績が好調であること、□□の市場拡大が見込まれることなどが紹介されていた。
-
-IDEAS:
-# [アイディアのタイトル]
-
-## データソース
-YouTube - {channel}「{title}」
-
-## 根拠となった個所
-> [動画内の具体的な発言や情報を引用]
-
-## 投資アイディア
-[具体的なアイディアの説明]
-
-## 出力例（アイディアがない場合）
-SUMMARY:
-動画では投資の基本的な考え方について一般論が紹介されていた。
-
-IDEAS: NONE
-"""
 
 
 class IdeaExtractor:
@@ -151,10 +80,10 @@ class IdeaExtractor:
         self.model = model
         self.temperature = temperature
 
-    def extract_ideas(self, video_id: str, video_info: dict) -> tuple[str, str | None]:
+    def extract_ideas(self, video_id: str, video_info: dict) -> tuple[str | None, str | None]:
         """YouTube動画URLを直接Geminiに渡して要約とアイディアを抽出する
 
-        動画URLで処理できない場合は概要欄テキストにフォールバックする。
+        動画URLで処理できない場合はスキップする（None, None を返す）。
 
         Args:
             video_id: YouTube動画ID
@@ -162,13 +91,13 @@ class IdeaExtractor:
 
         Returns:
             (summary, idea_text | None) のタプル。
-            summary: 動画内容の要約（常に返す）
+            summary: 動画内容の要約（処理失敗時は None）
             idea_text: 抽出されたアイディア（投資に無関係な場合は None）
         """
         title = video_info.get("title", "不明")
         channel = video_info.get("channel", "不明")
 
-        # まずYouTube URLを直接渡して処理を試みる
+        # YouTube URLを直接渡して処理を試みる
         video_url = f"https://www.youtube.com/watch?v={video_id}"
         prompt_text = EXTRACTION_PROMPT.format(
             title=title,
@@ -195,44 +124,9 @@ class IdeaExtractor:
             return (summary, idea_text)
 
         except Exception as e:
-            logger.warning(f"動画URLの直接処理に失敗: {e}")
-            logger.info("概要欄テキストへフォールバック")
+            logger.warning(f"⏭️ 動画URLの処理に失敗（スキップ）: {title} | エラー: {e}")
+            return (None, None)
 
-        # フォールバック: 概要欄テキストで処理
-        return self._extract_from_description(video_info)
-
-    def _extract_from_description(self, video_info: dict) -> tuple[str, str | None]:
-        """概要欄テキストを使って要約・アイディア抽出する（フォールバック）"""
-        description = video_info.get("description", "")
-
-        if not description or len(description.strip()) < 50:
-            logger.info(f"概要欄も短すぎるためスキップ: {video_info.get('title', '不明')}")
-            return ("動画にアクセスできず、概要欄の情報も不十分なため要約不可", None)
-
-        prompt = FALLBACK_PROMPT.format(
-            title=video_info.get("title", "不明"),
-            channel=video_info.get("channel", "不明"),
-            content=description[:8000],
-        )
-
-        try:
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=types.Content(
-                    parts=[
-                        types.Part(text=prompt),
-                    ]
-                ),
-                config=types.GenerateContentConfig(temperature=self.temperature),
-            )
-            result = response.text.strip()
-            logger.info("概要欄フォールバック処理: 成功")
-        except Exception as e:
-            logger.error(f"Gemini API呼び出しエラー（フォールバック）: {e}")
-            return ("API呼び出しエラー", None)
-
-        summary, idea_text = self._parse_response(result, video_info)
-        return (summary, idea_text)
 
     @staticmethod
     def _parse_response(result: str, video_info: dict) -> tuple[str, str | None]:

@@ -205,6 +205,24 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
 
         # YouTube動画URLを直接Geminiに渡して要約＋アイディア抽出
         summary, idea_text = extractor.extract_ideas(video_id, video)
+
+        # 動画URL処理失敗 → スキップ
+        if summary is None:
+            logger.warning(f"⏭️ スキップ（動画処理失敗）: {title}")
+            if notifier:
+                notifier.send_skip(video)
+            results.append({
+                "keyword": keyword,
+                "video_id": video_id,
+                "title": title,
+                "channel": channel,
+                "url": url,
+                "summary": "動画処理失敗のためスキップ",
+                "idea": "⏭️ スキップ",
+            })
+            monitor.mark_as_processed(video_id)
+            continue
+
         logger.info(f"要約: {summary[:80]}..." if len(summary) > 80 else f"要約: {summary}")
 
         if idea_text:

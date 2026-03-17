@@ -88,6 +88,38 @@ class DiscordNotifier:
         return self._post(self.summary_webhook_url, payload, "サマリー")
 
     # ------------------------------------------------------------------
+    # スキップ通知（動画URL処理失敗時）
+    # ------------------------------------------------------------------
+    def send_skip(self, video_info: dict) -> bool:
+        """動画処理失敗のスキップ通知をサマリーチャンネルに送信する"""
+        if not self.summary_webhook_url:
+            return False
+
+        title = video_info.get("title", "不明")
+        channel = video_info.get("channel", "不明")
+        video_id = video_info.get("video_id", "")
+        url = f"https://www.youtube.com/watch?v={video_id}" if video_id else ""
+
+        payload = {
+            "embeds": [
+                {
+                    "title": "⏭️ 動画処理スキップ",
+                    "description": (
+                        f"動画URLの処理に失敗したためスキップしました。\n\n"
+                        f"**動画**: {title}\n"
+                        f"**チャンネル**: {channel}\n"
+                        f"**URL**: {url}"
+                    ),
+                    "color": 0x95A5A6,  # グレー
+                    "footer": {"text": "YouTube定刻監視システム"},
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            ]
+        }
+
+        return self._post(self.summary_webhook_url, payload, "スキップ")
+
+    # ------------------------------------------------------------------
     # アイデア個別通知（1アイデア = 1投稿）
     # ------------------------------------------------------------------
     def send_idea(
