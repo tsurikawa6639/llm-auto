@@ -251,8 +251,8 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
         monitor.mark_as_processed(video_id)
 
         # API負荷軽減のため動画間でスリープ
-        logger.info("次の動画まで25秒待機...")
-        time.sleep(25)
+        logger.info("次の動画まで50秒待機...")
+        time.sleep(50)
 
     # --- Phase 5: 保留キュー保存 ---
     monitor.save_pending_videos(to_pending)
