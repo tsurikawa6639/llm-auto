@@ -2,7 +2,8 @@ name: YouTube Monitor
 
 on:
   schedule:
-    - cron: '0 */2 * * *'  # 2時間ごとに実行（UTC基準）
+    - cron: '0 */3 * * *'    # 0:00, 3:00, 6:00, ... (3時間ごと)
+    - cron: '30 1,4,7,10,13,16,19,22 * * *'  # 1:30, 4:30, 7:30, ... (90分ずらし)
   workflow_dispatch:          # 手動実行も可能
 
 permissions:
