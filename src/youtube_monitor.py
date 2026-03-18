@@ -72,29 +72,62 @@ class YouTubeMonitor:
             logger.info(f"ブラックリスト: {len(resolved)}チャンネル登録済み (名前: {resolved_names})")
         return resolved, resolved_names
 
-    def _load_seen_videos(self) -> set[str]:
-        """処理済み動画IDをファイルから読み込む"""
+    # 処理済み動画の保持期間（日数）。これより古いエントリは自動削除される。
+    SEEN_VIDEOS_RETENTION_DAYS = 7
+
+    def _load_seen_videos(self) -> dict[str, str]:
+        """処理済み動画IDをファイルから読み込む
+
+        Returns:
+            {video_id: ISO timestamp} の辞書
+        """
         if SEEN_VIDEOS_PATH.exists():
             try:
                 data = json.loads(SEEN_VIDEOS_PATH.read_text(encoding="utf-8"))
-                return set(data)
+                # 旧フォーマット（リスト形式）からの移行
+                if isinstance(data, list):
+                    logger.info(f"seen_videos.json を新フォーマットに移行中（{len(data)}件）")
+                    now_iso = datetime.now(timezone.utc).isoformat()
+                    return {vid: now_iso for vid in data}
+                if isinstance(data, dict):
+                    return data
             except (json.JSONDecodeError, ValueError):
                 logger.warning("seen_videos.json の読み込みに失敗。新規作成します。")
-        return set()
+        return {}
 
     def _save_seen_videos(self) -> None:
-        """処理済み動画IDをファイルに保存する"""
+        """処理済み動画IDをファイルに保存する（古いエントリを自動削除）"""
+        self._cleanup_seen_videos()
         SEEN_VIDEOS_PATH.parent.mkdir(parents=True, exist_ok=True)
         SEEN_VIDEOS_PATH.write_text(
-            json.dumps(sorted(self._seen_videos), ensure_ascii=False, indent=2),
+            json.dumps(self._seen_videos, ensure_ascii=False, indent=2),
             encoding="utf-8",
         )
+
+    def _cleanup_seen_videos(self) -> None:
+        """保持期間を超えた古い処理済み動画エントリを削除する"""
+        cutoff = datetime.now(timezone.utc) - timedelta(days=self.SEEN_VIDEOS_RETENTION_DAYS)
+        before_count = len(self._seen_videos)
+        cleaned = {}
+        for vid, ts in self._seen_videos.items():
+            try:
+                recorded = datetime.fromisoformat(ts)
+                if recorded >= cutoff:
+                    cleaned[vid] = ts
+            except (ValueError, TypeError):
+                # タイムスタンプが不正な場合は保持する（安全側）
+                cleaned[vid] = ts
+        removed = before_count - len(cleaned)
+        if removed:
+            logger.info(f"🧹 seen_videos クリーンアップ: {removed}件の古いエントリを削除"
+                        f"（{len(cleaned)}件を保持、保持期間: {self.SEEN_VIDEOS_RETENTION_DAYS}日）")
+        self._seen_videos = cleaned
 
     def is_already_processed(self, video_id: str) -> bool:
         return video_id in self._seen_videos
 
     def mark_as_processed(self, video_id: str) -> None:
-        self._seen_videos.add(video_id)
+        self._seen_videos[video_id] = datetime.now(timezone.utc).isoformat()
         self._save_seen_videos()
 
     # --- 保留キュー管理 ---
