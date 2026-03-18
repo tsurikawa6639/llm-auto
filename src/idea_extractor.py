@@ -75,9 +75,13 @@ YouTube - {channel}「{title}」
 class IdeaExtractor:
     """Gemini APIでYouTube動画から直接投資アイディアを抽出する"""
 
-    def __init__(self, api_key: str, model: str = "gemini-3.1-flash-lite-preview", temperature: float = 0.3):
+    def __init__(self, api_key: str, models: list[str] | str = "gemini-3.1-flash-lite-preview", temperature: float = 0.3):
         self.client = genai.Client(api_key=api_key)
-        self.model = model
+        # 後方互換: 文字列が渡された場合はリストに変換
+        if isinstance(models, str):
+            self.models = [models]
+        else:
+            self.models = list(models)
         self.temperature = temperature
 
     def extract_ideas(self, video_id: str, video_info: dict) -> tuple[str | None, str | None]:
@@ -104,28 +108,49 @@ class IdeaExtractor:
             channel=channel,
         )
 
-        try:
-            logger.info(f"動画URLを直接Geminiに送信: {video_url}")
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=types.Content(
-                    parts=[
-                        types.Part(
-                            file_data=types.FileData(file_uri=video_url)
-                        ),
-                        types.Part(text=prompt_text),
-                    ]
+        contents = types.Content(
+            parts=[
+                types.Part(
+                    file_data=types.FileData(file_uri=video_url)
                 ),
-                config=types.GenerateContentConfig(temperature=self.temperature),
-            )
-            result = response.text.strip()
-            summary, idea_text = self._parse_response(result, video_info)
-            logger.info("動画URL直接処理: 成功")
-            return (summary, idea_text)
+                types.Part(text=prompt_text),
+            ]
+        )
 
-        except Exception as e:
-            logger.warning(f"⏭️ 動画URLの処理に失敗（スキップ）: {title} | エラー: {e}")
-            return (None, None)
+        # メインモデルで試行 → TPMエラー時はサブモデルにフォールバック
+        for i, model in enumerate(self.models):
+            is_fallback = i > 0
+            try:
+                if is_fallback:
+                    logger.info(f"🔄 フォールバック: {model} で再試行")
+                else:
+                    logger.info(f"動画URLを直接Geminiに送信 [{model}]: {video_url}")
+
+                response = self.client.models.generate_content(
+                    model=model,
+                    contents=contents,
+                    config=types.GenerateContentConfig(temperature=self.temperature),
+                )
+                result = response.text.strip()
+                summary, idea_text = self._parse_response(result, video_info)
+                logger.info(f"動画URL直接処理: 成功 [{model}]")
+                return (summary, idea_text)
+
+            except Exception as e:
+                error_str = str(e)
+                is_rate_limit = "429" in error_str or "RESOURCE_EXHAUSTED" in error_str
+
+                if is_rate_limit and i < len(self.models) - 1:
+                    # TPM/レート制限エラー → 次のモデルにフォールバック
+                    logger.warning(f"⚠️ レート制限ヒット [{model}]: {e}")
+                    continue
+                else:
+                    # 最後のモデルでもエラー or レート制限以外のエラー
+                    logger.warning(f"⏭️ 動画URLの処理に失敗（スキップ）: {title} | エラー: {e}")
+                    return (None, None)
+
+        # ここには到達しないはずだが安全のため
+        return (None, None)
 
 
     @staticmethod

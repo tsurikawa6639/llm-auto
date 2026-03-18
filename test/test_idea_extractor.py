@@ -22,7 +22,7 @@ class TestSaveIdeaDuplicate:
         """各テスト前にテンポラリディレクトリを用意"""
         self._tmpdir = tempfile.TemporaryDirectory()
         self.output_dir = Path(self._tmpdir.name)
-        self.extractor = IdeaExtractor(api_key="dummy", model="dummy")
+        self.extractor = IdeaExtractor(api_key="dummy", models="dummy")
         self.video_info = {
             "title": "テスト動画",
             "channel": "テストチャンネル",

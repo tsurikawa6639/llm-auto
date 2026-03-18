@@ -112,9 +112,11 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
         published_after_hours=youtube_config.get("published_after_hours", 2),
         channel_blacklist=youtube_config.get("channel_blacklist", []),
     )
+    gemini_models = gemini_config.get("models", gemini_config.get("model", "gemini-3.1-flash-lite-preview"))
+    sleep_between = gemini_config.get("sleep_between_requests", 30)
     extractor = IdeaExtractor(
         api_key=gemini_api_key,
-        model=gemini_config.get("model", "gemini-3.1-flash-lite-preview"),
+        models=gemini_models,
         temperature=gemini_config.get("temperature", 0.3),
     )
 
@@ -251,8 +253,8 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
         monitor.mark_as_processed(video_id)
 
         # API負荷軽減のため動画間でスリープ
-        logger.info("次の動画まで55秒待機...")
-        time.sleep(55)
+        logger.info(f"次の動画まで{sleep_between}秒待機...")
+        time.sleep(sleep_between)
 
     # --- Phase 5: 保留キュー保存 ---
     monitor.save_pending_videos(to_pending)

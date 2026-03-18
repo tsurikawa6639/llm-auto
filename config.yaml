@@ -3,18 +3,21 @@ youtube:
   search_keywords:
     - "株式"
   max_results_per_search: 50
-  published_after_hours: 3
+  published_after_hours: 2
   # ブラックリスト: 除外するチャンネル（ハンドル名 or チャンネルID）
   channel_blacklist:
     - "@tradingnews6165"  # TRADING NEWS
 
 schedule:
-  interval_hours: 1.5
+  interval_hours: 1
 
 gemini:
-  model: "gemini-3.1-flash-lite-preview"
+  models:
+    - "gemini-3.1-flash-lite-preview"  # メインモデル
+    - "gemini-2.5-flash-lite"           # サブモデル（フォールバック専用）
   temperature: 0.3
-  max_requests_per_run: 15  # 1回の実行あたりのGemini APIリクエスト上限
+  max_requests_per_run: 25  # 1回の実行あたりのGemini APIリクエスト上限
+  sleep_between_requests: 30  # リクエスト間のスリープ（秒）
 
 discord:
   enabled: true  # false にすると Discord 通知を一時停止
