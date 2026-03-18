@@ -45,16 +45,33 @@ jobs:
           find output/ideas -name "*.md" -type f -mtime +7 -delete 2>/dev/null || true
           echo "Cleanup complete"
 
-      - name: Commit results
+      - name: Commit and push results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # data/ と output/ のファイルを一時的にバックアップ
+          cp -r data/ /tmp/data_backup/
+          cp -r output/ /tmp/output_backup/
+          
           git add data/ output/
           git diff --staged --quiet || git commit -m "auto: update monitor results $(date -u +'%Y-%m-%d %H:%M')"
-          # pushが競合した場合、pull --rebaseしてリトライ（最大3回）
+          
+          # pushが競合した場合のリトライ（最大3回）
           for i in 1 2 3; do
             git push && break
-            echo "Push failed (attempt $i), pulling and retrying..."
-            git pull --rebase
-            sleep 5
+            echo "Push failed (attempt $i/3), resolving and retrying..."
+            
+            # rebase中のコンフリクトを回避するため、リセットして再コミット
+            git reset HEAD~1 2>/dev/null || true
+            git checkout -- . 2>/dev/null || true
+            git clean -fd 2>/dev/null || true
+            git pull origin main
+            
+            # バックアップからファイルを復元して再コミット
+            cp -r /tmp/data_backup/* data/
+            cp -r /tmp/output_backup/* output/
+            git add data/ output/
+            git diff --staged --quiet || git commit -m "auto: update monitor results $(date -u +'%Y-%m-%d %H:%M')"
+            sleep 3
           done
