@@ -3,11 +3,15 @@
 監視レポートのサマリーと投資アイデアをDiscordに送信する。
 - サマリーチャンネル: 実行完了ごとに1投稿
 - アイデアチャンネル: アイデア1件につき1投稿
+- 遅延送信: 通知をJSONファイルに保存し、後からまとめて送信可能
 """
 
+import json
 import logging
 import re
+import time
 from datetime import datetime, timezone, timedelta
+from pathlib import Path
 
 import requests
 
@@ -27,6 +31,8 @@ class DiscordNotifier:
     def __init__(self, summary_webhook_url: str = "", idea_webhook_url: str = ""):
         self.summary_webhook_url = summary_webhook_url or ""
         self.idea_webhook_url = idea_webhook_url or ""
+        # 遅延送信用キュー
+        self._deferred_queue: list[dict] = []
 
     # ------------------------------------------------------------------
     # サマリー通知（実行完了ごとに1回）
@@ -290,3 +296,124 @@ class DiscordNotifier:
         except requests.RequestException as e:
             logger.error(f"Discord {label}通知 送信エラー: {e}")
             return False
+
+    # ------------------------------------------------------------------
+    # 遅延送信（バッチ送信）機能
+    # ------------------------------------------------------------------
+    def queue_idea(
+        self,
+        video_info: dict,
+        summary: str,
+        idea_text: str,
+    ) -> None:
+        """アイデア通知をキューに追加する（即座に送信しない）"""
+        self._deferred_queue.append({
+            "type": "idea",
+            "video_info": video_info,
+            "summary": summary,
+            "idea_text": idea_text,
+        })
+        logger.info(f"Discord アイデア通知をキューに追加: {video_info.get('title', '不明')}")
+
+    def queue_skip(self, video_info: dict) -> None:
+        """スキップ通知をキューに追加する（即座に送信しない）"""
+        self._deferred_queue.append({
+            "type": "skip",
+            "video_info": video_info,
+        })
+        logger.info(f"Discord スキップ通知をキューに追加: {video_info.get('title', '不明')}")
+
+    def queue_summary(
+        self,
+        results: list[dict],
+        total_processed: int,
+        total_ideas: int,
+    ) -> None:
+        """サマリー通知をキューに追加する（即座に送信しない）"""
+        self._deferred_queue.append({
+            "type": "summary",
+            "results": results,
+            "total_processed": total_processed,
+            "total_ideas": total_ideas,
+        })
+        logger.info("Discord サマリー通知をキューに追加")
+
+    def save_deferred(self, filepath: str | Path) -> None:
+        """キューに溜まった通知をJSONファイルに保存する
+
+        Args:
+            filepath: 保存先のJSONファイルパス
+        """
+        filepath = Path(filepath)
+        filepath.parent.mkdir(parents=True, exist_ok=True)
+
+        if not self._deferred_queue:
+            logger.info("遅延送信キューが空のため保存スキップ")
+            return
+
+        filepath.write_text(
+            json.dumps(self._deferred_queue, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        logger.info(f"遅延通知を保存: {filepath} ({len(self._deferred_queue)}件)")
+
+    def send_deferred(self, filepath: str | Path) -> int:
+        """保存済みの遅延通知を読み込んで一括送信する
+
+        Args:
+            filepath: 遅延通知JSONファイルのパス
+
+        Returns:
+            送信成功した通知の件数
+        """
+        filepath = Path(filepath)
+        if not filepath.exists():
+            logger.info("遅延通知ファイルなし — 送信スキップ")
+            return 0
+
+        try:
+            queue = json.loads(filepath.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError) as e:
+            logger.error(f"遅延通知ファイルの読み込みエラー: {e}")
+            return 0
+
+        if not queue:
+            logger.info("遅延通知キューが空 — 送信スキップ")
+            filepath.unlink(missing_ok=True)
+            return 0
+
+        logger.info(f"遅延通知を一括送信開始: {len(queue)}件")
+        sent = 0
+
+        for item in queue:
+            msg_type = item.get("type", "")
+            success = False
+
+            if msg_type == "idea":
+                success = self.send_idea(
+                    item["video_info"],
+                    item["summary"],
+                    item["idea_text"],
+                )
+            elif msg_type == "skip":
+                success = self.send_skip(item["video_info"])
+            elif msg_type == "summary":
+                success = self.send_summary(
+                    item["results"],
+                    item["total_processed"],
+                    item["total_ideas"],
+                )
+            else:
+                logger.warning(f"不明な通知タイプ: {msg_type}")
+                continue
+
+            if success:
+                sent += 1
+
+            # Discord レート制限回避のため少し待機
+            time.sleep(1)
+
+        # 送信完了後にファイル削除
+        filepath.unlink(missing_ok=True)
+        logger.info(f"遅延通知の一括送信完了: {sent}/{len(queue)}件 成功")
+        return sent

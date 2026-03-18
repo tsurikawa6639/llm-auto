@@ -166,3 +166,87 @@ class TestUtilities:
         """空テキストは 'ー' を返す"""
         result = DiscordNotifier._truncate("", 100)
         assert result == "ー"
+
+
+# --- 遅延送信（バッチ送信）テスト ---
+
+class TestDeferredNotifications:
+    """遅延送信機能のテスト"""
+
+    def setup_method(self):
+        self.notifier = DiscordNotifier(
+            summary_webhook_url="https://discord.com/api/webhooks/test/summary",
+            idea_webhook_url="https://discord.com/api/webhooks/test/idea",
+        )
+        self.video_info = {
+            "video_id": "abc123",
+            "title": "テスト動画",
+            "channel": "テストチャンネル",
+            "published_at": "2026-03-15T11:00:00Z",
+        }
+
+    def test_queue_and_save_deferred(self, tmp_path):
+        """通知をキューに溜めてJSONファイルに保存できる"""
+        filepath = tmp_path / "deferred.json"
+
+        # キューに追加
+        self.notifier.queue_idea(self.video_info, "要約テスト", "# アイデア\n## 投資アイディア\nテスト")
+        self.notifier.queue_skip(self.video_info)
+        self.notifier.queue_summary([{"title": "t1", "idea": "✅ あり"}], 1, 1)
+
+        # 保存
+        self.notifier.save_deferred(filepath)
+
+        # ファイルが作成されていることを確認
+        assert filepath.exists()
+
+        import json
+        data = json.loads(filepath.read_text(encoding="utf-8"))
+        assert len(data) == 3
+        assert data[0]["type"] == "idea"
+        assert data[1]["type"] == "skip"
+        assert data[2]["type"] == "summary"
+
+    @patch("discord_notifier.requests.post")
+    def test_send_deferred(self, mock_post, tmp_path):
+        """JSONファイルから読み込んで正しく送信される"""
+        import json
+        filepath = tmp_path / "deferred.json"
+
+        # テスト用キューデータを直接ファイルに書き込む
+        queue = [
+            {
+                "type": "idea",
+                "video_info": self.video_info,
+                "summary": "テスト要約",
+                "idea_text": "# テスト\n## 投資アイディア\nテストアイデア",
+            },
+            {
+                "type": "summary",
+                "results": [{"title": "t", "idea": "✅", "channel": "c", "url": "u"}],
+                "total_processed": 1,
+                "total_ideas": 1,
+            },
+        ]
+        filepath.write_text(json.dumps(queue, ensure_ascii=False), encoding="utf-8")
+
+        mock_post.return_value = MagicMock(status_code=204)
+
+        sent = self.notifier.send_deferred(filepath)
+
+        assert sent == 2
+        assert mock_post.call_count == 2
+        # ファイルが削除されていることを確認
+        assert not filepath.exists()
+
+    def test_send_deferred_no_file(self, tmp_path):
+        """ファイルが存在しない場合は0を返してエラーにならない"""
+        filepath = tmp_path / "nonexistent.json"
+        sent = self.notifier.send_deferred(filepath)
+        assert sent == 0
+
+    def test_save_deferred_empty_queue(self, tmp_path):
+        """キューが空の場合はファイルを作成しない"""
+        filepath = tmp_path / "deferred.json"
+        self.notifier.save_deferred(filepath)
+        assert not filepath.exists()

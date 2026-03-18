@@ -40,6 +40,9 @@ load_dotenv()
 # プロジェクトルート（src/ の1つ上）
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
+# 遅延通知の保存先
+DEFERRED_NOTIFICATIONS_PATH = PROJECT_ROOT / "data" / "deferred_notifications.json"
+
 
 def load_config() -> dict:
     """config.yaml を読み込む"""
@@ -53,7 +56,7 @@ def load_config() -> dict:
 LOCK_FILE_PATH = Path("/tmp/run_monitor.lock")
 
 
-def run_monitor(keywords: list[str], config: dict) -> None:
+def run_monitor(keywords: list[str], config: dict, defer_notify: bool = False) -> None:
     """1回分の監視サイクルを実行する
 
     処理フロー:
@@ -62,12 +65,15 @@ def run_monitor(keywords: list[str], config: dict) -> None:
     3. 全キーワードでYouTube検索し、新着動画を収集
     4. 保留キュー + 新着を結合し、先頭N件のみGemini APIで処理
     5. 残りを保留キューに保存（次回実行で優先処理）
+
+    Args:
+        defer_notify: Trueの場合、Discord通知を即座に送信せずJSONに保存する
     """
     # --- ロックファイルで多重起動を防止 ---
     if fcntl is None:
         # fcntlが使えない環境（Windows/CI）ではロックをスキップ
         try:
-            _run_monitor_impl(keywords, config)
+            _run_monitor_impl(keywords, config, defer_notify=defer_notify)
         except Exception:
             logger.exception("監視サイクルでエラーが発生")
         return
@@ -82,13 +88,13 @@ def run_monitor(keywords: list[str], config: dict) -> None:
         return
 
     try:
-        _run_monitor_impl(keywords, config)
+        _run_monitor_impl(keywords, config, defer_notify=defer_notify)
     finally:
         fcntl.flock(lock_fd, fcntl.LOCK_UN)
         lock_fd.close()
 
 
-def _run_monitor_impl(keywords: list[str], config: dict) -> None:
+def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = False) -> None:
     """監視サイクルの実処理（ロック取得後に呼ばれる）"""
     youtube_api_key = os.getenv("YOUTUBE_API_KEY")
     gemini_api_key = os.getenv("GEMINI_API_KEY")
@@ -212,7 +218,10 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
         if summary is None:
             logger.warning(f"⏭️ スキップ（動画処理失敗）: {title}")
             if notifier:
-                notifier.send_skip(video)
+                if defer_notify:
+                    notifier.queue_skip(video)
+                else:
+                    notifier.send_skip(video)
             results.append({
                 "keyword": keyword,
                 "video_id": video_id,
@@ -232,9 +241,12 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
             total_ideas += 1
             logger.info(f"✅ アイディア抽出成功 → {filepath.name}")
             idea_status = f"✅ あり → {filepath.name}"
-            # Discord アイデアチャンネルに個別送信
+            # Discord アイデアチャンネルに個別送信（または遅延キューに追加）
             if notifier:
-                notifier.send_idea(video, summary, idea_text)
+                if defer_notify:
+                    notifier.queue_idea(video, summary, idea_text)
+                else:
+                    notifier.send_idea(video, summary, idea_text)
         else:
             logger.info(f"⏭️ 投資アイディアなし: {title}")
             idea_status = "❌ なし"
@@ -267,9 +279,14 @@ def _run_monitor_impl(keywords: list[str], config: dict) -> None:
     # サマリーレポート出力
     if results:
         save_summary_report(results, len(to_process), total_ideas)
-        # Discord サマリーチャンネルに送信
+        # Discord サマリーチャンネルに送信（または遅延キューに追加）
         if notifier:
-            notifier.send_summary(results, len(to_process), total_ideas)
+            if defer_notify:
+                notifier.queue_summary(results, len(to_process), total_ideas)
+                notifier.save_deferred(DEFERRED_NOTIFICATIONS_PATH)
+                logger.info("Discord通知を遅延送信用に保存しました")
+            else:
+                notifier.send_summary(results, len(to_process), total_ideas)
 
 
 def save_summary_report(results: list[dict], total_new: int, total_ideas: int) -> None:
@@ -345,9 +362,34 @@ def main():
         dest="keywords",
         help="検索キーワード（複数指定可: -k 'キーワード1' -k 'キーワード2'）",
     )
+    parser.add_argument(
+        "--defer-notify",
+        action="store_true",
+        help="Discord通知を即座に送信せずJSONファイルに保存する（--send-deferredで後から一括送信）",
+    )
+    parser.add_argument(
+        "--send-deferred",
+        action="store_true",
+        help="保存済みの遅延通知を一括送信する（単独で使用）",
+    )
     args = parser.parse_args()
 
     config = load_config()
+
+    # --send-deferred: 保存済み通知の一括送信（単独モード）
+    if args.send_deferred:
+        logger.info("--- 遅延通知の一括送信モード ---")
+        discord_config = config.get("discord", {})
+        if not discord_config.get("enabled", True):
+            logger.info("Discord通知が無効のため送信スキップ")
+            return
+        notifier = DiscordNotifier(
+            summary_webhook_url=os.getenv("DISCORD_WEBHOOK_URL", ""),
+            idea_webhook_url=os.getenv("DISCORD_IDEA_WEBHOOK_URL", ""),
+        )
+        sent = notifier.send_deferred(DEFERRED_NOTIFICATIONS_PATH)
+        logger.info(f"遅延通知の一括送信完了: {sent}件送信")
+        return
 
     # CLI引数のキーワードがあればそちらを優先、なければconfig.yamlのデフォルト値
     keywords = args.keywords or config.get("youtube", {}).get("search_keywords", [])
@@ -361,7 +403,7 @@ def main():
     if args.once:
         # 1回実行モード
         logger.info("--- 1回実行モード ---")
-        run_monitor(keywords, config)
+        run_monitor(keywords, config, defer_notify=args.defer_notify)
     else:
         # スケジューラモード
         interval_hours = config.get("schedule", {}).get("interval_hours", 1)

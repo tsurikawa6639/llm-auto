@@ -28,13 +28,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run YouTube Monitor
+      - name: Run YouTube Monitor (通知は後で送信)
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          DISCORD_IDEA_WEBHOOK_URL: ${{ secrets.DISCORD_IDEA_WEBHOOK_URL }}
-        run: python src/main.py --once
+        run: python src/main.py --once --defer-notify
 
       - name: Cleanup old reports (keep 7 days)
         run: |
@@ -75,3 +73,9 @@ jobs:
             git diff --staged --quiet || git commit -m "auto: update monitor results $(date -u +'%Y-%m-%d %H:%M')"
             sleep 3
           done
+
+      - name: Send deferred Discord notifications
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_IDEA_WEBHOOK_URL: ${{ secrets.DISCORD_IDEA_WEBHOOK_URL }}
+        run: python src/main.py --send-deferred
