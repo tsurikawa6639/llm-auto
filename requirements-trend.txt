@@ -1,0 +1,2 @@
+# トレンド分析 (trend_analyzer.py) 用
+janome>=0.5.0

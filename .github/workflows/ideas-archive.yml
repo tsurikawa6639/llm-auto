@@ -61,10 +61,17 @@ jobs:
           cd ../..
           echo "Archive complete: $ARCHIVED files archived"
 
+      - name: Cleanup old reports (keep 7 days)
+        run: |
+          # 7日より古いレポートファイルを削除
+          find output/csv -name "report_*" -type f -mtime +7 -delete 2>/dev/null || true
+          find output/md -name "report_*" -type f -mtime +7 -delete 2>/dev/null || true
+          echo "Report cleanup complete"
+
       - name: Commit and push archive
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add output/ideas/
-          git diff --staged --quiet || git commit -m "auto: archive old idea files $(date -u +'%Y-%m-%d')"
+          git add output/
+          git diff --staged --quiet || git commit -m "auto: archive ideas & cleanup reports $(date -u +'%Y-%m-%d')"
           git push

@@ -1,0 +1,2 @@
+# Discord クリーンアップ (discord_cleanup.py) 用
+discord.py>=2.3.0

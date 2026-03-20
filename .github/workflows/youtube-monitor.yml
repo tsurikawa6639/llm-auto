@@ -34,13 +34,6 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: python src/main.py --once --defer-notify
 
-      - name: Cleanup old reports (keep 7 days)
-        run: |
-          # 7日より古いレポートファイルを削除
-          find output/csv -name "report_*" -type f -mtime +7 -delete 2>/dev/null || true
-          find output/md -name "report_*" -type f -mtime +7 -delete 2>/dev/null || true
-          echo "Cleanup complete"
-
       - name: Commit and push results
         run: |
           git config user.name "github-actions[bot]"
