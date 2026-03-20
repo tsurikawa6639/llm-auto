@@ -8,6 +8,7 @@ youtube:
   channel_blacklist:
     - "@tradingnews6165"  # TRADING NEWS
     - "@NMAY-l1q"
+    - "@MrPNioVideos"
 
 schedule:
   interval_hours: 1

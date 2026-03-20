@@ -28,43 +28,67 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Run YouTube Monitor (通知は後で送信)
+      # === ステップ1: YouTube探索のみ（pendingに積む） ===
+      - name: Search YouTube (pendingキュー更新)
         env:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-        run: python src/main.py --once --defer-notify
+        run: python src/main.py --once --search-only
 
-      - name: Commit and push results
+      # === ステップ2: 探索結果をpush ===
+      - name: Commit and push search results
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
-          # data/ と output/ のファイルを一時的にバックアップ
-          cp -r data/ /tmp/data_backup/
-          cp -r output/ /tmp/output_backup/
+          cp -r data/ /tmp/data_backup_search/
           
-          git add data/ output/
-          git diff --staged --quiet || git commit -m "auto: update monitor results $(date -u +'%Y-%m-%d %H:%M')"
+          git add data/
+          git diff --staged --quiet || git commit -m "auto: update pending videos $(date -u +'%Y-%m-%d %H:%M')"
           
-          # pushが競合した場合のリトライ（最大3回）
           for i in 1 2 3; do
             git push && break
             echo "Push failed (attempt $i/3), resolving and retrying..."
-            
-            # rebase中のコンフリクトを回避するため、リセットして再コミット
             git reset HEAD~1 2>/dev/null || true
             git checkout -- . 2>/dev/null || true
             git clean -fd 2>/dev/null || true
             git pull origin main
-            
-            # バックアップからファイルを復元して再コミット
-            cp -r /tmp/data_backup/* data/
-            cp -r /tmp/output_backup/* output/
+            cp -r /tmp/data_backup_search/* data/
+            git add data/
+            git diff --staged --quiet || git commit -m "auto: update pending videos $(date -u +'%Y-%m-%d %H:%M')"
+            sleep 3
+          done
+
+      # === ステップ3: AI分析の実行（pending消化） ===
+      - name: Process pending videos (AI分析)
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python src/main.py --once --process-pending --defer-notify
+
+      # === ステップ4: 分析結果をpush ===
+      - name: Commit and push analysis results
+        run: |
+          cp -r data/ /tmp/data_backup_analysis/
+          cp -r output/ /tmp/output_backup_analysis/
+          
+          git add data/ output/
+          git diff --staged --quiet || git commit -m "auto: update monitor results $(date -u +'%Y-%m-%d %H:%M')"
+          
+          for i in 1 2 3; do
+            git push && break
+            echo "Push failed (attempt $i/3), resolving and retrying..."
+            git reset HEAD~1 2>/dev/null || true
+            git checkout -- . 2>/dev/null || true
+            git clean -fd 2>/dev/null || true
+            git pull origin main
+            cp -r /tmp/data_backup_analysis/* data/
+            cp -r /tmp/output_backup_analysis/* output/
             git add data/ output/
             git diff --staged --quiet || git commit -m "auto: update monitor results $(date -u +'%Y-%m-%d %H:%M')"
             sleep 3
           done
 
+      # === ステップ5: Discord遅延通知送信 ===
       - name: Send deferred Discord notifications
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}

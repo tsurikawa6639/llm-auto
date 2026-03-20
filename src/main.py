@@ -56,7 +56,8 @@ def load_config() -> dict:
 LOCK_FILE_PATH = Path("/tmp/run_monitor.lock")
 
 
-def run_monitor(keywords: list[str], config: dict, defer_notify: bool = False) -> None:
+def run_monitor(keywords: list[str], config: dict, defer_notify: bool = False,
+                search_only: bool = False, process_pending: bool = False) -> None:
     """1回分の監視サイクルを実行する
 
     処理フロー:
@@ -68,12 +69,22 @@ def run_monitor(keywords: list[str], config: dict, defer_notify: bool = False) -
 
     Args:
         defer_notify: Trueの場合、Discord通知を即座に送信せずJSONに保存する
+        search_only: Trueの場合、YouTube探索のみ実行（pendingキュー更新まで）
+        process_pending: Trueの場合、pendingキューからAI分析のみ実行
     """
+    # 実行する関数を決定
+    if search_only:
+        impl_func = lambda: _run_search_only(keywords, config)
+    elif process_pending:
+        impl_func = lambda: _run_process_pending(config, defer_notify=defer_notify)
+    else:
+        impl_func = lambda: _run_monitor_impl(keywords, config, defer_notify=defer_notify)
+
     # --- ロックファイルで多重起動を防止 ---
     if fcntl is None:
         # fcntlが使えない環境（Windows/CI）ではロックをスキップ
         try:
-            _run_monitor_impl(keywords, config, defer_notify=defer_notify)
+            impl_func()
         except Exception:
             logger.exception("監視サイクルでエラーが発生")
         return
@@ -88,10 +99,231 @@ def run_monitor(keywords: list[str], config: dict, defer_notify: bool = False) -
         return
 
     try:
-        _run_monitor_impl(keywords, config, defer_notify=defer_notify)
+        impl_func()
     finally:
         fcntl.flock(lock_fd, fcntl.LOCK_UN)
         lock_fd.close()
+
+
+def _run_search_only(keywords: list[str], config: dict) -> None:
+    """YouTube探索のみ実行し、pendingキューを更新する（Gemini APIは使用しない）"""
+    youtube_api_key = os.getenv("YOUTUBE_API_KEY")
+
+    if not youtube_api_key or youtube_api_key == "your_youtube_api_key_here":
+        logger.error("YOUTUBE_API_KEY が設定されていません。.env ファイルを確認してください。")
+        return
+
+    youtube_config = config.get("youtube", {})
+    gemini_config = config.get("gemini", {})
+    max_gemini_requests = gemini_config.get("max_requests_per_run", 10)
+
+    monitor = YouTubeMonitor(
+        api_key=youtube_api_key,
+        max_results=youtube_config.get("max_results_per_search", 10),
+        published_after_hours=youtube_config.get("published_after_hours", 2),
+        channel_blacklist=youtube_config.get("channel_blacklist", []),
+    )
+
+    # --- Phase 1: 保留キューの動画を読み込み ---
+    pending_videos = monitor.load_pending_videos()
+
+    # --- Phase 2: 全キーワードで検索し、新着動画を収集 ---
+    new_videos: list[dict] = []
+    seen_ids = {v["video_id"] for v in pending_videos}
+
+    for keyword in keywords:
+        logger.info(f"=== キーワード: '{keyword}' ===")
+        videos = monitor.search_recent_videos(keyword, exclude_ids=seen_ids)
+        if not videos:
+            logger.info("新着動画なし")
+            continue
+        for video in videos:
+            if video["video_id"] not in seen_ids:
+                video["keyword"] = keyword
+                new_videos.append(video)
+                seen_ids.add(video["video_id"])
+
+    # --- Phase 3: 保留キュー（優先）＋ 新着を結合 ---
+    all_videos = pending_videos + new_videos
+
+    # ブラックリストによるフィルタリング
+    if monitor._channel_blacklist or monitor._blacklist_channel_names:
+        before_count = len(all_videos)
+
+        def _is_blacklisted(v: dict) -> bool:
+            ch_id = v.get("channel_id", "")
+            if ch_id and ch_id in monitor._channel_blacklist:
+                return True
+            if not ch_id and monitor._blacklist_channel_names:
+                ch_name = v.get("channel", "")
+                if ch_name in monitor._blacklist_channel_names:
+                    return True
+            return False
+
+        all_videos = [v for v in all_videos if not _is_blacklisted(v)]
+        filtered = before_count - len(all_videos)
+        if filtered:
+            logger.info(f"⛔ ブラックリストにより {filtered}件を除外")
+
+    logger.info(
+        f"探索結果: 既存保留={len(pending_videos)}件 + 新着={len(new_videos)}件 "
+        f"= 合計{len(all_videos)}件（次回AI分析上限: {max_gemini_requests}件）"
+    )
+
+    # pendingキューとして全件保存（AI分析は --process-pending で実行）
+    monitor.save_pending_videos(all_videos)
+    logger.info(f"=== 探索完了: pendingキューに {len(all_videos)}件 保存 ===")
+
+
+def _run_process_pending(config: dict, defer_notify: bool = False) -> None:
+    """pendingキューからAI分析を実行する（YouTube探索は行わない）"""
+    youtube_api_key = os.getenv("YOUTUBE_API_KEY")
+    gemini_api_key = os.getenv("GEMINI_API_KEY")
+
+    if not youtube_api_key or youtube_api_key == "your_youtube_api_key_here":
+        logger.error("YOUTUBE_API_KEY が設定されていません。.env ファイルを確認してください。")
+        return
+    if not gemini_api_key or gemini_api_key == "your_gemini_api_key_here":
+        logger.error("GEMINI_API_KEY が設定されていません。.env ファイルを確認してください。")
+        return
+
+    youtube_config = config.get("youtube", {})
+    gemini_config = config.get("gemini", {})
+    discord_config = config.get("discord", {})
+    max_gemini_requests = gemini_config.get("max_requests_per_run", 10)
+
+    monitor = YouTubeMonitor(
+        api_key=youtube_api_key,
+        max_results=youtube_config.get("max_results_per_search", 10),
+        published_after_hours=youtube_config.get("published_after_hours", 2),
+        channel_blacklist=youtube_config.get("channel_blacklist", []),
+    )
+    gemini_models = gemini_config.get("models", gemini_config.get("model", "gemini-3.1-flash-lite-preview"))
+    sleep_between = gemini_config.get("sleep_between_requests", 30)
+    extractor = IdeaExtractor(
+        api_key=gemini_api_key,
+        models=gemini_models,
+        temperature=gemini_config.get("temperature", 0.3),
+    )
+
+    # Discord通知の初期化
+    discord_enabled = discord_config.get("enabled", True)
+    if discord_enabled:
+        notifier = DiscordNotifier(
+            summary_webhook_url=os.getenv("DISCORD_WEBHOOK_URL", ""),
+            idea_webhook_url=os.getenv("DISCORD_IDEA_WEBHOOK_URL", ""),
+        )
+    else:
+        notifier = None
+
+    # --- pendingキューの読み込み ---
+    all_videos = monitor.load_pending_videos()
+    if not all_videos:
+        logger.info("pendingキューが空のためスキップ")
+        return
+
+    logger.info(
+        f"処理対象: pending={len(all_videos)}件 (上限{max_gemini_requests}件)"
+    )
+
+    # 上限分割
+    to_process = all_videos[:max_gemini_requests]
+    to_pending = all_videos[max_gemini_requests:]
+
+    # --- 動画の詳細情報をバッチ取得 ---
+    process_ids = [v["video_id"] for v in to_process]
+    video_details = monitor.get_video_details(process_ids)
+    for video in to_process:
+        detail = video_details.get(video["video_id"], {})
+        video["duration"] = detail.get("duration", "")
+        video["view_count"] = detail.get("view_count", "")
+        if detail.get("description"):
+            video["description"] = detail["description"]
+
+    # --- Gemini APIで処理 ---
+    total_ideas = 0
+    results: list[dict] = []
+
+    for video in to_process:
+        video_id = video["video_id"]
+        title = video["title"]
+        url = f"https://www.youtube.com/watch?v={video_id}"
+        channel = video.get("channel", "不明")
+        keyword = video.get("keyword", "不明")
+        logger.info(f"処理中: [{video_id}] {title}")
+
+        summary, idea_text = extractor.extract_ideas(video_id, video)
+
+        if summary is None:
+            logger.warning(f"⏭️ スキップ（動画処理失敗）: {title}")
+            if notifier:
+                if defer_notify:
+                    notifier.queue_skip(video)
+                else:
+                    notifier.send_skip(video)
+            results.append({
+                "keyword": keyword,
+                "video_id": video_id,
+                "title": title,
+                "channel": channel,
+                "url": url,
+                "summary": "動画処理失敗のためスキップ",
+                "idea": "⏭️ スキップ",
+            })
+            monitor.mark_as_processed(video_id)
+            continue
+
+        logger.info(f"要約: {summary[:80]}..." if len(summary) > 80 else f"要約: {summary}")
+
+        if idea_text:
+            filepath = extractor.save_idea(video_id, video, idea_text)
+            total_ideas += 1
+            logger.info(f"✅ アイディア抽出成功 → {filepath.name}")
+            idea_status = f"✅ あり → {filepath.name}"
+            if notifier:
+                if defer_notify:
+                    notifier.queue_idea(video, summary, idea_text)
+                else:
+                    notifier.send_idea(video, summary, idea_text)
+        else:
+            logger.info(f"⏭️ 投資アイディアなし: {title}")
+            idea_status = "❌ なし"
+
+        results.append({
+            "keyword": keyword,
+            "video_id": video_id,
+            "title": title,
+            "channel": channel,
+            "url": url,
+            "summary": summary,
+            "idea": idea_status,
+        })
+
+        monitor.mark_as_processed_in_memory(video_id)
+
+        if video != to_process[-1]:
+            logger.info(f"次の動画まで{sleep_between}秒待機...")
+            time.sleep(sleep_between)
+
+    # --- 処理済み動画を一括保存 & 保留キュー保存 ---
+    monitor.flush_seen_videos()
+    monitor.save_pending_videos(to_pending)
+
+    logger.info(
+        f"=== 完了: 処理={len(to_process)}件 → アイディア{total_ideas}件抽出 "
+        f"| 保留={len(to_pending)}件 ==="
+    )
+
+    # サマリーレポート出力
+    if results:
+        save_summary_report(results, len(to_process), total_ideas)
+        if notifier:
+            if defer_notify:
+                notifier.queue_summary(results, len(to_process), total_ideas)
+                notifier.save_deferred(DEFERRED_NOTIFICATIONS_PATH)
+                logger.info("Discord通知を遅延送信用に保存しました")
+            else:
+                notifier.send_summary(results, len(to_process), total_ideas)
 
 
 def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = False) -> None:
@@ -374,6 +606,16 @@ def main():
         action="store_true",
         help="保存済みの遅延通知を一括送信する（単独で使用）",
     )
+    parser.add_argument(
+        "--search-only",
+        action="store_true",
+        help="YouTube探索のみ実行しpendingキューを更新する（AI分析はスキップ）",
+    )
+    parser.add_argument(
+        "--process-pending",
+        action="store_true",
+        help="pendingキューからAI分析のみ実行する（YouTube探索はスキップ）",
+    )
     args = parser.parse_args()
 
     config = load_config()
@@ -393,6 +635,17 @@ def main():
         logger.info(f"遅延通知の一括送信完了: {sent}件送信")
         return
 
+    # --search-only と --process-pending の排他チェック
+    if args.search_only and args.process_pending:
+        logger.error("--search-only と --process-pending は同時に指定できません。")
+        sys.exit(1)
+
+    # --process-pending はキーワード不要
+    if args.process_pending:
+        logger.info("--- pendingキュー処理モード ---")
+        run_monitor([], config, defer_notify=args.defer_notify, process_pending=True)
+        return
+
     # CLI引数のキーワードがあればそちらを優先、なければconfig.yamlのデフォルト値
     keywords = args.keywords or config.get("youtube", {}).get("search_keywords", [])
 
@@ -403,9 +656,13 @@ def main():
     logger.info(f"検索キーワード: {keywords}")
 
     if args.once:
-        # 1回実行モード
-        logger.info("--- 1回実行モード ---")
-        run_monitor(keywords, config, defer_notify=args.defer_notify)
+        if args.search_only:
+            logger.info("--- 探索のみモード ---")
+            run_monitor(keywords, config, search_only=True)
+        else:
+            # 従来の1回実行モード（後方互換）
+            logger.info("--- 1回実行モード ---")
+            run_monitor(keywords, config, defer_notify=args.defer_notify)
     else:
         # スケジューラモード
         interval_hours = config.get("schedule", {}).get("interval_hours", 1)
