@@ -261,14 +261,16 @@ def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = Fa
             "idea": idea_status,
         })
 
-        # 処理済みとしてマーク
-        monitor.mark_as_processed(video_id)
+        # 処理済みとしてマーク（メモリ上のみ、ファイル書き込みは後でバッチ実行）
+        monitor.mark_as_processed_in_memory(video_id)
 
-        # API負荷軽減のため動画間でスリープ
-        logger.info(f"次の動画まで{sleep_between}秒待機...")
-        time.sleep(sleep_between)
+        # API負荷軽減のため動画間でスリープ（最後の動画では不要）
+        if video != to_process[-1]:
+            logger.info(f"次の動画まで{sleep_between}秒待機...")
+            time.sleep(sleep_between)
 
-    # --- Phase 5: 保留キュー保存 ---
+    # --- Phase 5: 処理済み動画を一括保存 & 保留キュー保存 ---
+    monitor.flush_seen_videos()
     monitor.save_pending_videos(to_pending)
 
     logger.info(

@@ -130,6 +130,14 @@ class YouTubeMonitor:
         self._seen_videos[video_id] = datetime.now(timezone.utc).isoformat()
         self._save_seen_videos()
 
+    def mark_as_processed_in_memory(self, video_id: str) -> None:
+        """処理済みとしてメモリ上のみに記録する（ファイル書き込みは行わない）"""
+        self._seen_videos[video_id] = datetime.now(timezone.utc).isoformat()
+
+    def flush_seen_videos(self) -> None:
+        """メモリ上の処理済み動画データをファイルに一括保存する"""
+        self._save_seen_videos()
+
     # --- 保留キュー管理 ---
 
     @staticmethod

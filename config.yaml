@@ -7,6 +7,7 @@ youtube:
   # ブラックリスト: 除外するチャンネル（ハンドル名 or チャンネルID）
   channel_blacklist:
     - "@tradingnews6165"  # TRADING NEWS
+    - "@NMAY-l1q"
 
 schedule:
   interval_hours: 1
@@ -18,7 +19,7 @@ gemini:
     - "gemini-2.5-flash-lite"           # サブサブモデル（フォールバック2）
   temperature: 0.3
   max_requests_per_run: 24  # 1回の実行あたりのGemini APIリクエスト上限
-  sleep_between_requests: 27  # リクエスト間のスリープ（秒）
+  sleep_between_requests: 25  # リクエスト間のスリープ（秒）
 
 discord:
   enabled: true  # false にすると Discord 通知を一時停止
