@@ -118,7 +118,7 @@ schedule:
   interval_hours: 1             # スケジューラの実行間隔（時間）
 
 gemini:
-  model: "gemini-3.1-flash-lite-preview"
+  model: "gemini-3.1-flash-lite"
   temperature: 0.3
   max_requests_per_run: 10      # 1回の実行あたりのGemini APIリクエスト上限
 

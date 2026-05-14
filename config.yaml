@@ -11,16 +11,16 @@ youtube:
     - "@MrPNioVideos"
 
 schedule:
-  interval_hours: 1
+  interval_hours: 2
 
 gemini:
   models:
-    - "gemini-3.1-flash-lite-preview"  # メインモデル
+    - "gemini-3.1-flash-lite"          # メインモデル
     - "gemini-3-flash-preview"          # サブモデル（フォールバック1）
     - "gemini-2.5-flash-lite"           # サブサブモデル（フォールバック2）
   temperature: 0.3
-  max_requests_per_run: 24  # 1回の実行あたりのGemini APIリクエスト上限
+  max_requests_per_run: 100  # 1回の実行あたりのGemini APIリクエスト上限
   sleep_between_requests: 25  # リクエスト間のスリープ（秒）
 
 discord:
-  enabled: true  # false にすると Discord 通知を一時停止
+  enabled: false  # 通知量を抑制するためデフォルト無効。日次サマリーは daily-top5-notify ワークフローで送信

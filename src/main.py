@@ -198,7 +198,7 @@ def _run_process_pending(config: dict, defer_notify: bool = False) -> None:
         published_after_hours=youtube_config.get("published_after_hours", 2),
         channel_blacklist=youtube_config.get("channel_blacklist", []),
     )
-    gemini_models = gemini_config.get("models", gemini_config.get("model", "gemini-3.1-flash-lite-preview"))
+    gemini_models = gemini_config.get("models", gemini_config.get("model", "gemini-3.1-flash-lite"))
     sleep_between = gemini_config.get("sleep_between_requests", 30)
     extractor = IdeaExtractor(
         api_key=gemini_api_key,
@@ -350,7 +350,7 @@ def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = Fa
         published_after_hours=youtube_config.get("published_after_hours", 2),
         channel_blacklist=youtube_config.get("channel_blacklist", []),
     )
-    gemini_models = gemini_config.get("models", gemini_config.get("model", "gemini-3.1-flash-lite-preview"))
+    gemini_models = gemini_config.get("models", gemini_config.get("model", "gemini-3.1-flash-lite"))
     sleep_between = gemini_config.get("sleep_between_requests", 30)
     extractor = IdeaExtractor(
         api_key=gemini_api_key,
