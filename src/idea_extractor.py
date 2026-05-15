@@ -149,19 +149,20 @@ class IdeaExtractor:
             self.models = list(models)
         self.temperature = temperature
 
-    def extract_ideas(self, video_id: str, video_info: dict) -> tuple[str | None, str | None]:
-        """YouTube動画URLを直接Geminiに渡して要約とアイディアを抽出する
-
-        動画URLで処理できない場合はスキップする（None, None を返す）。
+    def extract_ideas(self, video_id: str, video_info: dict) -> tuple[str, str | None]:
+        """YouTube動画URLを直接Geminiに渡してアイディアを抽出する
 
         Args:
             video_id: YouTube動画ID
             video_info: 動画情報（title, channel, published_at, description）
 
         Returns:
-            (summary, idea_text | None) のタプル。
-            summary: 後方互換のため常に空文字（処理失敗時のみ None）
-            idea_text: 抽出されたアイディア（投資に無関係な場合は None）
+            (status, idea_text) のタプル。
+            status:
+                - "ok"               : 処理成功（idea_text が None なら投資アイディアなし）
+                - "skip_retryable"   : 503 UNAVAILABLE 等の一過性エラー。呼び出し側で後段リトライ可
+                - "skip_permanent"   : 動画自体が処理不能などの永続的失敗
+            idea_text: 抽出されたアイディア（投資に無関係 or 失敗時は None）
         """
         title = video_info.get("title", "不明")
         channel = video_info.get("channel", "不明")
@@ -182,7 +183,9 @@ class IdeaExtractor:
             ]
         )
 
-        # メインモデルで試行 → TPMエラー時はサブモデルにフォールバック
+        # メインモデルで試行 → レート制限/過負荷エラー時はサブモデルにフォールバック
+        last_error: Exception | None = None
+        last_was_retryable = False
         for i, model in enumerate(self.models):
             is_fallback = i > 0
             try:
@@ -197,25 +200,32 @@ class IdeaExtractor:
                     config=types.GenerateContentConfig(temperature=self.temperature),
                 )
                 result = response.text.strip()
-                summary, idea_text = self._parse_response(result, video_info)
+                _, idea_text = self._parse_response(result, video_info)
                 logger.info(f"動画URL直接処理: 成功 [{model}]")
-                return (summary, idea_text)
+                return ("ok", idea_text)
 
             except Exception as e:
                 error_str = str(e)
                 is_rate_limit = "429" in error_str or "RESOURCE_EXHAUSTED" in error_str
+                is_overloaded = "503" in error_str or "UNAVAILABLE" in error_str
+                last_error = e
+                last_was_retryable = is_overloaded
 
-                if is_rate_limit and i < len(self.models) - 1:
-                    # TPM/レート制限エラー → 次のモデルにフォールバック
-                    logger.warning(f"⚠️ レート制限ヒット [{model}]: {e}")
+                if (is_rate_limit or is_overloaded) and i < len(self.models) - 1:
+                    # 過負荷/レート制限エラー → 次のモデルにフォールバック
+                    logger.warning(f"⚠️ {model} で過負荷/レート制限: {e}")
                     continue
                 else:
-                    # 最後のモデルでもエラー or レート制限以外のエラー
-                    logger.warning(f"⏭️ 動画URLの処理に失敗（スキップ）: {title} | エラー: {e}")
-                    return (None, None)
+                    # 最後のモデルでもエラー or 永続的エラー
+                    break
 
-        # ここには到達しないはずだが安全のため
-        return (None, None)
+        # 全モデルで失敗
+        if last_was_retryable:
+            logger.warning(f"⏭️ 動画URL処理失敗（503/UNAVAILABLE、後でリトライ）: {title} | エラー: {last_error}")
+            return ("skip_retryable", None)
+        else:
+            logger.warning(f"⏭️ 動画URLの処理に失敗（スキップ）: {title} | エラー: {last_error}")
+            return ("skip_permanent", None)
 
 
     @staticmethod

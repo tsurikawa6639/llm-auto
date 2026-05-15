@@ -105,6 +105,134 @@ def run_monitor(keywords: list[str], config: dict, defer_notify: bool = False,
         lock_fd.close()
 
 
+def _process_video_batch(
+    monitor: YouTubeMonitor,
+    extractor: IdeaExtractor,
+    notifier: "DiscordNotifier | None",
+    to_process: list[dict],
+    to_pending: list[dict],
+    sleep_between: int,
+    defer_notify: bool,
+    retry_wait_seconds: int = 60,
+) -> None:
+    """to_process の動画をAI分析し、結果保存・通知・pending更新まで行う共通処理
+
+    503 UNAVAILABLE で失敗した動画はメインループ末尾に集めて、retry_wait_seconds 待機後に1度だけ
+    まとめて再試行する。再試行も失敗した動画は to_pending の先頭に戻し、次回実行で再挑戦する。
+    """
+    # --- 動画詳細をバッチ取得（尺・概要欄など）---
+    process_ids = [v["video_id"] for v in to_process]
+    video_details = monitor.get_video_details(process_ids)
+    for video in to_process:
+        detail = video_details.get(video["video_id"], {})
+        video["duration"] = detail.get("duration", "")
+        video["view_count"] = detail.get("view_count", "")
+        if detail.get("description"):
+            video["description"] = detail["description"]
+
+    total_ideas = 0
+    results: list[dict] = []
+    retry_queue: list[dict] = []
+
+    def _result_row(video: dict, idea_status: str) -> dict:
+        return {
+            "keyword": video.get("keyword", "不明"),
+            "video_id": video["video_id"],
+            "title": video["title"],
+            "channel": video.get("channel", "不明"),
+            "url": f"https://www.youtube.com/watch?v={video['video_id']}",
+            "idea": idea_status,
+        }
+
+    def _handle_success(video: dict, idea_text: str | None) -> bool:
+        """成功時の保存・通知処理。アイディアが追加されたら True を返す"""
+        if idea_text:
+            filepath = extractor.save_idea(video["video_id"], video, idea_text)
+            logger.info(f"✅ アイディア抽出成功 → {filepath.name}")
+            results.append(_result_row(video, f"✅ あり → {filepath.name}"))
+            if notifier:
+                if defer_notify:
+                    notifier.queue_idea(video, idea_text)
+                else:
+                    notifier.send_idea(video, idea_text)
+            monitor.mark_as_processed_in_memory(video["video_id"])
+            return True
+        else:
+            logger.info(f"⏭️ 投資アイディアなし: {video['title']}")
+            results.append(_result_row(video, "❌ なし"))
+            monitor.mark_as_processed_in_memory(video["video_id"])
+            return False
+
+    # --- メインループ ---
+    for idx, video in enumerate(to_process):
+        logger.info(f"処理中: [{video['video_id']}] {video['title']}")
+        status, idea_text = extractor.extract_ideas(video["video_id"], video)
+
+        if status == "skip_retryable":
+            # 後段で再試行（mark_as_processed しない、results にもまだ追加しない）
+            retry_queue.append(video)
+        elif status == "skip_permanent":
+            logger.warning(f"⏭️ スキップ（動画処理失敗）: {video['title']}")
+            results.append(_result_row(video, "⏭️ スキップ"))
+            monitor.mark_as_processed_in_memory(video["video_id"])
+        else:  # "ok"
+            if _handle_success(video, idea_text):
+                total_ideas += 1
+
+        if idx < len(to_process) - 1:
+            logger.info(f"次の動画まで{sleep_between}秒待機...")
+            time.sleep(sleep_between)
+
+    # --- 503 リトライパス ---
+    failed_retries: list[dict] = []
+    if retry_queue:
+        logger.info(
+            f"🔄 503エラーで失敗した {len(retry_queue)}件 を {retry_wait_seconds}秒後にまとめて再試行"
+        )
+        time.sleep(retry_wait_seconds)
+        for idx, video in enumerate(retry_queue):
+            logger.info(f"🔄 再試行: [{video['video_id']}] {video['title']}")
+            status, idea_text = extractor.extract_ideas(video["video_id"], video)
+
+            if status == "ok":
+                if _handle_success(video, idea_text):
+                    total_ideas += 1
+            else:
+                # 再試行も失敗 → pendingに戻す（mark_as_processed しない）
+                logger.warning(
+                    f"⏭️ 再試行も失敗（pendingキューへ戻す）: {video['title']} | status={status}"
+                )
+                failed_retries.append(video)
+                results.append(_result_row(video, "⏭️ 503再試行失敗（次回再挑戦）"))
+
+            if idx < len(retry_queue) - 1:
+                logger.info(f"次の動画まで{sleep_between}秒待機...")
+                time.sleep(sleep_between)
+
+    # --- 永続化 ---
+    monitor.flush_seen_videos()
+    final_pending = failed_retries + to_pending
+    monitor.save_pending_videos(final_pending)
+
+    processed_count = len(to_process)
+    retry_msg = f"（うち503再失敗={len(failed_retries)}件）" if failed_retries else ""
+    logger.info(
+        f"=== 完了: 処理={processed_count}件 → アイディア{total_ideas}件抽出 "
+        f"| 保留={len(final_pending)}件{retry_msg} ==="
+    )
+
+    # サマリーレポート出力
+    if results:
+        save_summary_report(results, processed_count, total_ideas)
+        if notifier:
+            if defer_notify:
+                notifier.queue_summary(results, processed_count, total_ideas)
+                notifier.save_deferred(DEFERRED_NOTIFICATIONS_PATH)
+                logger.info("Discord通知を遅延送信用に保存しました")
+            else:
+                notifier.send_summary(results, processed_count, total_ideas)
+
+
 def _run_search_only(keywords: list[str], config: dict) -> None:
     """YouTube探索のみ実行し、pendingキューを更新する（Gemini APIは使用しない）"""
     youtube_api_key = os.getenv("YOUTUBE_API_KEY")
@@ -230,91 +358,16 @@ def _run_process_pending(config: dict, defer_notify: bool = False) -> None:
     to_process = all_videos[:max_gemini_requests]
     to_pending = all_videos[max_gemini_requests:]
 
-    # --- 動画の詳細情報をバッチ取得 ---
-    process_ids = [v["video_id"] for v in to_process]
-    video_details = monitor.get_video_details(process_ids)
-    for video in to_process:
-        detail = video_details.get(video["video_id"], {})
-        video["duration"] = detail.get("duration", "")
-        video["view_count"] = detail.get("view_count", "")
-        if detail.get("description"):
-            video["description"] = detail["description"]
-
-    # --- Gemini APIで処理 ---
-    total_ideas = 0
-    results: list[dict] = []
-
-    for video in to_process:
-        video_id = video["video_id"]
-        title = video["title"]
-        url = f"https://www.youtube.com/watch?v={video_id}"
-        channel = video.get("channel", "不明")
-        keyword = video.get("keyword", "不明")
-        logger.info(f"処理中: [{video_id}] {title}")
-
-        status, idea_text = extractor.extract_ideas(video_id, video)
-
-        if status is None:
-            logger.warning(f"⏭️ スキップ（動画処理失敗）: {title}")
-            results.append({
-                "keyword": keyword,
-                "video_id": video_id,
-                "title": title,
-                "channel": channel,
-                "url": url,
-                "idea": "⏭️ スキップ",
-            })
-            monitor.mark_as_processed(video_id)
-            continue
-
-        if idea_text:
-            filepath = extractor.save_idea(video_id, video, idea_text)
-            total_ideas += 1
-            logger.info(f"✅ アイディア抽出成功 → {filepath.name}")
-            idea_status = f"✅ あり → {filepath.name}"
-            if notifier:
-                if defer_notify:
-                    notifier.queue_idea(video, idea_text)
-                else:
-                    notifier.send_idea(video, idea_text)
-        else:
-            logger.info(f"⏭️ 投資アイディアなし: {title}")
-            idea_status = "❌ なし"
-
-        results.append({
-            "keyword": keyword,
-            "video_id": video_id,
-            "title": title,
-            "channel": channel,
-            "url": url,
-            "idea": idea_status,
-        })
-
-        monitor.mark_as_processed_in_memory(video_id)
-
-        if video != to_process[-1]:
-            logger.info(f"次の動画まで{sleep_between}秒待機...")
-            time.sleep(sleep_between)
-
-    # --- 処理済み動画を一括保存 & 保留キュー保存 ---
-    monitor.flush_seen_videos()
-    monitor.save_pending_videos(to_pending)
-
-    logger.info(
-        f"=== 完了: 処理={len(to_process)}件 → アイディア{total_ideas}件抽出 "
-        f"| 保留={len(to_pending)}件 ==="
+    _process_video_batch(
+        monitor=monitor,
+        extractor=extractor,
+        notifier=notifier,
+        to_process=to_process,
+        to_pending=to_pending,
+        sleep_between=sleep_between,
+        defer_notify=defer_notify,
+        retry_wait_seconds=gemini_config.get("retry_wait_seconds", 60),
     )
-
-    # サマリーレポート出力
-    if results:
-        save_summary_report(results, len(to_process), total_ideas)
-        if notifier:
-            if defer_notify:
-                notifier.queue_summary(results, len(to_process), total_ideas)
-                notifier.save_deferred(DEFERRED_NOTIFICATIONS_PATH)
-                logger.info("Discord通知を遅延送信用に保存しました")
-            else:
-                notifier.send_summary(results, len(to_process), total_ideas)
 
 
 def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = False) -> None:
@@ -411,98 +464,16 @@ def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = Fa
     to_process = all_videos[:max_gemini_requests]
     to_pending = all_videos[max_gemini_requests:]
 
-    # --- Phase 3.5: 動画の詳細情報（尺・概要欄など）をバッチ取得 ---
-    process_ids = [v["video_id"] for v in to_process]
-    video_details = monitor.get_video_details(process_ids)
-    for video in to_process:
-        detail = video_details.get(video["video_id"], {})
-        video["duration"] = detail.get("duration", "")
-        video["view_count"] = detail.get("view_count", "")
-        # 詳細APIから完全な概要欄を取得（検索APIの概要欄は切り詰められている）
-        if detail.get("description"):
-            video["description"] = detail["description"]
-
-    # --- Phase 4: Gemini APIで処理（上限件数まで） ---
-    total_ideas = 0
-    results: list[dict] = []
-
-    for video in to_process:
-        video_id = video["video_id"]
-        title = video["title"]
-        url = f"https://www.youtube.com/watch?v={video_id}"
-        channel = video.get("channel", "不明")
-        keyword = video.get("keyword", "不明")
-        logger.info(f"処理中: [{video_id}] {title}")
-
-        # YouTube動画URLを直接Geminiに渡してアイディア抽出
-        status, idea_text = extractor.extract_ideas(video_id, video)
-
-        # 動画URL処理失敗 → スキップ
-        if status is None:
-            logger.warning(f"⏭️ スキップ（動画処理失敗）: {title}")
-            results.append({
-                "keyword": keyword,
-                "video_id": video_id,
-                "title": title,
-                "channel": channel,
-                "url": url,
-                "idea": "⏭️ スキップ",
-            })
-            monitor.mark_as_processed(video_id)
-            continue
-
-        if idea_text:
-            filepath = extractor.save_idea(video_id, video, idea_text)
-            total_ideas += 1
-            logger.info(f"✅ アイディア抽出成功 → {filepath.name}")
-            idea_status = f"✅ あり → {filepath.name}"
-            # Discord アイデアチャンネルに個別送信（または遅延キューに追加）
-            if notifier:
-                if defer_notify:
-                    notifier.queue_idea(video, idea_text)
-                else:
-                    notifier.send_idea(video, idea_text)
-        else:
-            logger.info(f"⏭️ 投資アイディアなし: {title}")
-            idea_status = "❌ なし"
-
-        results.append({
-            "keyword": keyword,
-            "video_id": video_id,
-            "title": title,
-            "channel": channel,
-            "url": url,
-            "idea": idea_status,
-        })
-
-        # 処理済みとしてマーク（メモリ上のみ、ファイル書き込みは後でバッチ実行）
-        monitor.mark_as_processed_in_memory(video_id)
-
-        # API負荷軽減のため動画間でスリープ（最後の動画では不要）
-        if video != to_process[-1]:
-            logger.info(f"次の動画まで{sleep_between}秒待機...")
-            time.sleep(sleep_between)
-
-    # --- Phase 5: 処理済み動画を一括保存 & 保留キュー保存 ---
-    monitor.flush_seen_videos()
-    monitor.save_pending_videos(to_pending)
-
-    logger.info(
-        f"=== 完了: 処理={len(to_process)}件 → アイディア{total_ideas}件抽出 "
-        f"| 保留={len(to_pending)}件 ==="
+    _process_video_batch(
+        monitor=monitor,
+        extractor=extractor,
+        notifier=notifier,
+        to_process=to_process,
+        to_pending=to_pending,
+        sleep_between=sleep_between,
+        defer_notify=defer_notify,
+        retry_wait_seconds=gemini_config.get("retry_wait_seconds", 60),
     )
-
-    # サマリーレポート出力
-    if results:
-        save_summary_report(results, len(to_process), total_ideas)
-        # Discord サマリーチャンネルに送信（または遅延キューに追加）
-        if notifier:
-            if defer_notify:
-                notifier.queue_summary(results, len(to_process), total_ideas)
-                notifier.save_deferred(DEFERRED_NOTIFICATIONS_PATH)
-                logger.info("Discord通知を遅延送信用に保存しました")
-            else:
-                notifier.send_summary(results, len(to_process), total_ideas)
 
 
 def save_summary_report(results: list[dict], total_new: int, total_ideas: int) -> None:
