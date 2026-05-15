@@ -35,7 +35,7 @@ jobs:
 
       - name: Send Discord notification
         env:
-          DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          DISCORD_IDEA_WEBHOOK_URL: ${{ secrets.DISCORD_IDEA_WEBHOOK_URL }}
         run: |
           if [ -n "${{ github.event.inputs.file }}" ]; then
             python src/daily_top5_notify.py --file "${{ github.event.inputs.file }}"

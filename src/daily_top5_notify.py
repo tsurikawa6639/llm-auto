@@ -1,21 +1,24 @@
 """日次トップ5アイディアをDiscordに通知するスクリプト
 
-`output/daily_top5/YYYY-MM-DD.md` をDiscordの要約チャンネルへ送信する。
-ファイル形式は Claude routine が生成する Markdown 想定:
+`output/daily_top5/YYYY-MM-DD.md` をDiscordのアイデアチャンネルへ
+1アイディア=1embedで送信する。ファイル形式は Claude routine が生成する Markdown 想定:
 
 ```
 ---
 date: 2026-05-14
-total_ideas_reviewed: 42
+total_files_reviewed: 42
+total_ideas_reviewed: 87
 ---
 
-# 本日のトップ5アイディア
+# 本日のトップ5投資アイディア (2026-05-14)
+
+本日 42本のレポートから抽出した 87件のアイディアより、特に有望と判断した5件を厳選しました。
 
 ## 1. <タイトル>
-- **動画**: <タイトル> ([URL])
-- **チャンネル**: <チャンネル名>
-- **要点**: <一文>
-- **選出理由**: <一文>
+- 📺 **動画**: [<動画タイトル>](<URL>) / <チャンネル名>
+- 🎯 **要点**: ...
+- 📌 **根拠**: ...
+- 💡 **選定理由**: ...
 
 ## 2. ...
 ```
@@ -28,6 +31,7 @@ import logging
 import os
 import re
 import sys
+import time
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
@@ -35,6 +39,7 @@ import requests
 
 JST = timezone(timedelta(hours=9))
 MAX_EMBED_DESCRIPTION = 4096
+SLEEP_BETWEEN_POSTS = 1.0  # Discord rate-limit 緩衝
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -68,39 +73,96 @@ def truncate(text: str, max_len: int) -> str:
     return text[: max_len - 3] + "..."
 
 
-def send_to_discord(webhook_url: str, file_path: Path) -> bool:
-    raw = file_path.read_text(encoding="utf-8")
-    body = strip_frontmatter(raw)
+def parse_top5_sections(text: str) -> list[dict]:
+    """Markdownを `## N. <title>` 単位に分割して返す
 
-    # 日付をファイル名から抽出（YYYY-MM-DD.md）
-    date_match = re.match(r"(\d{4}-\d{2}-\d{2})", file_path.stem)
-    date_str = date_match.group(1) if date_match else file_path.stem
+    Returns:
+        [{"rank": int, "title": str, "body": str}, ...]
+    """
+    body = strip_frontmatter(text)
+    pattern = re.compile(r"^## (\d+)\.\s*(.+?)$", re.MULTILINE)
+    matches = list(pattern.finditer(body))
 
-    description = truncate(body, MAX_EMBED_DESCRIPTION)
+    sections: list[dict] = []
+    for i, m in enumerate(matches):
+        rank = int(m.group(1))
+        title = m.group(2).strip()
+        start = m.end()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(body)
+        section_body = body[start:end].strip()
+        sections.append({"rank": rank, "title": title, "body": section_body})
+    return sections
 
-    payload = {
-        "embeds": [
-            {
-                "title": f"🏆 本日のトップ5投資アイディア ({date_str})",
-                "description": description,
-                "color": 0xF1C40F,
-                "footer": {"text": "YouTube定刻監視システム — 日次トップ5"},
-                "timestamp": datetime.now(timezone.utc).isoformat(),
-            }
-        ]
-    }
 
+def post_embed(webhook_url: str, payload: dict, label: str) -> bool:
     try:
         resp = requests.post(webhook_url, json=payload, timeout=15)
     except requests.RequestException as e:
-        logger.error(f"Discord送信エラー: {e}")
+        logger.error(f"Discord送信エラー ({label}): {e}")
         return False
 
     if resp.status_code in (200, 204):
-        logger.info(f"Discord送信成功: {file_path.name}")
+        logger.info(f"Discord送信成功: {label}")
         return True
-    logger.warning(f"Discord送信失敗: status={resp.status_code} body={resp.text[:200]}")
+    logger.warning(
+        f"Discord送信失敗 ({label}): status={resp.status_code} body={resp.text[:200]}"
+    )
     return False
+
+
+def send_to_discord(webhook_url: str, file_path: Path) -> int:
+    """1アイディア=1embedで送信する。送信成功した件数を返す"""
+    raw = file_path.read_text(encoding="utf-8")
+
+    # 日付はファイル名から抽出（YYYY-MM-DD.md）
+    date_match = re.match(r"(\d{4}-\d{2}-\d{2})", file_path.stem)
+    date_str = date_match.group(1) if date_match else file_path.stem
+
+    sections = parse_top5_sections(raw)
+    if not sections:
+        logger.warning("トップ5セクションが見つかりませんでした。本文全体を1embedで送信します。")
+        # フォールバック: 本文全体を1embedで送る
+        body = strip_frontmatter(raw)
+        payload = {
+            "embeds": [
+                {
+                    "title": f"🏆 本日のトップ5投資アイディア ({date_str})",
+                    "description": truncate(body, MAX_EMBED_DESCRIPTION),
+                    "color": 0xF1C40F,
+                    "footer": {"text": f"YouTube定刻監視 — 日次トップ5 ({date_str})"},
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            ]
+        }
+        return 1 if post_embed(webhook_url, payload, "fallback") else 0
+
+    total = len(sections)
+    sent = 0
+    for sec in sections:
+        rank = sec["rank"]
+        title = sec["title"]
+        body = sec["body"]
+
+        payload = {
+            "embeds": [
+                {
+                    "title": f"💡 [{rank}/{total}] {title}",
+                    "description": truncate(body, MAX_EMBED_DESCRIPTION),
+                    "color": 0xF1C40F,
+                    "footer": {"text": f"YouTube定刻監視 — 日次トップ{total} ({date_str})"},
+                    "timestamp": datetime.now(timezone.utc).isoformat(),
+                }
+            ]
+        }
+
+        if post_embed(webhook_url, payload, f"#{rank} {title[:30]}"):
+            sent += 1
+
+        if sec is not sections[-1]:
+            time.sleep(SLEEP_BETWEEN_POSTS)
+
+    logger.info(f"送信完了: {sent}/{total}件")
+    return sent
 
 
 def main() -> int:
@@ -108,9 +170,9 @@ def main() -> int:
     parser.add_argument("--file", help="送信するMarkdownファイルパス（未指定なら最新を自動選択）")
     args = parser.parse_args()
 
-    webhook_url = os.getenv("DISCORD_WEBHOOK_URL", "")
+    webhook_url = os.getenv("DISCORD_IDEA_WEBHOOK_URL", "")
     if not webhook_url:
-        logger.error("DISCORD_WEBHOOK_URL が設定されていません")
+        logger.error("DISCORD_IDEA_WEBHOOK_URL が設定されていません")
         return 1
 
     if args.file:
@@ -122,8 +184,8 @@ def main() -> int:
         logger.error("送信対象のMarkdownファイルが見つかりません")
         return 1
 
-    ok = send_to_discord(webhook_url, target)
-    return 0 if ok else 1
+    sent = send_to_discord(webhook_url, target)
+    return 0 if sent > 0 else 1
 
 
 if __name__ == "__main__":
