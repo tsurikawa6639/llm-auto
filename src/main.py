@@ -252,28 +252,20 @@ def _run_process_pending(config: dict, defer_notify: bool = False) -> None:
         keyword = video.get("keyword", "不明")
         logger.info(f"処理中: [{video_id}] {title}")
 
-        summary, idea_text = extractor.extract_ideas(video_id, video)
+        status, idea_text = extractor.extract_ideas(video_id, video)
 
-        if summary is None:
+        if status is None:
             logger.warning(f"⏭️ スキップ（動画処理失敗）: {title}")
-            if notifier:
-                if defer_notify:
-                    notifier.queue_skip(video)
-                else:
-                    notifier.send_skip(video)
             results.append({
                 "keyword": keyword,
                 "video_id": video_id,
                 "title": title,
                 "channel": channel,
                 "url": url,
-                "summary": "動画処理失敗のためスキップ",
                 "idea": "⏭️ スキップ",
             })
             monitor.mark_as_processed(video_id)
             continue
-
-        logger.info(f"要約: {summary[:80]}..." if len(summary) > 80 else f"要約: {summary}")
 
         if idea_text:
             filepath = extractor.save_idea(video_id, video, idea_text)
@@ -282,9 +274,9 @@ def _run_process_pending(config: dict, defer_notify: bool = False) -> None:
             idea_status = f"✅ あり → {filepath.name}"
             if notifier:
                 if defer_notify:
-                    notifier.queue_idea(video, summary, idea_text)
+                    notifier.queue_idea(video, idea_text)
                 else:
-                    notifier.send_idea(video, summary, idea_text)
+                    notifier.send_idea(video, idea_text)
         else:
             logger.info(f"⏭️ 投資アイディアなし: {title}")
             idea_status = "❌ なし"
@@ -295,7 +287,6 @@ def _run_process_pending(config: dict, defer_notify: bool = False) -> None:
             "title": title,
             "channel": channel,
             "url": url,
-            "summary": summary,
             "idea": idea_status,
         })
 
@@ -443,30 +434,22 @@ def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = Fa
         keyword = video.get("keyword", "不明")
         logger.info(f"処理中: [{video_id}] {title}")
 
-        # YouTube動画URLを直接Geminiに渡して要約＋アイディア抽出
-        summary, idea_text = extractor.extract_ideas(video_id, video)
+        # YouTube動画URLを直接Geminiに渡してアイディア抽出
+        status, idea_text = extractor.extract_ideas(video_id, video)
 
         # 動画URL処理失敗 → スキップ
-        if summary is None:
+        if status is None:
             logger.warning(f"⏭️ スキップ（動画処理失敗）: {title}")
-            if notifier:
-                if defer_notify:
-                    notifier.queue_skip(video)
-                else:
-                    notifier.send_skip(video)
             results.append({
                 "keyword": keyword,
                 "video_id": video_id,
                 "title": title,
                 "channel": channel,
                 "url": url,
-                "summary": "動画処理失敗のためスキップ",
                 "idea": "⏭️ スキップ",
             })
             monitor.mark_as_processed(video_id)
             continue
-
-        logger.info(f"要約: {summary[:80]}..." if len(summary) > 80 else f"要約: {summary}")
 
         if idea_text:
             filepath = extractor.save_idea(video_id, video, idea_text)
@@ -476,9 +459,9 @@ def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = Fa
             # Discord アイデアチャンネルに個別送信（または遅延キューに追加）
             if notifier:
                 if defer_notify:
-                    notifier.queue_idea(video, summary, idea_text)
+                    notifier.queue_idea(video, idea_text)
                 else:
-                    notifier.send_idea(video, summary, idea_text)
+                    notifier.send_idea(video, idea_text)
         else:
             logger.info(f"⏭️ 投資アイディアなし: {title}")
             idea_status = "❌ なし"
@@ -489,7 +472,6 @@ def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = Fa
             "title": title,
             "channel": channel,
             "url": url,
-            "summary": summary,
             "idea": idea_status,
         })
 
@@ -562,19 +544,15 @@ def save_summary_report(results: list[dict], total_new: int, total_ideas: int) -
         title_link = f"[{row['title']}]({row['url']})"
         lines.append(f"| {i} | {title_link} | {row['channel']} | {row['idea']} |")
 
-    # --- 各動画の詳細（要約） ---
+    # --- 各動画の詳細 ---
     lines.append("")
     lines.append("## 動画詳細")
     lines.append("")
     for i, row in enumerate(results, 1):
-        summary = row.get("summary", "ー")
         lines.append(f"### {i}. {row['title']}")
         lines.append(f"- **チャンネル**: {row['channel']}")
         lines.append(f"- **URL**: {row['url']}")
         lines.append(f"- **アイディア**: {row['idea']}")
-        lines.append(f"")
-        lines.append(f"**要約**:")
-        lines.append(f"{summary}")
         lines.append(f"")
         lines.append("---")
         lines.append("")

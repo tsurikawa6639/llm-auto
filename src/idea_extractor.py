@@ -62,43 +62,44 @@ EXTRACTION_PROMPT = """\
 5. 「分散投資が大事」「長期目線で」等、**特定の状況・対象・条件**が無い精神論は採用しない。
 
 ## 抽出する3カテゴリ
-
-### A. 個別アイディア — 特定の銘柄/資産に対する売買・監視判断
-### B. 戦略ルール — 「こういう相場ではこう動く」という条件付きの行動指針
-### C. 市場観察 — 銘柄/資産/指標間の相関・連動・リード&ラグなどの関係性
-
-各エントリは下の[A]/[B]/[C]いずれかの型に従い、ヘッダ末尾に種別タグを付けること。
+- **[A] 個別アイディア** — 特定の銘柄/資産に対する売買・監視判断
+- **[B] 戦略ルール** — 「こういう相場ではこう動く」という条件付きの行動指針
+- **[C] 市場観察** — 銘柄/資産/指標間の相関・連動・リード&ラグなどの関係性
 
 ## 出力形式（厳守）
 
-SUMMARY:
-（動画内容を3〜5行で要約。事実のみ、評価語を避ける）
+冒頭に「IDEAS:」と記載し、その下に採用基準を満たすエントリを下記いずれかの型で列挙する。
+1つも無ければ「IDEAS: NONE」のみ出力。
 
-IDEAS:
-（採用基準を満たす知見のみ。1つも無ければ「NONE」のみ出力）
+- 各エントリの先頭は必ず `# [A]` / `# [B]` / `# [C]` のいずれかで始める。
+- **下記の「型定義」自体（例: 「型A: 個別アイディア」のような見出し）は出力に含めない**。
+- 信頼度は「高」「中」「低」のいずれか一語のみ。説明文や注釈は付けない。
+- 各 `##` 見出しは下記のものを**完全一致で**使用する（括弧内の補足は出力に含めない）。
 
 ---
-### [A] 個別アイディア用フォーマット
+
+【型A: 個別アイディア】
 
 # [A] {{銘柄名 or 対象資産}} ({{ティッカー/コード, 不明なら「不明」}})
 ## アクション
 {{買い / 売り(空売り) / 監視 / 回避}}
 ## 時間軸
 {{短期(〜3ヶ月) / 中期(3〜12ヶ月) / 長期(1年以上) / 不明}}
-## 触媒(カタリスト)
+## 触媒
 {{価格を動かす想定イベントや要因。動画で言及されたもののみ}}
 ## 根拠となった発言
 > 「逐語引用」 ({{MM:SS}})
-## 主要リスク・反対意見
+## 主要リスク
 {{動画内で言及されたリスク。無ければ「動画内では言及なし」}}
 ## 信頼度
 {{高 / 中 / 低}}
 
 ---
-### [B] 戦略ルール用フォーマット
+
+【型B: 戦略ルール】
 
 # [B] {{戦略の短い名前(例: 「逆イールド時のディフェンシブ移行」)}}
-## 適用条件（どんな相場・環境で）
+## 適用条件
 {{発動条件を具体的に。例:「VIXが30超」「FRB利下げ局面」「決算プレ前」など}}
 ## 推奨アクション
 {{条件が満たされた時に取るべき行動。資産配分の変更、ヘッジ、避けるべき行動など}}
@@ -112,7 +113,8 @@ IDEAS:
 {{高 / 中 / 低}}
 
 ---
-### [C] 市場観察用フォーマット
+
+【型C: 市場観察】
 
 # [C] {{対象A}} × {{対象B}}（{{関係性タイプ}}）
 ## 関係性タイプ
@@ -126,7 +128,7 @@ IDEAS:
 ## 投資への活かし方
 {{この関係性をどう取引に活かせると語られたか}}
 ## 信頼度
-{{高: 定量データ提示あり / 中: 定性的主張 / 低: 伝聞・印象論}}
+{{高 / 中 / 低}}
 
 ---
 
@@ -158,7 +160,7 @@ class IdeaExtractor:
 
         Returns:
             (summary, idea_text | None) のタプル。
-            summary: 動画内容の要約（処理失敗時は None）
+            summary: 後方互換のため常に空文字（処理失敗時のみ None）
             idea_text: 抽出されたアイディア（投資に無関係な場合は None）
         """
         title = video_info.get("title", "不明")
@@ -218,16 +220,13 @@ class IdeaExtractor:
 
     @staticmethod
     def _parse_response(result: str, video_info: dict) -> tuple[str, str | None]:
-        """Gemini のレスポンスを SUMMARY と IDEAS に分割する"""
-        summary = ""
-        idea_text = None
+        """Gemini のレスポンスから IDEAS を抽出する
 
-        # SUMMARY: セクションを抽出
-        summary_match = re.search(r"SUMMARY:\s*\n(.*?)(?=\nIDEAS:|$)", result, re.DOTALL)
-        if summary_match:
-            summary = summary_match.group(1).strip()
+        SUMMARY セクションは廃止。後方互換のため戻り値は (summary, idea_text) のタプルを
+        維持するが、summary は常に空文字を返す。
+        """
+        idea_text: str | None = None
 
-        # IDEAS: セクションを抽出
         ideas_match = re.search(r"IDEAS:\s*(.*)$", result, re.DOTALL)
         if ideas_match:
             ideas_content = ideas_match.group(1).strip()
@@ -239,12 +238,14 @@ class IdeaExtractor:
             else:
                 idea_text = ideas_content
         else:
-            # パースできなかった場合はfallback
-            logger.warning(f"レスポンスのパースに失敗。全文をアイディアとして扱います。")
-            summary = summary or result[:200]
-            idea_text = result
+            # IDEAS: ヘッダなしで本文が返るケース。全文を idea_text として扱う
+            stripped = result.strip()
+            if not stripped or "NONE" in stripped.upper():
+                idea_text = None
+            else:
+                idea_text = stripped
 
-        return (summary, idea_text)
+        return ("", idea_text)
 
     def save_idea(self, video_id: str, video_info: dict, idea_text: str) -> Path:
         """抽出したアイディアをMarkdownファイルに保存する

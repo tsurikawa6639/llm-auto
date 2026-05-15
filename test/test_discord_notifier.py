@@ -29,7 +29,6 @@ class TestSendSummary:
                 "title": "テスト動画1",
                 "channel": "テストチャンネル",
                 "url": "https://www.youtube.com/watch?v=abc123",
-                "summary": "テスト要約",
                 "idea": "✅ あり → 20260315_abc123.md",
             },
             {
@@ -38,7 +37,6 @@ class TestSendSummary:
                 "title": "テスト動画2",
                 "channel": "テストチャンネル2",
                 "url": "https://www.youtube.com/watch?v=def456",
-                "summary": "テスト要約2",
                 "idea": "❌ なし",
             },
         ]
@@ -86,37 +84,31 @@ class TestSendIdea:
             "published_at": "2026-03-15T11:00:00Z",
             "view_count": "12345",
         }
-        self.summary = "動画では半導体業界の最新動向について解説。"
         self.idea_text = (
-            "# 半導体銘柄の投資チャンス\n\n"
-            "## データソース\n"
-            "YouTube - 投資チャンネル「半導体銘柄の分析」\n\n"
-            "## 根拠となった個所\n"
-            "> AI需要拡大により半導体需要が増加している\n\n"
-            "## 投資アイディア\n"
-            "国内半導体関連銘柄に投資チャンスがある。"
+            "# [A] 半導体銘柄 (不明)\n\n"
+            "## アクション\n監視\n\n"
+            "## 根拠となった発言\n"
+            "> AI需要拡大により半導体需要が増加している (03:14)\n"
         )
 
     @patch("discord_notifier.requests.post")
     def test_send_idea_success(self, mock_post):
         """アイデア個別送信が成功する"""
         mock_post.return_value = MagicMock(status_code=204)
-        result = self.notifier.send_idea(self.video_info, self.summary, self.idea_text)
+        result = self.notifier.send_idea(self.video_info, self.idea_text)
         assert result is True
         mock_post.assert_called_once()
         payload = mock_post.call_args[1]["json"]
         embed = payload["embeds"][0]
-        assert "半導体銘柄の投資チャンス" in embed["title"]
-        # フィールドが構築されていることを検証
+        assert "半導体銘柄" in embed["title"]
+        # データソースフィールドが構築されていることを検証
         field_names = [f["name"] for f in embed["fields"]]
         assert "📺 データソース" in field_names
-        assert "📝 要約" in field_names
-        assert "🎯 投資アイディア" in field_names
 
     def test_send_idea_no_url(self):
         """Webhook URL 未設定で送信がスキップされる"""
         notifier = DiscordNotifier(summary_webhook_url="", idea_webhook_url="")
-        result = notifier.send_idea(self.video_info, self.summary, self.idea_text)
+        result = notifier.send_idea(self.video_info, self.idea_text)
         assert result is False
 
 
@@ -190,8 +182,7 @@ class TestDeferredNotifications:
         filepath = tmp_path / "deferred.json"
 
         # キューに追加
-        self.notifier.queue_idea(self.video_info, "要約テスト", "# アイデア\n## 投資アイディア\nテスト")
-        self.notifier.queue_skip(self.video_info)
+        self.notifier.queue_idea(self.video_info, "# [A] テスト銘柄\n## アクション\n監視")
         self.notifier.queue_summary([{"title": "t1", "idea": "✅ あり"}], 1, 1)
 
         # 保存
@@ -202,10 +193,9 @@ class TestDeferredNotifications:
 
         import json
         data = json.loads(filepath.read_text(encoding="utf-8"))
-        assert len(data) == 3
+        assert len(data) == 2
         assert data[0]["type"] == "idea"
-        assert data[1]["type"] == "skip"
-        assert data[2]["type"] == "summary"
+        assert data[1]["type"] == "summary"
 
     @patch("discord_notifier.requests.post")
     def test_send_deferred(self, mock_post, tmp_path):
@@ -218,8 +208,7 @@ class TestDeferredNotifications:
             {
                 "type": "idea",
                 "video_info": self.video_info,
-                "summary": "テスト要約",
-                "idea_text": "# テスト\n## 投資アイディア\nテストアイデア",
+                "idea_text": "# [A] テスト銘柄\n## アクション\n監視",
             },
             {
                 "type": "summary",

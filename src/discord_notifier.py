@@ -94,51 +94,17 @@ class DiscordNotifier:
         return self._post(self.summary_webhook_url, payload, "サマリー")
 
     # ------------------------------------------------------------------
-    # スキップ通知（動画URL処理失敗時）
-    # ------------------------------------------------------------------
-    def send_skip(self, video_info: dict) -> bool:
-        """動画処理失敗のスキップ通知をサマリーチャンネルに送信する"""
-        if not self.summary_webhook_url:
-            return False
-
-        title = video_info.get("title", "不明")
-        channel = video_info.get("channel", "不明")
-        video_id = video_info.get("video_id", "")
-        url = f"https://www.youtube.com/watch?v={video_id}" if video_id else ""
-
-        payload = {
-            "embeds": [
-                {
-                    "title": "⏭️ 動画処理スキップ",
-                    "description": (
-                        f"動画URLの処理に失敗したためスキップしました。\n\n"
-                        f"**動画**: {title}\n"
-                        f"**チャンネル**: {channel}\n"
-                        f"**URL**: {url}"
-                    ),
-                    "color": 0x95A5A6,  # グレー
-                    "footer": {"text": "YouTube定刻監視システム"},
-                    "timestamp": datetime.now(timezone.utc).isoformat(),
-                }
-            ]
-        }
-
-        return self._post(self.summary_webhook_url, payload, "スキップ")
-
-    # ------------------------------------------------------------------
     # アイデア個別通知（1アイデア = 1投稿）
     # ------------------------------------------------------------------
     def send_idea(
         self,
         video_info: dict,
-        summary: str,
         idea_text: str,
     ) -> bool:
         """投資アイデアをアイデアチャンネルに送信する
 
         Args:
             video_info: 動画情報 (title, channel, published_at, video_id, etc.)
-            summary: 動画の要約テキスト
             idea_text: Gemini が生成したアイデアテキスト（Markdown形式）
 
         Returns:
@@ -158,9 +124,6 @@ class DiscordNotifier:
         # アイデアテキストからタイトルを抽出（# で始まる行）
         idea_title = self._extract_idea_title(idea_text)
 
-        # セクション分割
-        sections = self._parse_idea_sections(idea_text)
-
         # --- Embed 構築 ---
         # ソース情報
         source_lines = [
@@ -176,28 +139,20 @@ class DiscordNotifier:
                 "value": "\n".join(source_lines),
                 "inline": False,
             },
-            {
-                "name": "📝 要約",
-                "value": self._truncate(summary, MAX_FIELD_VALUE),
-                "inline": False,
-            },
         ]
 
-        # 投資アイディア
-        idea_body = sections.get("投資アイディア", "")
-        if idea_body:
+        # アイディア本文（タイトル行 `# [X] ...` を除いた全文）
+        body_lines: list[str] = []
+        for line in idea_text.splitlines():
+            stripped = line.strip()
+            if stripped.startswith("# ") and not stripped.startswith("## "):
+                continue
+            body_lines.append(line)
+        body = "\n".join(body_lines).strip()
+        if body:
             fields.append({
-                "name": "🎯 投資アイディア",
-                "value": self._truncate(idea_body, MAX_FIELD_VALUE),
-                "inline": False,
-            })
-
-        # 根拠
-        evidence = sections.get("根拠となった個所", "")
-        if evidence:
-            fields.append({
-                "name": "📌 根拠",
-                "value": self._truncate(evidence, MAX_FIELD_VALUE),
+                "name": "🎯 アイディア本文",
+                "value": self._truncate(body, MAX_FIELD_VALUE),
                 "inline": False,
             })
 
@@ -303,25 +258,15 @@ class DiscordNotifier:
     def queue_idea(
         self,
         video_info: dict,
-        summary: str,
         idea_text: str,
     ) -> None:
         """アイデア通知をキューに追加する（即座に送信しない）"""
         self._deferred_queue.append({
             "type": "idea",
             "video_info": video_info,
-            "summary": summary,
             "idea_text": idea_text,
         })
         logger.info(f"Discord アイデア通知をキューに追加: {video_info.get('title', '不明')}")
-
-    def queue_skip(self, video_info: dict) -> None:
-        """スキップ通知をキューに追加する（即座に送信しない）"""
-        self._deferred_queue.append({
-            "type": "skip",
-            "video_info": video_info,
-        })
-        logger.info(f"Discord スキップ通知をキューに追加: {video_info.get('title', '不明')}")
 
     def queue_summary(
         self,
@@ -392,11 +337,8 @@ class DiscordNotifier:
             if msg_type == "idea":
                 success = self.send_idea(
                     item["video_info"],
-                    item["summary"],
                     item["idea_text"],
                 )
-            elif msg_type == "skip":
-                success = self.send_skip(item["video_info"])
             elif msg_type == "summary":
                 success = self.send_summary(
                     item["results"],

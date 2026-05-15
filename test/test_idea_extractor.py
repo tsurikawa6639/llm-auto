@@ -81,37 +81,31 @@ class TestSaveIdeaDuplicate:
 # --- _parse_response のテスト ---
 
 class TestParseResponse:
-    """_parse_response の分割ロジックをテストする"""
+    """_parse_response の分割ロジックをテストする（SUMMARY廃止後の仕様）"""
 
-    def test_parse_with_ideas(self):
-        """アイディアあり応答が正しくパースされる"""
+    def test_parse_with_ideas_marker(self):
+        """IDEAS: マーカー付きの応答が正しくパースされる"""
         result = (
-            "SUMMARY:\n"
-            "動画では株式投資について解説している。\n\n"
             "IDEAS:\n"
-            "# 半導体銘柄の投資チャンス\n"
-            "## 投資アイディア\n"
-            "半導体需要が拡大中\n"
+            "# [A] 半導体銘柄 (不明)\n"
+            "## アクション\n"
+            "監視\n"
         )
-        summary, idea_text = IdeaExtractor._parse_response(result, {"title": "test"})
-        assert "株式投資" in summary
+        status, idea_text = IdeaExtractor._parse_response(result, {"title": "test"})
+        assert status == ""
         assert idea_text is not None
         assert "半導体" in idea_text
 
-    def test_parse_with_no_ideas(self):
-        """アイディアなし応答が正しくパースされる"""
-        result = (
-            "SUMMARY:\n"
-            "投資の基本的な考え方についての一般論。\n\n"
-            "IDEAS: NONE"
-        )
-        summary, idea_text = IdeaExtractor._parse_response(result, {"title": "test"})
-        assert "一般論" in summary
+    def test_parse_with_none(self):
+        """IDEAS: NONE の応答はアイディアなしと判定される"""
+        result = "IDEAS: NONE"
+        status, idea_text = IdeaExtractor._parse_response(result, {"title": "test"})
+        assert status == ""
         assert idea_text is None
 
-    def test_parse_without_markers(self):
-        """SUMMARY/IDEASマーカーがない場合のフォールバック"""
-        result = "マーカーのないレスポンステキスト"
-        summary, idea_text = IdeaExtractor._parse_response(result, {"title": "test"})
-        # パースに失敗した場合、全文がアイディアとして扱われる
+    def test_parse_without_marker(self):
+        """IDEAS: マーカーが無くても本文があれば idea_text として扱う"""
+        result = "# [A] 何かの銘柄\n## アクション\n監視"
+        status, idea_text = IdeaExtractor._parse_response(result, {"title": "test"})
+        assert status == ""
         assert idea_text == result
