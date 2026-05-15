@@ -252,29 +252,45 @@ class YouTubeMonitor:
 
 
     def get_video_details(self, video_ids: list[str]) -> dict[str, dict]:
-        """動画の詳細情報（完全な概要欄など）をバッチ取得する"""
+        """動画の詳細情報（完全な概要欄など）をバッチ取得する
+
+        YouTube Data API v3 の videos.list は id パラメータあたり最大50件のため、
+        50件ずつチャンクに分けて複数回API呼び出しする。
+        """
         if not video_ids:
             return {}
 
-        try:
-            response = self.youtube.videos().list(
-                id=",".join(video_ids),
-                part="snippet,contentDetails,statistics",
-            ).execute()
-        except Exception as e:
-            logger.error(f"動画詳細の取得でエラー: {e}")
-            return {}
+        BATCH_SIZE = 50
+        details: dict[str, dict] = {}
 
-        details = {}
-        for item in response.get("items", []):
-            vid = item["id"]
-            stats = item.get("statistics", {})
-            details[vid] = {
-                "title": item["snippet"]["title"],
-                "channel": item["snippet"]["channelTitle"],
-                "description": item["snippet"].get("description", ""),
-                "published_at": item["snippet"]["publishedAt"],
-                "duration": item["contentDetails"].get("duration", ""),
-                "view_count": stats.get("viewCount", ""),
-            }
+        for batch_start in range(0, len(video_ids), BATCH_SIZE):
+            batch = video_ids[batch_start:batch_start + BATCH_SIZE]
+            try:
+                response = self.youtube.videos().list(
+                    id=",".join(batch),
+                    part="snippet,contentDetails,statistics",
+                ).execute()
+            except Exception as e:
+                logger.error(
+                    f"動画詳細の取得でエラー (batch {batch_start}-{batch_start + len(batch)}): {e}"
+                )
+                continue
+
+            for item in response.get("items", []):
+                vid = item["id"]
+                stats = item.get("statistics", {})
+                details[vid] = {
+                    "title": item["snippet"]["title"],
+                    "channel": item["snippet"]["channelTitle"],
+                    "description": item["snippet"].get("description", ""),
+                    "published_at": item["snippet"]["publishedAt"],
+                    "duration": item["contentDetails"].get("duration", ""),
+                    "view_count": stats.get("viewCount", ""),
+                }
+
+        if len(details) < len(video_ids):
+            logger.warning(
+                f"動画詳細の取得結果: {len(details)}/{len(video_ids)}件 "
+                f"(API応答に含まれなかった動画は欠落値となる)"
+            )
         return details
