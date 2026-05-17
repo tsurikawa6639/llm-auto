@@ -5,8 +5,9 @@ youtube:
     - "株式投資"
     - "ファンダメンタルズ分析"
     - "テクニカル分析"
+    - "投資戦略"
   max_results_per_search: 50
-  published_after_hours: 2
+  published_after_hours: 3
   # ブラックリスト: 除外するチャンネル（ハンドル名 or チャンネルID）
   channel_blacklist:
     - "@tradingnews6165"  # TRADING NEWS
