@@ -27,6 +27,7 @@ total_ideas_reviewed: 87
 from __future__ import annotations
 
 import argparse
+import csv
 import logging
 import os
 import re
@@ -40,6 +41,7 @@ import requests
 JST = timezone(timedelta(hours=9))
 MAX_EMBED_DESCRIPTION = 4096
 SLEEP_BETWEEN_POSTS = 1.0  # Discord rate-limit 緩衝
+SUMMARY_EMBED_COLOR = 0x3498DB
 
 logger = logging.getLogger(__name__)
 logging.basicConfig(
@@ -50,6 +52,7 @@ logging.basicConfig(
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 TOP5_DIR = PROJECT_ROOT / "output" / "daily_top5"
+CSV_DIR = PROJECT_ROOT / "output" / "csv"
 
 
 def find_latest_top5() -> Path | None:
@@ -65,6 +68,63 @@ def strip_frontmatter(text: str) -> str:
         if end != -1:
             return text[end + 4 :].lstrip()
     return text
+
+
+def parse_frontmatter(text: str) -> dict[str, str]:
+    if not text.startswith("---"):
+        return {}
+    end = text.find("\n---", 3)
+    if end == -1:
+        return {}
+    result: dict[str, str] = {}
+    for line in text[3:end].splitlines():
+        if ":" in line:
+            key, _, value = line.partition(":")
+            result[key.strip()] = value.strip()
+    return result
+
+
+def count_monitored_videos(target_date: str) -> int:
+    """target_date (YYYY-MM-DD) のJST日付に対応するCSVから unique URL 数を返す"""
+    if not CSV_DIR.exists():
+        return 0
+    prefix = target_date.replace("-", "")
+    unique_urls: set[str] = set()
+    for csv_path in CSV_DIR.glob(f"report_{prefix}_*.csv"):
+        try:
+            with csv_path.open(encoding="utf-8-sig", newline="") as f:
+                for row in csv.DictReader(f):
+                    url = (row.get("url") or "").strip()
+                    if url:
+                        unique_urls.add(url)
+        except OSError as e:
+            logger.warning(f"CSV読み込み失敗 {csv_path.name}: {e}")
+    return len(unique_urls)
+
+
+def _safe_int(value: str | None) -> int:
+    try:
+        return int((value or "").strip())
+    except (TypeError, ValueError):
+        return 0
+
+
+def build_summary_embed(date_str: str, monitored: int, ideas: int) -> dict:
+    lines = [
+        f"📺 **監視動画**: {monitored:,}本",
+        f"💡 **抽出アイディア**: {ideas:,}件",
+    ]
+    return {
+        "embeds": [
+            {
+                "title": f"📊 本日のサマリー ({date_str})",
+                "description": "\n".join(lines),
+                "color": SUMMARY_EMBED_COLOR,
+                "footer": {"text": f"YouTube定刻監視 — 日次サマリー ({date_str})"},
+                "timestamp": datetime.now(timezone.utc).isoformat(),
+            }
+        ]
+    }
 
 
 def truncate(text: str, max_len: int) -> str:
@@ -111,8 +171,9 @@ def post_embed(webhook_url: str, payload: dict, label: str) -> bool:
 
 
 def send_to_discord(webhook_url: str, file_path: Path) -> int:
-    """1アイディア=1embedで送信する。送信成功した件数を返す"""
+    """1アイディア=1embedで送信し、最後にサマリーembedを追加する。送信成功した件数を返す"""
     raw = file_path.read_text(encoding="utf-8")
+    frontmatter = parse_frontmatter(raw)
 
     # 日付はファイル名から抽出（YYYY-MM-DD.md）
     date_match = re.match(r"(\d{4}-\d{2}-\d{2})", file_path.stem)
@@ -158,10 +219,19 @@ def send_to_discord(webhook_url: str, file_path: Path) -> int:
         if post_embed(webhook_url, payload, f"#{rank} {title[:30]}"):
             sent += 1
 
-        if sec is not sections[-1]:
-            time.sleep(SLEEP_BETWEEN_POSTS)
+        time.sleep(SLEEP_BETWEEN_POSTS)
 
-    logger.info(f"送信完了: {sent}/{total}件")
+    # サマリー embed: 監視動画数(CSVから集計) と 抽出アイディア数(frontmatterから)
+    monitored = count_monitored_videos(date_str)
+    if monitored == 0:
+        monitored = _safe_int(frontmatter.get("total_files_reviewed"))
+    ideas = _safe_int(frontmatter.get("total_ideas_reviewed"))
+
+    summary_payload = build_summary_embed(date_str, monitored, ideas)
+    if post_embed(webhook_url, summary_payload, "summary"):
+        sent += 1
+
+    logger.info(f"送信完了: {sent}/{total + 1}件")
     return sent
 
 
