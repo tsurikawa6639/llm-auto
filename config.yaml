@@ -2,6 +2,9 @@ youtube:
   # CLI引数 -k で指定がなければこのデフォルト値を使用
   search_keywords:
     - "株式"
+    - "株式投資"
+    - "ファンダメンタルズ分析"
+    - "テクニカル分析"
   max_results_per_search: 50
   published_after_hours: 2
   # ブラックリスト: 除外するチャンネル（ハンドル名 or チャンネルID）
