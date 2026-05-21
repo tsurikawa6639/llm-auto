@@ -160,7 +160,7 @@ class IdeaExtractor:
             (status, idea_text) のタプル。
             status:
                 - "ok"               : 処理成功（idea_text が None なら投資アイディアなし）
-                - "skip_retryable"   : 503 UNAVAILABLE 等の一過性エラー。呼び出し側で後段リトライ可
+                - "skip_retryable"   : 503/UNAVAILABLE・429/RESOURCE_EXHAUSTED 等の一過性エラー。呼び出し側で後段リトライ可
                 - "skip_permanent"   : 動画自体が処理不能などの永続的失敗
             idea_text: 抽出されたアイディア（投資に無関係 or 失敗時は None）
         """
@@ -185,7 +185,8 @@ class IdeaExtractor:
 
         # メインモデルで試行 → レート制限/過負荷エラー時はサブモデルにフォールバック
         last_error: Exception | None = None
-        last_was_retryable = False
+        # いずれか1モデルでも一過性エラー（503/429）に当たったら後段リトライ対象とする
+        any_was_retryable = False
         for i, model in enumerate(self.models):
             is_fallback = i > 0
             try:
@@ -209,7 +210,10 @@ class IdeaExtractor:
                 is_rate_limit = "429" in error_str or "RESOURCE_EXHAUSTED" in error_str
                 is_overloaded = "503" in error_str or "UNAVAILABLE" in error_str
                 last_error = e
-                last_was_retryable = is_overloaded
+                # 503/UNAVAILABLE も 429/RESOURCE_EXHAUSTED も一過性エラー。
+                # 最後の試行だけでなく、どこか1モデルでも当たれば retryable 扱いにする
+                if is_rate_limit or is_overloaded:
+                    any_was_retryable = True
 
                 if (is_rate_limit or is_overloaded) and i < len(self.models) - 1:
                     # 過負荷/レート制限エラー → 次のモデルにフォールバック
@@ -220,8 +224,8 @@ class IdeaExtractor:
                     break
 
         # 全モデルで失敗
-        if last_was_retryable:
-            logger.warning(f"⏭️ 動画URL処理失敗（503/UNAVAILABLE、後でリトライ）: {title} | エラー: {last_error}")
+        if any_was_retryable:
+            logger.warning(f"⏭️ 動画URL処理失敗（一過性エラー 503/429、後でリトライ）: {title} | エラー: {last_error}")
             return ("skip_retryable", None)
         else:
             logger.warning(f"⏭️ 動画URLの処理に失敗（スキップ）: {title} | エラー: {last_error}")
