@@ -223,7 +223,7 @@ def _process_video_batch(
 
     # サマリーレポート出力
     if results:
-        save_summary_report(results, processed_count, total_ideas)
+        save_summary_report(results)
         if notifier:
             if defer_notify:
                 notifier.queue_summary(results, processed_count, total_ideas)
@@ -476,18 +476,15 @@ def _run_monitor_impl(keywords: list[str], config: dict, defer_notify: bool = Fa
     )
 
 
-def save_summary_report(results: list[dict], total_new: int, total_ideas: int) -> None:
-    """調査結果のサマリーレポートをCSVとMarkdownで出力する"""
+def save_summary_report(results: list[dict]) -> None:
+    """調査結果のサマリーレポートをCSVで出力する"""
     import csv
 
     csv_dir = PROJECT_ROOT / "output" / "csv"
-    md_dir = PROJECT_ROOT / "output" / "md"
     csv_dir.mkdir(parents=True, exist_ok=True)
-    md_dir.mkdir(parents=True, exist_ok=True)
 
     timestamp = datetime.now(JST).strftime("%Y%m%d_%H%M%S")
 
-    # --- CSV出力 ---
     csv_path = csv_dir / f"report_{timestamp}.csv"
     csv_fieldnames = ["keyword", "title", "channel", "url", "idea"]
     with open(csv_path, "w", newline="", encoding="utf-8-sig") as f:
@@ -496,40 +493,6 @@ def save_summary_report(results: list[dict], total_new: int, total_ideas: int) -
         for row in results:
             writer.writerow({k: v for k, v in row.items() if k in csv_fieldnames})
     logger.info(f"📊 CSVレポート保存: {csv_path}")
-
-    # --- Markdown出力 ---
-    md_path = md_dir / f"report_{timestamp}.md"
-    lines = [
-        f"# YouTube定刻監視レポート",
-        f"",
-        f"- **実行日時**: {datetime.now(JST).strftime('%Y-%m-%d %H:%M:%S')}",
-        f"- **調査動画数**: {total_new}件",
-        f"- **アイディア抽出数**: {total_ideas}件",
-        f"",
-        f"## 調査結果一覧",
-        f"",
-        f"| # | タイトル | チャンネル | アイディア |",
-        f"|---|---------|-----------|-----------| ",
-    ]
-    for i, row in enumerate(results, 1):
-        title_link = f"[{row['title']}]({row['url']})"
-        lines.append(f"| {i} | {title_link} | {row['channel']} | {row['idea']} |")
-
-    # --- 各動画の詳細 ---
-    lines.append("")
-    lines.append("## 動画詳細")
-    lines.append("")
-    for i, row in enumerate(results, 1):
-        lines.append(f"### {i}. {row['title']}")
-        lines.append(f"- **チャンネル**: {row['channel']}")
-        lines.append(f"- **URL**: {row['url']}")
-        lines.append(f"- **アイディア**: {row['idea']}")
-        lines.append(f"")
-        lines.append("---")
-        lines.append("")
-
-    md_path.write_text("\n".join(lines), encoding="utf-8")
-    logger.info(f"📝 Markdownレポート保存: {md_path}")
 
 
 def main():

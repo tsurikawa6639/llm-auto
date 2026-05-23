@@ -30,9 +30,8 @@ youtube-monitor/
 │   ├── seen_videos.json        # 処理済み動画ID（自動生成）
 │   └── pending_videos.json     # 保留キュー（自動生成）
 ├── output/
-│   ├── report_YYYYMMDD_HHMMSS.md   # Markdownレポート
-│   ├── report_YYYYMMDD_HHMMSS.csv  # CSVレポート
-│   └── ideas/                       # 抽出されたアイディアファイル
+│   ├── csv/report_YYYYMMDD_HHMMSS.csv  # CSVレポート
+│   └── ideas/                          # 抽出されたアイディアファイル
 ├── .github/
 │   └── workflows/
 │       └── youtube-monitor.yml # GitHub Actions ワークフロー
@@ -139,16 +138,15 @@ discord:
    b. アイディアがあればファイル保存
    c. Discord アイデアチャンネルに送信
 6. 11件目以降を保留キューに保存（次回実行で優先処理）
-7. Markdown/CSVレポートを出力
+7. CSVレポートを出力
 8. Discord サマリーチャンネルに実行結果を送信
 ```
 
 ## 出力
 
-### Markdownレポート（`output/report_*.md`）
+### CSVレポート（`output/csv/report_*.csv`）
 
-- **調査結果一覧** — 全動画のタイトル・チャンネル・アイディア有無を一覧表示
-- **動画詳細** — 各動画のGemini AIによる要約全文を表示
+- 全動画のキーワード・タイトル・チャンネル・URL・アイディアを1行ずつ記録
 
 ### アイディアファイル（`output/ideas/*.md`）
 
