@@ -1,0 +1,112 @@
+name: Archive Outputs
+
+on:
+  schedule:
+    - cron: '0 15 * * *'    # 毎日 UTC 15:00 (JST 0:00)
+  workflow_dispatch:
+
+concurrency:
+  group: archive-outputs
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Archive ideas (daily, keep 7 days live)
+        run: |
+          mkdir -p archive/ideas
+          CUTOFF=$(date -d "7 days ago" +%Y%m%d)
+          cd output/ideas
+          for f in *.md; do
+            [ -f "$f" ] || continue
+            D="${f%%_*}"
+            [[ "$D" =~ ^[0-9]{8}$ ]] || continue
+            if [ "$D" -le "$CUTOFF" ]; then
+              echo "$D"
+            fi
+          done | sort -u | while read D; do
+            ARCHIVE_FILE="../../archive/ideas/ideas_${D}.tar.gz"
+            if [ ! -f "$ARCHIVE_FILE" ]; then
+              tar czf "$ARCHIVE_FILE" ${D}_*.md
+            else
+              TMPDIR=$(mktemp -d)
+              tar xzf "$ARCHIVE_FILE" -C "$TMPDIR"
+              cp ${D}_*.md "$TMPDIR/"
+              tar czf "$ARCHIVE_FILE" -C "$TMPDIR" .
+              rm -rf "$TMPDIR"
+            fi
+            rm -f ${D}_*.md
+            echo "  ideas: archived $D"
+          done
+
+      - name: Archive csv reports (daily, keep 7 days live)
+        run: |
+          mkdir -p archive/csv
+          CUTOFF=$(date -d "7 days ago" +%Y%m%d)
+          cd output/csv
+          for f in report_*.csv; do
+            [ -f "$f" ] || continue
+            tmp="${f#report_}"
+            D="${tmp%%_*}"
+            [[ "$D" =~ ^[0-9]{8}$ ]] || continue
+            if [ "$D" -le "$CUTOFF" ]; then
+              echo "$D"
+            fi
+          done | sort -u | while read D; do
+            ARCHIVE_FILE="../../archive/csv/reports_${D}.tar.gz"
+            if [ ! -f "$ARCHIVE_FILE" ]; then
+              tar czf "$ARCHIVE_FILE" report_${D}_*.csv
+            else
+              TMPDIR=$(mktemp -d)
+              tar xzf "$ARCHIVE_FILE" -C "$TMPDIR"
+              cp report_${D}_*.csv "$TMPDIR/"
+              tar czf "$ARCHIVE_FILE" -C "$TMPDIR" .
+              rm -rf "$TMPDIR"
+            fi
+            rm -f report_${D}_*.csv
+            echo "  csv: archived $D"
+          done
+
+      - name: Archive trend (monthly, keep current month live)
+        run: |
+          mkdir -p archive/trend
+          CURRENT_MONTH=$(date +%Y%m)
+          cd output/trend
+          for f in word_freq_*.csv; do
+            [ -f "$f" ] || continue
+            tmp="${f#word_freq_}"
+            M="${tmp:0:6}"
+            [[ "$M" =~ ^[0-9]{6}$ ]] || continue
+            if [ "$M" -lt "$CURRENT_MONTH" ]; then
+              echo "$M"
+            fi
+          done | sort -u | while read M; do
+            ARCHIVE_FILE="../../archive/trend/trend_${M}.tar.gz"
+            if [ ! -f "$ARCHIVE_FILE" ]; then
+              tar czf "$ARCHIVE_FILE" word_freq_${M}*.csv
+            else
+              TMPDIR=$(mktemp -d)
+              tar xzf "$ARCHIVE_FILE" -C "$TMPDIR"
+              cp word_freq_${M}*.csv "$TMPDIR/"
+              tar czf "$ARCHIVE_FILE" -C "$TMPDIR" .
+              rm -rf "$TMPDIR"
+            fi
+            rm -f word_freq_${M}*.csv
+            echo "  trend: archived $M"
+          done
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add output/ archive/
+          git diff --staged --quiet || git commit -m "auto: archive outputs $(date -u +'%Y-%m-%d')"
+          git push

@@ -29,9 +29,15 @@ youtube-monitor/
 ├── data/
 │   ├── seen_videos.json        # 処理済み動画ID（自動生成）
 │   └── pending_videos.json     # 保留キュー（自動生成）
-├── output/
-│   ├── csv/report_YYYYMMDD_HHMMSS.csv  # CSVレポート
-│   └── ideas/                          # 抽出されたアイディアファイル
+├── output/                          # ライブデータ（直近7日 / 当月分）
+│   ├── csv/         # report_*.csv  — 監視レポート
+│   ├── ideas/       # *.md          — 抽出された投資アイディア
+│   ├── trend/       # word_freq_*.csv — 日次ワード頻度
+│   └── daily_top5/  # YYYY-MM-DD.md — 日次Top5（全期間保持）
+├── archive/                         # 圧縮済み過去データ（自動生成）
+│   ├── ideas/   # ideas_YYYYMMDD.tar.gz
+│   ├── csv/     # reports_YYYYMMDD.tar.gz
+│   └── trend/   # trend_YYYYMM.tar.gz
 ├── .github/
 │   └── workflows/
 │       └── youtube-monitor.yml # GitHub Actions ワークフロー
