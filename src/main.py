@@ -7,6 +7,7 @@ except ImportError:
     fcntl = None  # Windows/CI環境ではロック機能を無効化
 import logging
 import os
+import re
 import sys
 import time
 from datetime import datetime, timezone, timedelta
@@ -54,6 +55,20 @@ def load_config() -> dict:
 
 
 LOCK_FILE_PATH = Path("/tmp/run_monitor.lock")
+
+# Gemini APIに投げない長尺動画の閾値（2時間）
+MAX_VIDEO_DURATION_SECONDS = 7200
+
+
+def _parse_duration_seconds(iso_duration: str) -> int | None:
+    """ISO 8601 duration (例: 'PT2H15M') を秒数に変換する。パース不能なら None"""
+    if not iso_duration:
+        return None
+    match = re.match(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?", iso_duration)
+    if not match:
+        return None
+    h, m, s = match.groups()
+    return int(h or 0) * 3600 + int(m or 0) * 60 + int(s or 0)
 
 
 def run_monitor(keywords: list[str], config: dict, defer_notify: bool = False,
@@ -144,6 +159,28 @@ def _process_video_batch(
             "idea": idea_status,
         }
 
+    # 2時間超の長尺動画はGemini APIに投げず除外
+    filtered_to_process: list[dict] = []
+    skipped_long: list[dict] = []
+    for video in to_process:
+        seconds = _parse_duration_seconds(video.get("duration", ""))
+        if seconds is not None and seconds > MAX_VIDEO_DURATION_SECONDS:
+            skipped_long.append(video)
+        else:
+            filtered_to_process.append(video)
+
+    for video in skipped_long:
+        logger.info(
+            f"⏭️ スキップ（{video.get('duration', '')} > 2時間）: {video['title']}"
+        )
+        results.append(_result_row(video, f"⏭️ 長尺スキップ（{video.get('duration', '')}）"))
+        monitor.mark_as_processed_in_memory(video["video_id"])
+
+    if skipped_long:
+        logger.info(f"2時間超の動画 {len(skipped_long)}件 をAI分析から除外")
+
+    to_process = filtered_to_process
+
     def _handle_success(video: dict, idea_text: str | None) -> bool:
         """成功時の保存・通知処理。アイディアが追加されたら True を返す"""
         if idea_text:
@@ -216,9 +253,10 @@ def _process_video_batch(
 
     processed_count = len(to_process)
     retry_msg = f"（うち503再失敗={len(failed_retries)}件）" if failed_retries else ""
+    long_msg = f" | 長尺スキップ={len(skipped_long)}件" if skipped_long else ""
     logger.info(
         f"=== 完了: 処理={processed_count}件 → アイディア{total_ideas}件抽出 "
-        f"| 保留={len(final_pending)}件{retry_msg} ==="
+        f"| 保留={len(final_pending)}件{retry_msg}{long_msg} ==="
     )
 
     # サマリーレポート出力
