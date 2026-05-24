@@ -183,6 +183,18 @@ class IdeaExtractor:
             ]
         )
 
+        # テクニカル分析キーワードのみチャート視認が要るのでデフォルト解像度。
+        # それ以外は LOW にして動画トークンを 1/4 に圧縮する。
+        keyword = video_info.get("keyword", "")
+        if keyword == "テクニカル分析":
+            media_resolution = None
+        else:
+            media_resolution = types.MediaResolution.MEDIA_RESOLUTION_LOW
+
+        gen_config_kwargs: dict = {"temperature": self.temperature}
+        if media_resolution is not None:
+            gen_config_kwargs["media_resolution"] = media_resolution
+
         # メインモデルで試行 → レート制限/過負荷エラー時はサブモデルにフォールバック
         last_error: Exception | None = None
         # いずれか1モデルでも一過性エラー（503/429）に当たったら後段リトライ対象とする
@@ -193,12 +205,13 @@ class IdeaExtractor:
                 if is_fallback:
                     logger.info(f"🔄 フォールバック: {model} で再試行")
                 else:
-                    logger.info(f"動画URLを直接Geminiに送信 [{model}]: {video_url}")
+                    res_label = "DEFAULT" if media_resolution is None else "LOW"
+                    logger.info(f"動画URLを直接Geminiに送信 [{model}] (解像度={res_label}): {video_url}")
 
                 response = self.client.models.generate_content(
                     model=model,
                     contents=contents,
-                    config=types.GenerateContentConfig(temperature=self.temperature),
+                    config=types.GenerateContentConfig(**gen_config_kwargs),
                 )
                 result = response.text.strip()
                 _, idea_text = self._parse_response(result, video_info)

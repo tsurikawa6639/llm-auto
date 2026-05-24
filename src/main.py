@@ -56,8 +56,8 @@ def load_config() -> dict:
 
 LOCK_FILE_PATH = Path("/tmp/run_monitor.lock")
 
-# Gemini APIに投げない長尺動画の閾値（2時間）
-MAX_VIDEO_DURATION_SECONDS = 7200
+# Gemini APIに投げない長尺動画の閾値（70分）
+MAX_VIDEO_DURATION_SECONDS = 4200
 
 
 def _parse_duration_seconds(iso_duration: str) -> int | None:
@@ -159,7 +159,8 @@ def _process_video_batch(
             "idea": idea_status,
         }
 
-    # 2時間超の長尺動画はGemini APIに投げず除外
+    # 長尺動画 (MAX_VIDEO_DURATION_SECONDS 超) はGemini APIに投げず除外
+    limit_minutes = MAX_VIDEO_DURATION_SECONDS // 60
     filtered_to_process: list[dict] = []
     skipped_long: list[dict] = []
     for video in to_process:
@@ -171,13 +172,13 @@ def _process_video_batch(
 
     for video in skipped_long:
         logger.info(
-            f"⏭️ スキップ（{video.get('duration', '')} > 2時間）: {video['title']}"
+            f"⏭️ スキップ（{video.get('duration', '')} > {limit_minutes}分）: {video['title']}"
         )
         results.append(_result_row(video, f"⏭️ 長尺スキップ（{video.get('duration', '')}）"))
         monitor.mark_as_processed_in_memory(video["video_id"])
 
     if skipped_long:
-        logger.info(f"2時間超の動画 {len(skipped_long)}件 をAI分析から除外")
+        logger.info(f"{limit_minutes}分超の動画 {len(skipped_long)}件 をAI分析から除外")
 
     to_process = filtered_to_process
 
