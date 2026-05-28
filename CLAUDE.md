@@ -122,7 +122,7 @@ TARGET_PREFIX=$(TZ='Asia/Tokyo' date -d 'yesterday' +%Y%m%d)       # 例: 202605
 ---
 date: <TARGET_JST_DATE>
 total_files_reviewed: <件数>
-total_ideas_reviewed: <抽出した個別アイディアの総数>
+total_ideas_reviewed: <抽出した個別アイディアの総数。**整数のみ**。「約」「件」などの修飾語・単位は付けない。概算しか分からなければ最も近い整数で記載（例: `160` ○ / `約160` `160件` ×）。これは通知スクリプトが `int()` でパースするため
 ---
 
 ## 1. <アイディアの一行タイトル>
