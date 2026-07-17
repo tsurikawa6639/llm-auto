@@ -1,777 +1,25 @@
 [
   {
-    "video_id": "Dng7T3uBKRw",
-    "title": "【日経平均を学ぶ】値がさ株・移動平均・指標の基本を分かりやすく解説",
-    "channel": "日経225 -株速ちゃんねる-",
-    "channel_id": "UCnIcXu0ggSseAU2CimGA8HA",
-    "description": "本日の日経平均と主要銘柄の値動きを、日中足・銘柄一覧・個別深掘り・騰落数・業種別まで、実データで解説します。",
-    "published_at": "2026-07-12T12:00:15Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "OJOezolGwxw",
-    "title": "【目標1000万円】#1 🔰社会人2年目が資産1000万円を目指して株式投資を始めてみた。",
-    "channel": "ピヨコ / 社会人2年目 株式投資",
-    "channel_id": "UC82c9LmuZs7EtMAUSrqzxZA",
-    "description": "株式投資 #投資 #資産形成 #社会人 #投資初心者 #長期投資 #nisa #積立投資 #つみたてnisa #スイングトレード 社会人2年目、 ...",
-    "published_at": "2026-07-12T11:46:26Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "OScCaSh9g8o",
-    "title": "【日産株は復活できるか】PBR0.2倍は買い場か罠か!? 2年で巨額赤字…プロが読む大逆転シナリオ",
-    "channel": "株式戦略ラボ",
-    "channel_id": "UCBiTYtExpzmV34DrwMrQSeQ",
-    "description": "低PBR銘柄として注目される日産自動車。 しかし、過去2年間で大きな赤字を計上するなど、投資家から厳しい視線も向けられ ...",
-    "published_at": "2026-07-12T11:30:19Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "K3UX0A79fYg",
-    "title": "2026年7月10日終値で抽出　AIが教える株価上昇トレンドの見つけ方。それは移動平均線3本の角度を見る方法。AIが抽出した”買われている銘柄”プライム上場全銘柄から、シグナル発生銘柄を抽出しました。",
-    "channel": "あしおゆたかtips",
-    "channel_id": "UC6JO9K-tus0uCD-UxDUc-Hg",
-    "description": "AIが教える価上昇トレンドの見つけ方。 それは移動平均線3本の角度を見る方法。 短期・中期・長期 すべての 移動平均線が上向き ...",
-    "published_at": "2026-07-12T11:29:18Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "GbxsVFdoUh0",
-    "title": "AIが300万円を本気で運用します｜目標はインデックス超え【第1回・初回ポートフォリオ10銘柄公開】",
-    "channel": "AIマネー実験室",
-    "channel_id": "UCoCJT_YQ8FpYp9mPaDhl5AA",
-    "description": "インデックス投資は強い。プロでも上回れないと言われます。 ——では、AIなら？ Claude（Opus 4.8）が、架空の300万円を、 ...",
-    "published_at": "2026-07-12T11:15:26Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "50wXdMRdrh0",
-    "title": "JX金属株価7,000円期待理由完全まとめ",
-    "channel": "株ちゃん投資情報",
-    "channel_id": "UCgL8PLoI94skPNA1AE8biRg",
-    "description": "目次 00:00 はじめに 01:04 JX金属なぜ上がり、調整中なのか 03:16 売上の柱 何で儲けているのか 銅からAI半導体へ 04:13 最重要 ...",
-    "published_at": "2026-07-12T11:00:28Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "zS8hnJ3RfkM",
-    "title": "【爆損】私が損切りした失敗銘柄をすべて公開｜買った理由と反省点",
-    "channel": "人生★株とコーラ",
-    "channel_id": "UC0BMoB5iv8iwVzYuFsCm6NA",
-    "description": "今回は、これまで私が大きな損切りをした銘柄を紹介します。 なぜその株を買ったのか。 どこで判断を間違えたのか。 損切り ...",
-    "published_at": "2026-07-12T11:00:09Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "b9cB0ZTHtpQ",
-    "title": "【AI深堀り】電機決算！売上増なのに利益マイナスの理由と、株価への影響を分かりやすく解説！",
-    "channel": "【AI決算短信深掘り解説】決算FM",
-    "channel_id": "UCwYeX4WkLhuVVeM_N0LRCbA",
-    "description": "安川電機 #決算解説 #株式投資 #ロボット #AI #半導体 #増配 #企業分析 **チャプター** * 0:00 オープニング * 0:34 決算概要：売上 ...",
-    "published_at": "2026-07-12T10:00:20Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "c3Jo1TpiE1Y",
-    "title": "龍&amp;マキの株チャンネル",
-    "channel": "龍さんの株式講座コミュニティ",
-    "channel_id": "UC5iyLnM1cyJyYweQNniKs9A",
-    "description": "龍さんの株式講座コミュニティ運営 龍さんの売買記録の配信https://kenko-license.com/lp/stock-course-community-renewal/ ...",
-    "published_at": "2026-07-12T12:28:01Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "8qGRHjwuwNY",
-    "title": "【北の株式投資大学】生配信オンライン講義2",
-    "channel": "【北の株式投資大学】official",
-    "channel_id": "UClSDChYUCk32u6TJDY4m8Bg",
-    "description": "",
-    "published_at": "2026-07-12T12:00:06Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "SdWWLoSWahI",
-    "title": "ホルムズ海峡また封鎖。今週コンセンサス未達で急落かもしれない銘柄。今週注目の決算。あす急落しそうな４銘柄。好決算なのに急落中の銘柄。７月１２日:日曜版～あす上がる株。最新の日本株情報～",
-    "channel": "株リアルライブ",
-    "channel_id": "UC5Qgc-tEFmm5iQX5tUy6TyA",
-    "description": "ホルムズ海峡また封鎖。今週コンセンサス未達で急落かもしれない銘柄。今週注目の決算。あす急落しそうな４銘柄。好決算 ...",
-    "published_at": "2026-07-12T11:00:22Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "MunpgbA0vnE",
-    "title": "ETF肥大化で韓国市場がギャンブル化？個人投資家が「最後の受け皿」にされる恐怖の構造",
-    "channel": "zinborutoの韓国経済危機特集プラス朝の金融ニュース",
-    "channel_id": "UCeV6EnK_OKgRY5qBiQHjXRA",
-    "description": "韓国市場が抱える「構造的弱点」が浮き彫りになりました。 韓国資本市場研究院が警告する「ETFの肥大化」と「レバレッジ投資 ...",
-    "published_at": "2026-07-12T12:30:14Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "TjIt2bTiWeQ",
-    "title": "中國投資新規發威  印度技術收割算計落空｜印度白眼狼設局 驚遇北京反殺｜栗正傑.張延廷.李永萍深度剖析【何橞瑢辣晚報】精華版 @中天新聞CtiNews",
-    "channel": "中天電視",
-    "channel_id": "UC5l1Yto5oOIgRXlI4p4VKbw",
-    "description": "印度因本土技術與產能短板，豁免四家中國電力企業參與招標，但夾帶在地設廠與轉移技術等苛刻條件。面對歷史教訓與中國7月施行 ...",
-    "published_at": "2026-07-12T12:20:38Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "eOdq1pD8ezE",
-    "title": "【退休存股&#39;投資&#39;全攻略】主題-合庫金技術波浪與大戶籌碼鎖定全解析-David&#39;s Nose",
-    "channel": "夜市談財經",
-    "channel_id": "UC6cEqhgnFTSzSHRVX-6UOOw",
-    "description": "本頻道採用面對4%退休族的角度以酒田五法、波浪裡論、均線及複雜學評論分析，特別適合退休族與中長期投資 ...",
-    "published_at": "2026-07-12T12:00:17Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "D1_ByCsWpVo",
-    "title": "【日記】個人投資家、作家、強み（2026年7月12日）",
-    "channel": "FIRE日記",
-    "channel_id": "UCOIz9OLYV9g6TofafDRkWMw",
-    "description": "２０２３年１１月２３日、FIRE達成。 #FIRE #投資 #物語 #アーリーリタイア #サイドFIRE #セミリタイア #経済的自由 #日記.",
-    "published_at": "2026-07-12T12:00:25Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "1FVdQi-bjic",
-    "title": "【SOFI】ソーファイのテンバガーの夢は？SNSでは誰も語らない、株価18ドルの裏側に隠された直視すべき真実",
-    "channel": "なすダックん",
-    "channel_id": "UC9XNLOkN1JteA71p9qntucg",
-    "description": "SoFi（ソーファイ）の株価が動く中、投資家は今何を判断材料にすべきか？ 今回の動画では、SoFiの最新決算を徹底分析し、現 ...",
-    "published_at": "2026-07-12T12:00:12Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "-JOx3DHX2pI",
-    "title": "免費午餐：停止猜測並開始投資的9個原則",
-    "channel": "滑行者 (The Coaster)",
-    "channel_id": "UC0EKkKrpmCuAF1dMmYPR1_g",
-    "description": "",
-    "published_at": "2026-07-12T12:00:18Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "bTUpbIqyzOY",
-    "title": "AI 投資建議能信嗎？看懂資料很強，但賠錢它不負責【Podcast純音檔】",
-    "channel": "GungDinSu",
-    "channel_id": "UC13mKMiYKW7PGx8FlnvO6Cw",
-    "description": "AI 投資建議能信嗎？這集 Coffee Talk 要聊的是：AI 可以幫你看財報、整理資料、拆解新聞，但賠錢的時候，它不能幫你扛損失。",
-    "published_at": "2026-07-12T12:00:37Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "xr52WMxO5JI",
-    "title": "真の投資家のマインドセット",
-    "channel": "会社員のための資産形成教習所",
-    "channel_id": "UCyPby1k2Gx8cmbS7TOELY-Q",
-    "description": "企業の本当の姿が見えると、人生の見え方も変わる】 あなたはマクドナルドを何屋だと思いますか？ ハンバーガー屋？ それとも ...",
-    "published_at": "2026-07-12T11:56:21Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "PrW4VY6qTOc",
-    "title": "下周「三合一」絞殺周！誰是高防禦避風港？這幾個低波動板塊已企穩！",
-    "channel": "小璇講美股",
-    "channel_id": "UCvtP8D72lT7EqNUVM_PZWng",
-    "description": "【小璇重要聲明】本影片所有財務分析僅供個人研究分享，不構成投資建議。入市有風險，投資須謹慎。完整免責聲明詳見下方。",
-    "published_at": "2026-07-12T11:51:10Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "F5OPNUebVcI",
-    "title": "7.10収録　IPO投資家の館  　半導体、再登頂？",
-    "channel": "IPO投資家の館",
-    "channel_id": "UCNA_V7uYVxnEJu1RUR1If3Q",
-    "description": "ビーエイブル ＃アイ・グリッド・ソリューションズ ＃エブリー ＃IPO ＃当選 ＃落選 ＃新NISA ＃ブックビルディング ＃初値.",
-    "published_at": "2026-07-12T11:45:20Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "G3Z5MW2gbvU",
-    "title": "【衝撃】国家が200億ドルを直接投資！「月面基地」へのロードマップ大解剖【アルテミス計画③】",
-    "channel": "宇宙に乗り遅れるな【宇宙ビジネス解説】",
-    "channel_id": "UC8MNoz8hy4mIe875JyjqJ8Q",
-    "description": "「アルテミス計画」がヤバすぎる 【この動画の内容】 ・200億ドルの戦略的シフト ・フェーズ1：調査と実証 ・フェーズ2：初期 ...",
-    "published_at": "2026-07-12T11:37:17Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "HBWU05y9kG4",
-    "title": "【退休存股&#39;投資&#39;全攻略】主題-兆豐金中期技術籌碼與基本面深度研究報告-David&#39;s Nose",
-    "channel": "夜市談財經",
-    "channel_id": "UC6cEqhgnFTSzSHRVX-6UOOw",
-    "description": "本頻道採用面對4%退休族的角度以酒田五法、波浪裡論、均線及複雜學評論分析，特別適合退休族與中長期投資 ...",
-    "published_at": "2026-07-12T11:30:32Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "gcpzt9Xxm1I",
-    "title": "和潤vs恆運投資-男雙",
-    "channel": "Hsuan",
-    "channel_id": "UC5C2gbpwfKmizZT2ZcL0k_g",
-    "description": "",
-    "published_at": "2026-07-12T11:27:12Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "fqGUwJ0uW78",
-    "title": "和潤vs恆運投資-混雙",
-    "channel": "Hsuan",
-    "channel_id": "UC5C2gbpwfKmizZT2ZcL0k_g",
-    "description": "",
-    "published_at": "2026-07-12T11:25:14Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "bGIC2sf9-8o",
-    "title": "和潤vs恆運投資-混雙",
-    "channel": "Hsuan",
-    "channel_id": "UC5C2gbpwfKmizZT2ZcL0k_g",
-    "description": "",
-    "published_at": "2026-07-12T11:25:12Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "-uzwo8j3Vps",
-    "title": "👉 比AI泡沫更可怕！美債拉響終極警報，這隻「房裡的大象」將如何終結美股牛市？",
-    "channel": "Amy週期觀察室",
-    "channel_id": "UCd6TPXIqeyzGQep45ASDIrA",
-    "description": "當全網都在為美光科技 (Micron) 兩千五百億美元的投資狂歡、高喊 AI 晶片帶動牛市續漲時，真正決定市場生死的底層邏輯已經悄悄 ...",
-    "published_at": "2026-07-12T11:17:35Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "BZAm1fdnPic",
-    "title": "【金購入禁止はデマ!?】中国が金15トン爆買い！香港で始まった「脱ドル国家戦略」とは？",
-    "channel": "シルバー マフィア【金銀ニュース,世界経済,マクロ経済】",
-    "channel_id": "UCBlq4h0nGMNocAO4shlPQLQ",
-    "description": "【関連動画など】---------------------------------------- https://youtu.be/aIp7LItW5hg https://youtu.be/ftdKHwFZ2NI ...",
-    "published_at": "2026-07-12T11:00:27Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "WBOph_m_Ls8",
-    "title": "【SBI証券】高配当投信の配当発表！日本株＆SCHD比較とプロ推奨の黄金ポートフォリオとは？",
-    "channel": "お金の専門学校",
-    "channel_id": "UC2m5FVaHmmPU8OBGij-sxLw",
-    "description": "SBI証券の投資信託で不労所得は作れる？高配当株・リート・債券の黄金ポートフォリオと最新リターンを投資ネコ講師が解説し ...",
-    "published_at": "2026-07-12T11:00:29Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "la21S-GAu-U",
-    "title": "【知らないと損】 スペースXがNASDAQ100に追加！アンソロピック、オープンAIは秋頃に上場か！？ナスダック100 熱が加速する今、忘れてはならないリスクとは",
-    "channel": "林タイムズ【資産形成】",
-    "channel_id": "UCHWbotVnMA8fo5Lfsp7_Gmw",
-    "description": "ナスダック100 は今年5月、ファストエントリーという必殺技を披露し、スペースXを皮切りにアンソロピック、オープンAIと ...",
-    "published_at": "2026-07-12T11:00:07Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "OaCoV0SEM9E",
-    "title": "今すぐ確認！新NISAへの乗り換えで大損する前に知っておくべき、プロが教えるリアルな投資戦略！|【資産を育てる経済の視点】",
-    "channel": "資産を育てる経済の視点",
-    "channel_id": "UCEF9ASJqg6EhexClPb_9oQA",
-    "description": "新NISAでS&P500からオルカンへ乗り換えるべきか？資金流入データとリターン比較で徹底解説！2026年2月にオルカンが純資産 ...",
-    "published_at": "2026-07-12T10:55:03Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "Ps8rpsx-vOw",
-    "title": "【ストップ高連発の真相】リミックスポイント急騰は本物か!? 異次元決算の裏側をプロが徹底分析",
-    "channel": "株式戦略ラボ",
-    "channel_id": "UCBiTYtExpzmV34DrwMrQSeQ",
-    "description": "連日のストップ高で市場の注目を集めるリミックスポイント。 「なぜ株価はここまで急騰したのか？」「決算の中身は本当に評価 ...",
-    "published_at": "2026-07-12T10:30:22Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "EniMy5ZSoFs",
-    "title": "FX、－2億8000万！夏枯れ相場で円高が来る！今度こそ来る！！！",
-    "channel": "オレ的ゲーム速報JIN FX・株投資部",
-    "channel_id": "UCC9SB7UVkUvmF7tXTXs0umA",
-    "description": "Amazonプライムデーセール月曜日まで【PR】 https://amzn.to/4bhBEMC 【JINの月間ホットトピック対談 | 松井証券】 ...",
-    "published_at": "2026-07-12T10:25:29Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "qadf9y9oOJI",
-    "title": "【KOL拆倉】99後全職交易員 Lemon：沽空 Bitcoin 賺近180萬！公開七成短炒倉美股如何部署｜marketfocus",
-    "channel": "MarketFocus",
-    "channel_id": "UC_rm2kfO_iwF704dukOC4gg",
-    "description": "【KOL拆倉】 99後全職交易員 Lemon（IG：@investmentHK），大學畢業前已把投資本金累積至七位數，其後由銀行財富管理培訓 ...",
-    "published_at": "2026-07-12T12:30:06Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "o_yxk_tDo5w",
-    "title": "日本半導体株は2027年以降も黄金期！成長理由5遷とオススメ4選【キオクシア 新NISA】",
-    "channel": "投資インサイトJP",
-    "channel_id": "UC_UhZLbr1iAYmUk3niXHG6g",
-    "description": "【チャンネル紹介】 投資インサイトJPへようこそ！ このチャンネルでは、 新NISA・つみたて投資 ...",
-    "published_at": "2026-07-12T12:30:07Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "iemNw4tJ_3w",
-    "title": "【50代60代】50代60代実はこれ超大損商品です！",
-    "channel": "証券アナリストハーリー『50,60代のお金』",
-    "channel_id": "UCfCV9rFg6MxvaXxY1Oy_EgQ",
-    "description": "50代60代実はこれ超大損商品です！を解説します！ ▽【50代60代向け】SBI証券口座開設ガイド動画はこちら ...",
-    "published_at": "2026-07-12T12:04:03Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "5_TaDP0PeTY",
-    "title": "返鄉大巴偶遇精神小妹 觸發女神投資系統 全 all",
-    "channel": "遇見動漫TV",
-    "channel_id": "UCdiSlmVF6TF4Ti4toT-V6IA",
-    "description": "收藏 #熱門 https://www.youtube.com/playlist?list=PLa3zpS9PpSkM.",
-    "published_at": "2026-07-12T12:04:02Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "bFpiyGP1fjw",
-    "title": "公公投資失利虧 120 萬，跪在我房門哭求我幫忙擔保，無奈簽字熬 4 年還清債務，銀行銷戶時行員告知帳戶躺 2600 萬#人妻扛婆家巨債 #溫暖婆媳親情 #中年女性心聲 #家庭反轉爽文 #人心換真心",
-    "channel": "Buzha",
-    "channel_id": "UCRjsCjHlf0-aZmZoLLuagTw",
-    "description": "前幾年公公聽信旁人鼓吹，盲目投入高風險投資，不僅耗光自身積蓄，還欠下一百二十萬的巨額債務。 債主天天上門催討，公公 ...",
-    "published_at": "2026-07-12T12:00:43Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "0GTt1e_4HHQ",
-    "title": "【完结篇】我投資分紅得83億 婆婆79大壽逼我離婚 小姑子：窮人就是上不得台面 我平靜簽了字 三天後 前夫一家流落街頭！【鄉野奇談社】#人生感悟 #健康 #情感故事 #婚",
-    "channel": "鄉野奇談社",
-    "channel_id": "UCFgjc4zA3CYvhN3evz6ca3A",
-    "description": "",
-    "published_at": "2026-07-12T12:00:35Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "WsYgPLtMvSg",
-    "title": "【倍増】40代からNISAで800万投資した結果がやばい！4児パパの5年3ヶ月の投資結果を大公開／コアサテライト戦略への転換 #nisa #fire #sp500 #fang #投資 #初心者",
-    "channel": "4児パパゆるFIRE研究所",
-    "channel_id": "UCVkFVQsqiOjFDuWKiHiznvg",
-    "description": "投資を始めて5年3か月、NISAで800万円積み立てた結果、資産は約1234万円・含み益プラス414万円になりました。この動画 ...",
-    "published_at": "2026-07-12T11:56:32Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "EyTAKLbI8MQ",
-    "title": "140 億投資說撤就撤！中企 3 周拆空印尼工廠 當地股市跌 32% 40 萬人失業",
-    "channel": "陆巡观察室",
-    "channel_id": "UCzETGc2B5DxOGcAnnpfQ3qw",
-    "description": "十年累計投資140 億美元，撐起印尼60% 全球鎳產量。2026 年核心礦區配額驟降71%，三大政策精准打壓，印尼以為吃定中企， ...",
-    "published_at": "2026-07-12T11:34:30Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "nt13r7pMIEk",
-    "title": "8大投資巨擘的真正智慧？【財商-太玄經】-22-3",
-    "channel": "個案研究院",
-    "channel_id": "UCnLpB0rOB0Bho__KvRp6DVQ",
-    "description": "8大投資巨擘的真正智慧？【財商-太玄經】-22-3 • 伯格如何靠「不爭」成為基金之王？ • 巴菲特限制投資次數看懂了什麼？",
-    "published_at": "2026-07-12T11:30:16Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "O6auUpDhuSo",
-    "title": "ホルムズ海峡再封鎖で暴落すれば買い！注目高配当１０銘柄",
-    "channel": "カブ主優待ライダー",
-    "channel_id": "UCIZ6mGSCshb0YYSZALcTp2w",
-    "description": "明日以降注目しておきたい高配当銘柄を１０紹介します。 【noteはじめました！】 https://note.com/lovely_swift6170 【日本唯一 ...",
-    "published_at": "2026-07-12T11:30:17Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "7iRDgerUhzk",
-    "title": ".絶対に投資する前に見て！",
-    "channel": "🥈 富の方程式",
-    "channel_id": "UCgEidDcXUosOyrpMGACFsfA",
-    "description": "この動画を見ずに投資しないでください。** **多くの人が知らない事実が、あなたのお金を左右するかもしれません。** Trump ...",
-    "published_at": "2026-07-12T11:25:27Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "Oh-i1nKO9eM",
-    "title": "【2chお金スレ】資産2000万円の破壊力！自由に近づく本当の理由とは【2ch有益スレ】",
-    "channel": "2chお金の知恵の殿堂",
-    "channel_id": "UC6Qc1Bizy1Ck20zUyKM_NXA",
-    "description": "2ch（2ちゃんねる）に蓄積された膨大な「お金に関する知恵」の深淵へようこそ。当チャンネルでは、ネット掲示板に眠る本物の ...",
-    "published_at": "2026-07-12T11:00:00Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "Nv6z6z41TlU",
-    "title": "黃金4000美元是地板還是天花板？規則已改寫！揭秘貴金屬洗牌真相！#黃金#金價#黃金價格#黃金走势#現貨價格#投資#理財",
-    "channel": "金盈有道",
-    "channel_id": "UCYE9RSve5UF6hMls6iv1UzA",
-    "description": "黃金#金價#黃金價格#黃金走势#現貨價格#投資#理財今天的分享希望能為你帶來啟發，如果你覺得這段內容對你有所幫助，請點讚   ...",
-    "published_at": "2026-07-12T10:30:31Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "dV3xNuPkw0A",
-    "title": "超級週期再臨！金銀翻漲7倍並非幻想？揭秘貨幣貶值終局：為何全球央行正瘋狂掃貨？#黃金#金價#黃金價格#黃金走势#現貨價格#投資#理財",
-    "channel": " 理財訓練營",
-    "channel_id": "UCxFsTg_sG0D_pG1T-GezhhQ",
-    "description": "黃金#金價#黃金價格#黃金走势#現貨價格#投資#理財今天的分享希望能為你帶來啟發，如果你覺得這段內容對你有所幫助，請點讚   ...",
-    "published_at": "2026-07-12T10:00:31Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "y4g9P71EOGk",
-    "title": "日経平均 来週どうなる？大口の狙いをSMC×VWAPで完全分析",
-    "channel": "ZEN【的中率86%のファンダ職人】",
-    "channel_id": "UCpzaOudKLdNv94RUpFStljA",
-    "description": "日経平均の今後はどうなるのか。 今回の動画では、日経平均をテーマに、SMC（スマートマネーコンセプト）とVWAPを使って、 ...",
-    "published_at": "2026-07-12T13:21:20Z",
-    "keyword": "テクニカル分析"
-  },
-  {
-    "video_id": "nT18f-LLYjg",
-    "title": "How to Read Charts on Trading 212 (Technical Analysis Guide)",
-    "channel": "How to Easy",
-    "channel_id": "UC1akfquaRr6DO0g2DqwVtwg",
-    "description": "How to Read Charts on Trading 212 (Technical Analysis Guide) Hey guys, thanks for watching this video about how to read and ...",
-    "published_at": "2026-07-12T12:55:22Z",
-    "keyword": "テクニカル分析"
-  },
-  {
-    "video_id": "DrzPdg5Qt3s",
-    "title": "Bitcoin Rejected After Liquidity Grab | Is a Bigger Drop Coming?",
-    "channel": "Shah Faisal Shah",
-    "channel_id": "UCtwH2mwok-jdRCVTeZAzwow",
-    "description": "VIP Paid Signals Group: https://t.me/cnmarmy_bot Get my book \"How to Invest in Crypto\" on Amazon: ...",
-    "published_at": "2026-07-12T12:09:20Z",
-    "keyword": "テクニカル分析"
-  },
-  {
-    "video_id": "LHtO8M7IrLw",
-    "title": "日本株破。中東情勢悪化で日経平均木端微塵か⁉AI半導体株どうなる",
-    "channel": "Sho's投資情報局",
-    "channel_id": "UCK9Pl6bbWqMC_x7IDca2tIg",
-    "description": "「6か月20％オフ」のメンバークーポンを7/15まで限定で配布します。 MEDIABLEのVIP、プラチナプランが対象です。",
-    "published_at": "2026-07-12T14:36:50Z",
-    "keyword": "テクニカル分析"
-  },
-  {
-    "video_id": "MuSNKko13BY",
-    "title": "【FX投資報告】含み損−649万円｜GPIF vs 戦争【ドル円ショート】",
-    "channel": "ユノーチェ【新時代の投資戦略】",
-    "channel_id": "UCk6ar6q2_DFTLHVxr1f8uew",
-    "description": "今週の投資報告です！ #投資報告 #FX #爆損 #含み損 #資産運用 #為替 #ドル円.",
-    "published_at": "2026-07-12T13:09:12Z",
-    "keyword": "投資戦略"
-  },
-  {
-    "video_id": "ZwEdaAzBQV8",
-    "title": "This is How Much I Make Trading Stocks Full-Time",
-    "channel": "Zed Monopoly",
-    "channel_id": "UC8xA7gUauoxf0HTfcdiHCOQ",
-    "description": "In this video I will explain to beginner traders whether stock buyers or day trader's how much you actually make a year as a full ...",
-    "published_at": "2026-07-12T14:39:52Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "EuDoqCR0wdE",
-    "title": "日銀短観、企業物価、態度指数、勤労統計等見る回",
-    "channel": "株のプラスアルファを探すチャンネル",
-    "channel_id": "UC0sKeBXCIA_gxRy0j9UICKg",
-    "description": "投資 #日本株 #株式投資.",
-    "published_at": "2026-07-12T14:23:13Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "j-H474bkMOQ",
-    "title": "Managing the 3.8% Net Investment Income Tax",
-    "channel": "The Strategic Investor",
-    "channel_id": "UCHVAj3zGXDcvfUjnk4kRwTw",
-    "description": "This comprehensive Net Investment Income Tax analysis provides a deep dive into strategies for minimizing your tax liabilities on ...",
-    "published_at": "2026-07-12T13:57:42Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "AclcbgZtuGQ",
-    "title": "The Essential Guide to Stock Market Investing Basics",
-    "channel": "The Strategic Investor",
-    "channel_id": "UCHVAj3zGXDcvfUjnk4kRwTw",
-    "description": "These sources offer a foundational guide to stock market investing, explaining that shares represent fractional ownership in a ...",
-    "published_at": "2026-07-12T13:58:24Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "wxDdaeP3e_I",
-    "title": "【警告】SUMCO(3436)暴騰は罠か？",
-    "channel": "ないとの株式投資",
-    "channel_id": "UCXJpzdpcHPaeIOyhyTm2TNA",
-    "description": "半導体素材大手SUMCO(3436)の急騰を多角的に分析！現状の熱狂は構造的変化か一時的ノイズか？データに基づき、ないと流 ...",
-    "published_at": "2026-07-12T12:50:12Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "hOWf5gV2A-g",
-    "title": "Prop Firms EXPOSED: Insider Reveals Their Dark Psychology Tricks",
-    "channel": "Karen Foo (Britney)",
-    "channel_id": "UCcUOqJd-eRI3iVOBnPFpNdw",
-    "description": "Dark side of prop trading firms people don't tell you. As a prop firm insider who has worked in the prop trading industry for many ...",
-    "published_at": "2026-07-12T12:00:06Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "4PbqaaZVnN4",
-    "title": "馬渕さん問題についてJINさんナマ参加で激論で神回に？！〜【祝WBS出演】ますます羽ばたく5億円ママ投資家ちょる子と株ライブ",
-    "channel": "田端大学　投資学部",
-    "channel_id": "UC7sEB_ylMuHJD4TjF4Ag1nw",
-    "description": "処女作は11万部突破！！でとどまるところを知らない快進撃を続けるちょる子先生とライブで話せるのは株ライブだけ！ 株価指数 ...",
-    "published_at": "2026-07-12T13:27:24Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "3MYGOAJA3xY",
-    "title": "クロプー予報 | Today&#39;s Hot 30",
-    "channel": "クロプー投資術 | メンタルやられない株式投資 / 需給の歪みを買い場に変える",
-    "channel_id": "UCL95gvnwd-5qfmhkN2zll1g",
-    "description": "毎日21時から翌朝9時まで配信。当日の売買内訳データや、空売り比率などから翌日以降の値動きを統計上の確率でお伝えする ...",
-    "published_at": "2026-07-12T13:12:59Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "01oNpBGiP3Q",
-    "title": "07/12【雑談ライブ】毎週日曜日は雑談ライブ！株以外のこともしゃべりますｗ",
-    "channel": "スイングトレード日本株チャンネル♮🛫",
-    "channel_id": "UCLnjm4N82uOHW5XPCkDEJ6Q",
-    "description": "07/12【雑談ライブ】毎週日曜日は雑談ライブ！株以外のこともしゃべりますｗ はじめまして、きてくれてありがとう！ チャート ...",
-    "published_at": "2026-07-12T12:13:15Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "NNYkZC9ar0Q",
-    "title": "U.S. Stock Market Could Take Down the Global Economy — Gold’s Big Moment? | Peter Grandich",
-    "channel": "Wealth Building Blueprint – Vladyslav Grabarskyy",
-    "channel_id": "UC0pIc7QwVo3zZ79H_AIBbJQ",
-    "description": "Wall Street veteran Peter Grandich joins me for an urgent macroeconomic interview on the U.S. stock market, passive investing ...",
-    "published_at": "2026-07-12T11:53:36Z",
-    "keyword": "株式投資"
-  },
-  {
-    "video_id": "jlUYa8wGbWE",
-    "title": "投資の勉強だけして3年間、一度も買わなかった男の末路ｗｗｗ",
-    "channel": "にちゃんねるのタメになる話",
-    "channel_id": "UCcuBQhb2P-_Nj-CHTmJmqFw",
-    "description": "投資の勉強は完璧なのに、3年間一度も買ったことがない——「来月からにしよう」を繰り返す「買わない系投資家」のあるある ...",
-    "published_at": "2026-07-12T14:25:04Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "Om78GH_xyRY",
-    "title": "【50代リアル】たった4日で資産激変？私の保有商品全公開　2026年7月6日から7月10日までの振り返りみんなのシストレと楽天証券で保有している商品一覧",
-    "channel": "50代から始めるリアル投資記録",
-    "channel_id": "UCC7IsksWaX4u8JHFaGIh-4A",
-    "description": "50代から始めるリアルな投資記録へようこそ！ 今回は、2026年7月6日〜7月10日までのわずか4日間の資産運用のリアルな変化を ...",
-    "published_at": "2026-07-12T14:20:22Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "0x4BUjxwmH0",
-    "title": "スペースXに17%投資！格安の宇宙ファンド「iFreeNEXT スペース・テック株インデックス」爆誕！",
-    "channel": "Fラン政経学部卒FP",
-    "channel_id": "UCj5ra4ddYuRZPwjeP6d0c3Q",
-    "description": "アホの子が賢いAIに「どちて、どちて？」と訊きまくるチャンネル 運用管理費用（信託報酬） 運用管理費用の総額は、日々の信託 ...",
-    "published_at": "2026-07-12T14:00:57Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "r-vvICRqTyM",
-    "title": "華爾街正偷偷拋售房產，美國樓市最大買家跑了！2026年究竟還能不能買房？ #美國投資 #美國地產 #美國買房 #美國租房#房地產#商業地產#美國房價#美國賣房#美国房市#华尔街",
-    "channel": "老郭聊地产",
-    "channel_id": "UCRDJ3GzrgAnOYzxsOiUMBxg",
-    "description": "美國房市正在發生一個重要變化：最大買家正在減少入場。 投資者購房量跌回十年前水平，部分熱門城市租金下降、現金流惡化。",
-    "published_at": "2026-07-12T13:58:50Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "RUdJKvh5eGA",
-    "title": "単元未満株フル活用、6月末のポートフォリオ",
-    "channel": "たまたまご【かぶミニ・S株など運用】",
-    "channel_id": "UCKislw4DtTmkMH3e41kxasw",
-    "description": "チャンネルテーマ――― 優待食事券株を単元未満コツコツと重ね、外食の充実させることを目標に、 奮闘してる動画です。",
-    "published_at": "2026-07-12T13:50:44Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "WLlr-7me0FU",
-    "title": "投資心法~我想告訴你一些會讓你感到不舒服，但卻很有用的事。人們在談論退休時，總是",
-    "channel": "蒙格投資心法",
-    "channel_id": "UCEfBqIWV5IvYYpfD5V67rZg",
-    "description": "你以為只要努力工作、穩步升遷，七位數存款就會自動出現在帳戶裡？   真相是，只有一小部分退休家庭真正達到一百萬美元。",
-    "published_at": "2026-07-12T13:31:36Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "GLznr-SNh4c",
-    "title": "米国株と米国経済を支える「一本の柱」｜AI投資・資金調達・レバレッジを図解",
-    "channel": "ニュースアーカイブ",
-    "channel_id": "UCScTXydzX9hBtH951188jxw",
-    "description": "米国株と米国経済を支える「一本の柱」――AI投資・資金調達・レバレッジがつながる市場構造を、一枚のイメージで図解します ...",
-    "published_at": "2026-07-12T13:18:08Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "3XuqH5khxwY",
-    "title": "[NotebookLM] AI投資筆記_台股週報_2026/7/12 #AI整理筆記 #投資筆記 #總經 #盤勢 #台股",
-    "channel": "AI生活靈感庫 | HEROS",
-    "channel_id": "UC4_6xoAUMYhSxwpLX3pF-iw",
-    "description": "AI Inspires Life，靈感讓生活更美好。 [靈感發想] 透過AI工具NotebookLM整理投資筆記。 資料來源主要取自於理財達人秀、下班 ...",
-    "published_at": "2026-07-12T13:15:39Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "fwOXJRZzHHk",
-    "title": "How Much Do You Need to Invest to Become a Millionaire?",
-    "channel": "Frugal First",
-    "channel_id": "UCnUfa-BH8UINJDdQGxIBRgQ",
-    "description": "How much do you actually need to invest to become a millionaire? In this podcast clip we break down how to estimate the amount ...",
-    "published_at": "2026-07-12T13:00:15Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "ihtvKwpeKEg",
-    "title": "【爆速で達成しろ】ここからお金がザクザク増えていく！資産1000万円から7000万円まで増やす方法について徹底解説します！",
-    "channel": "資産形成ラボ",
-    "channel_id": "UCrcNWY-jxkaZhrhti4tNfmg",
-    "description": "資産形成ラボへようこそ！ このチャンネルでは、資産形成・資産運用・投資・貯金・節約など、お金に関する知識を初心者にも ...",
-    "published_at": "2026-07-12T13:00:02Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "lKZjceHcg5A",
-    "title": "[NotebookLM] AI投資筆記_美股週報_2026/7/12 #AI整理筆記 #投資筆記 #總經 #盤勢 #美股",
-    "channel": "AI生活靈感庫 | HEROS",
-    "channel_id": "UC4_6xoAUMYhSxwpLX3pF-iw",
-    "description": "AI Inspires Life，靈感讓生活更美好。 [靈感發想] 透過AI工具NotebookLM整理投資筆記。 資料來源主要取自於CNBC、Motley Fool ...",
-    "published_at": "2026-07-12T13:00:25Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "MkRyQicGQJ4",
-    "title": "【最高益】無印良品が止まらない！良品計画の決算から読み解く「儲けの秘密」と明日からの投資戦略",
-    "channel": "エクスピ ch【リアル検証・分析と体験談】",
-    "channel_id": "UCsvSMtqoTGs737YHP9MxqXg",
-    "description": "さらに深い分析はNoteで公開中！】 https://note.com/tkg883/n/na6b166b2312a 無印良品を展開する「良品計画」の最新 ...",
-    "published_at": "2026-07-12T12:54:35Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "x513WnEj9Zg",
-    "title": "Human Capital: The Hidden Driver of Value Investing",
-    "channel": "InsightfulValue Official",
-    "channel_id": "UCCGy-Y5mS03nfbgIsSQ-OnA",
-    "description": "Why is human capital one of the most valuable assets a company can have? In this video, we explore how workforce quality, ...",
-    "published_at": "2026-07-12T12:48:17Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "fYsoRykJZCs",
-    "title": "Flexi Cap vs Multi Cap Explained | Which Mutual Fund Should You Choose?",
-    "channel": "Money Vs ME",
-    "channel_id": "UCn7hVmQG0LY2y80Sa0o0xgw",
-    "description": "Most investors think Flexi Cap and Multi Cap funds are interchangeable. They're not. A single SEBI rule changed how these two ...",
-    "published_at": "2026-07-12T12:30:13Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "RVHQJyekAnc",
-    "title": "TomLee也怕了？四大共識面臨破裂！為什麼日本銀行股暴漲，是美股科技股的剎風暴？",
-    "channel": "Ethan的財經筆記",
-    "channel_id": "UC_hA7w6qThDGw4RqdkLrYpg",
-    "description": "【Ethan重要聲明】本影片所有財務分析僅供個人研究分享，不構成投資建議。入市有風險，投資須謹慎。完整免責聲明詳見下方。",
-    "published_at": "2026-07-12T12:05:06Z",
-    "keyword": "投資"
-  },
-  {
     "video_id": "gI_QlSxRI6Y",
     "title": "&quot;No Bull Run for Bitcoin UNTIL this Happens” - Lyn Alden Bitcoin Interview",
     "channel": "EVERYDAY FINANCE",
     "channel_id": "UCrw9RX1PlfQkv57Jc2qm78A",
-    "description": "\"No Bull Run for Bitcoin UNTIL this Happens” - Lyn Alden Bitcoin Interview Founder of Lyn Alden Investment Strategy.",
+    "description": "\"No Bull Run for Bitcoin UNTIL this Happens” - Lyn Alden Bitcoin Interview\n\nFounder of Lyn Alden Investment Strategy. Fundamental investing with a global macro overlay. Finance/Engineering blended background.\n\n#LynAlden #Bitcoin #Ethereum\n --------------------------------------------------------------------------------\n\n📩 For business inquiries contact us at: businesseverydayfinance@gmail.com\n --------------------------------------------------------------------------------\n\nCredits: \n\nTitle: Lyn Alden: What Has to Happen Before Bitcoin Runs Again\nLink: https://youtu.be/lIg0G0z2KkY?si=huLKTrab3GMy97cl\nChannel: Natalie Brunell\n\n--------------------------------------------------------------------------------\n\nSubscribe here ---  Everyday Finance\n\n--------------------------------------------------------------------------------\n\nFINANCIAL DISCLAIMER This channel is intended to share tips and investment videos by experts. We DO NOT GIVE FINANCIAL ADVICE! Please consult a licensed financial advisor and do your own research before making any financial action.\n\nFAIR-USE COPYRIGHT DISCLAIMER Copyright Disclaimer Under Section 107 of the Copyright Act 1976, allowance is made for \"fair use\" for purposes such as criticism, commenting, news reporting, teaching, scholarship, and research. Fair use is a use permitted by copyright statute that might otherwise be infringing. Non-profit, educational, or personal use tips the balance in favor of fair use.\n\nWATCH OUT FOR SCAMMERS IN THE COMMENTS I will not contact you here or on other platforms. Scammerds are using my name and picture. I will not ask you to contact me, ask you for money or give you any contact info. Do not contact anyone in the comments.",
     "published_at": "2026-07-12T12:00:21Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "rd5qr9HtzkM",
-    "title": "【TOP4】市場で注目されている割安株 | #テスラ株全力ちゃんねるのタイツ @all_tsla",
-    "channel": "タイツの社会・経済分析チャンネル",
-    "channel_id": "UCcth0WX2EWNKPTipJTH3xMQ",
-    "description": "パートナーレベル限定でこれから期待できる個別株のレポート分析をしています。 https://www.youtube.com/@all_tesla/join 【本 ...",
-    "published_at": "2026-07-12T11:55:22Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "fxLf53t8HVI",
-    "title": "《投資攻防》-   港市反彈行得幾遠? 騰訊阿里巴巴港交所，重要位置話你知!!  海力士值追入!? #海力士 #阿里巴巴 #半導體 #騰訊  #增長股  @logicinvesttown​",
-    "channel": "Logic投資山莊 - 莊主頻道",
-    "channel_id": "UCDmmzz8LKWInHzbG3OQii-A",
-    "description": "留意每逢星期日的Logic 投資山莊-YouTube channel 莊主頻道, 《投資攻防》直播帶出一週重點及策略Logic投資山莊專 ...",
-    "published_at": "2026-07-12T14:46:43Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "6aLTGbbiC9U",
-    "title": "AIを使った投資で1億稼ぐチャレンジ #6 (012)",
-    "channel": "カワウソのAIラジオ",
-    "channel_id": "UC7Ljv_czsbXAfll8kwtSRXA",
-    "description": "AIエンジニアがAIやプログラミングについて語りたいことを適当に語るチャンネルです。",
-    "published_at": "2026-07-12T14:45:14Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "lBrFEFffBXg",
-    "title": "【ワールドエンドエコノミカ / WORLD END ECONOMiCA #15】 投資がテーマのビジュアルノベルゲーム がちのまじの初見プレイ",
-    "channel": "すーぷーのマルチクリエイトちゃんねる",
-    "channel_id": "UC6I5moeQIELHN8qi_6UTqbg",
-    "description": "投資がテーマのビジュアルノベルゲームです。",
-    "published_at": "2026-07-12T14:41:54Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "qwe-HCE3EiU",
-    "title": "聯儲局最終警告，AI推升通脹，加息升溫，股市大輪動正式啟動｜Mila Yuen 投資日常",
-    "channel": "Mila Yuen 投資日常",
-    "channel_id": "UC4G8Si5IBGy9k_1Oo04DMVg",
-    "description": "報名免費分享會： http://bit.ly/milayuenwhatsapp 加入免費Whatsapp，接收Mila最新財經分析： https://bit.ly/milayuenchannel ...",
-    "published_at": "2026-07-12T14:15:56Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "Z40ztk4S99M",
-    "title": "海外民運再次分裂，杜文找來投資砸百萬歐元搞反共媒體，聘請蔡霞當主編合作剛剛仨月雙方翻臉，杜文指責蔡霞是中央黨校的黨棍，蔡霞譴責杜文搞獨裁不尊重作者，盛雪支持杜文對蔡霞破口大罵，鄭旭光勸架認為雙方都有錯",
-    "channel": "北京侃爷口述历史 ",
-    "channel_id": "UCSEuC8NzKDIJDIicgMuzyWg",
-    "description": "",
-    "published_at": "2026-07-12T14:01:18Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "EGeF3vR487w",
-    "title": "AI通縮改寫加減息邏輯，新主席未必再為跌市包底，投資者兩個失敗致命原因！【HEA富｜郭釗】",
-    "channel": "Finsight ED",
-    "channel_id": "UCyp3lHCMB9DoVBewAzcTKYw",
-    "description": "樓市、投資、財務結構——我講我睇到的,你自己判斷。 我唔會叫你買咩、唔會俾貼士。我只係分享一個過來人點樣睇香港的結構性 ...",
-    "published_at": "2026-07-12T14:00:07Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT16M40S",
+    "view_count": "224"
   },
   {
     "video_id": "PK3_lAPKY8M",
     "title": "查理芒格七大投資心法拆解 建立複利思維 打造長期財務護城河｜理財觀念升級",
     "channel": "商見",
     "channel_id": "UCnoYwiTk0IMcjO9GDem6vzA",
-    "description": "本片以查理芒格的投資視角出發，系統拆解七條核心投資心法，包含反向思考、能力圈、跨學科心智格柵、護城河、長期持有、安全 ...",
+    "description": "本片以查理芒格的投資視角出發，系統拆解七條核心投資心法，包含反向思考、能力圈、跨學科心智格柵、護城河、長期持有、安全邊際與信譽複利，透過經典商業案例分析財富積累的底層邏輯，探討人性弱點對投資決策的影響，協助觀眾建立理性的長期理財觀念。內容僅為個人觀點分享，適合對投資理財、財務規劃有興趣的觀眾參考。\n# 查理芒格 #投資理財 #複利思維 #財務自由 #資產配置\n\n\n免責聲明：本頻道所有內容僅供教育與娛樂用途，不構成任何投資建議、財務顧問或交易推薦。投資有風險，入市需審慎，任何投資決策請自行評估風險並諮詢專業人士。本頻道不就任何投資損益承擔責任。",
     "published_at": "2026-07-12T13:58:43Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT1H6M2S",
+    "view_count": "104"
   },
   {
     "video_id": "2HeS9o26VmY",
@@ -780,124 +28,97 @@
     "channel_id": "UCqMpaGkLSJMwTYJtskpBTcw",
     "description": "本片從巴菲特的財富曲線切入，客觀拆解複利指數增長的底層邏輯，分析市場風險的不可預測性，分享反向避錯思維與現金緩衝的 ...",
     "published_at": "2026-07-12T13:59:03Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "",
+    "view_count": ""
   },
   {
     "video_id": "cRgo-bnJ-9o",
     "title": "【PBR1.3倍の異常放置】生成AI地方分散で大化けする「トーエネック(1946)」を徹底分析！きんでん・関電工・オルガノ等7銘柄の5年期待リターン比較ランキングも公開",
     "channel": "株クックチャンネル",
     "channel_id": "UCR6PmMqTEjFJrQtkDSJE5ag",
-    "description": "ご視聴ありがとうございます！ 今回は、株式市場で今、中長期投資家から熱い視線を浴びている隠れた超本命インフラ銘柄「 ...",
+    "description": "ご視聴ありがとうございます！\n今回は、株式市場で今、中長期投資家から熱い視線を浴びている隠れた超本命インフラ銘柄「トーエネック（1946）」について、機関投資家レベルのディープな視点から徹底的に解説します。\n生成AIの爆発的普及の裏で起きている「電力大消費時代」。\nデータセンターの地方分散化、老朽化した電力系統の更新、EV充電器、再生可能エネルギーといった国策メガトレンドの交差点に君臨する同社の、知られざる強みと大復活のシナリオを解き明かします。\nさらに、電気工事大手5社（きんでん、関電工、クラフティア、中電工、ユアテック）との徹底比較に加え、半導体・AIインフラの真の本命であるオルガノ、メックを交えた「5年保有期待リターンランキング」も大公開！\n中長期で確実かつ大きなリターンを狙いたい投資家は必見の内容です。ぜひ最後までじっくりとご覧ください！\n📌 目次（タイムスタンプ）\n00:00 【導入】AIゴールドラッシュの裏にある超本命インフラ銘柄とは？\n01:49 【現状分析】トーエネックの事業内容と最高益決算の真実\n06:20 【成長シナリオ】生成AIと地方分散型データセンターの大波\n10:25 【国策需要】限界に達した日本の電力インフラ更新と再エネ接続\n12:35 【業績分析】赤字からの劇的V字回復と驚異の利益率改善\n16:09 【競合比較】きんでん・関電工・クラフティア等との徹底対比\n19:35 【財務分析】莫大なキャッシュ創出力と大増配への方針転換\n21:59 【バリュエーション】PER11倍・PBR1.3倍の異常な放置状態\n23:51 【2030年試算】売上3250億円・EPS240円への成長ロードマップ\n25:53 【リスクと懸念】建設資材高騰と人手不足「2024年問題」\n28:41 【目標株価】2028年予測：強気・中立・弱気の3大株価シナリオ\n31:47 【期待リターン順】オルガノ、メック、トーエネック等7銘柄徹底比較\n38:46 【投資戦略】中長期投資家が今ポートフォリオに組み込むべき理由\n💡 この動画で学べること\n・なぜAIゴールドラッシュで「トーエネック（1946）」が最強のツルハシ銘柄になるのか？\n・中部電力グループとの蜜月関係がもたらす、他社が絶対に侵入できない「強固な堀（モート）」\n・データセンター誘致において「東海地域（中部地方）」が急浮上している構造的理由\n・営業利益率7.9%へのパラダイムシフトと、目安配当性向40%（増配）への資本政策大転換\n・オルガノ、メック、クラフティア、トーエネック、関電工、きんでん、中電工を「5年間保有」した場合のプロ視点期待リターンランキングと詳細な選定理由\n📊 比較分析した主な銘柄\n・トーエネック (1946)\n・関電工 (1942)\n・きんでん (1944)\n・クラフティア（旧九電工） (1959)\n・中電工 (1941)\n・オルガノ (6368)\n・メック (4971)\n🔔 チャンネル登録＆高評価をよろしくお願いいたします！\n今後の調査・分析の大きな励みになります。\n「この銘柄についても分析してほしい！」「ここが気になった！」など、皆様からのコメントも心よりお待ちしております！\n#トーエネック #きんでん #関電工 #クラフティア #オルガノ #メック #日本株 #高配当株 #バリュー株 #再生可能エネルギー #データセンター #生成AI #国策銘柄 #株式投資 #中長期投資 #企業分析\n※免責事項\n本動画は、該当企業に関する一般的な情報提供および教育を目的として作成されたものであり、特定の有価証券の購入や売却、投資活動を勧誘または推奨するものではありません。投資に関する最終意思決定は、ご自身の判断と責任において行っていただけますようお願いいたします。",
     "published_at": "2026-07-12T13:49:28Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT39M50S",
+    "view_count": "22"
   },
   {
     "video_id": "yUeFB-1Nu1Q",
     "title": "台股高檔震盪　動輒千點上下　基金投資人除了會買也要懂賣？　下半年怎樣操作可以避險又放大獲利？｜財富新鏡界｜#鏡電視綜合台",
     "channel": "鏡電視綜合台",
     "channel_id": "UCyQZ9wSviiQDqB2dpATlSjg",
-    "description": "全球AI投資熱潮持續推升台美日韓股，台股高檔震盪，盤面也開始分歧，槓桿型商品與高股息ETF同步放量，顯示市場一邊追逐 ...",
+    "description": "全球AI投資熱潮持續推升台美日韓股，台股高檔震盪，盤面也開始分歧，槓桿型商品與高股息ETF同步放量，顯示市場一邊追逐成長、一邊尋求防守。市場波動加劇，投資人除了思考「要不要進場？」也要嚴肅面對更現實的問題，漲多要不要停利？不論接下來要恐懼或是貪婪，都得開始為可能的回檔儲備銀彈，基金投資人除了要學會怎麼買，是不是也應該要知道怎麼賣？當股災來臨時，除了佛系應對，還有哪些策略可以選擇？\n\n#財富新鏡界 #夏韻芬 #台股 #震盪 #記憶體 #股災 #台積電 #基金 #ETF #主動式ETF #市值型ETF #高股息 #共同基金 #波段操作 #記憶體 #AI #SK海力士 #槓桿ETF #正2 #現金 #股債平衡 #全球布局 #分散風險 #定期定額 #單筆進出 #基金教授 #朱岳中 #周岐原 #老周 #指數致富\n\n《財富新鏡界》每週日21:30-22:30鎖定86台鏡新聞\n--\n🪐訂閱《鏡綜合》YouTube 👉 http://pse.is/59enw2\n🪐訂閱《鏡新聞》YouTube 👉 https://reurl.cc/yrypNy\n🪐訂閱《鏡直播》YouTube 👉 https://pse.is/4w3gts\n🪐按讚《鏡新聞》Facebook 👉 https://pse.is/4vtfbr\n🪐加入《鏡新聞》官方Line 👉 https://lin.ee/4XsO8xi\n🪐追蹤《FUN大鏡》Instagram 👉 http://pse.is/58jcuj",
     "published_at": "2026-07-12T13:30:18Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT48M1S",
+    "view_count": "21048"
   },
   {
     "video_id": "x-B7uxcp8uA",
     "title": "台股高檔震盪　動輒千點上下　基金投資人除了會買也要懂賣？　下半年怎樣操作可以避險又放大獲利？｜財富新鏡界｜#鏡電視直播台",
     "channel": "鏡電視直播台",
     "channel_id": "UC242eFnHfgrFid9v4ejH5Fw",
-    "description": "全球AI投資熱潮持續推升台美日韓股，台股高檔震盪，盤面也開始分歧，槓桿型商品與高股息ETF同步放量，顯示市場一邊追逐 ...",
+    "description": "全球AI投資熱潮持續推升台美日韓股，台股高檔震盪，盤面也開始分歧，槓桿型商品與高股息ETF同步放量，顯示市場一邊追逐成長、一邊尋求防守。市場波動加劇，投資人除了思考「要不要進場？」也要嚴肅面對更現實的問題，漲多要不要停利？不論接下來要恐懼或是貪婪，都得開始為可能的回檔儲備銀彈，基金投資人除了要學會怎麼買，是不是也應該要知道怎麼賣？當股災來臨時，除了佛系應對，還有哪些策略可以選擇？\n\n#財富新鏡界 #夏韻芬 #台股 #震盪 #記憶體 #股災 #台積電 #基金 #ETF #主動式ETF #市值型ETF #高股息 #共同基金 #波段操作 #記憶體 #AI #SK海力士 #槓桿ETF #正2 #現金 #股債平衡 #全球布局 #分散風險 #定期定額 #單筆進出 #基金教授 #朱岳中 #周岐原 #老周 #指數致富\n\n《財富新鏡界》每週日21:30-22:30鎖定86台鏡新聞\n--\n鏡電視推出個人廣告囉！\n讓你也能成為廣告主Show Yourself👉https://mnews.oen.tw/\n--\n《鏡好買》電商平台全新上線🔥\n鏡好買是鏡電視全新推出的官方選物平台，精選日常生活中真正好用、安心、有品質的商品，從美食、生活用品到居家好物，幫你把關品質好生活❤️\n現在加入就送購物優惠券👉 https://lihi.cc/keGMC\n--\n嚴選🔸鏡好買MirrorLife🔸 https://lihi.cc/keGMC\n訂閱🔹鏡新聞YouTube🔹https://reurl.cc/yrypNy\n訂閱🔹鏡電視直播台YouTube🔹https://pse.is/4w3gts\n訂閱🔹鏡電視綜合台YouTube🔹http://pse.is/59enw2 \n按讚🔹鏡新聞Facebook🔹https://pse.is/4vtfbr\n追蹤🔹不要逼主播 IG🔹https://www.instagram.com/mlive_dontpushme/ \n追蹤🔹鏡新聞Instagram🔹https://pse.is/4wbtdv\n追蹤🔹鏡新聞Threads🔹https://reurl.cc/OYd219\n追蹤🔹鏡新聞X🔹https://reurl.cc/RYAK6z\n加入🔹鏡新聞官方Line🔹https://lin.ee/4XsO8xi",
     "published_at": "2026-07-12T13:30:22Z",
-    "keyword": "投資"
-  },
-  {
-    "video_id": "ncc4nNE8AwE",
-    "title": "台股高檔震盪　動輒千點上下　基金投資人除了會買也要懂賣？　下半年怎樣操作可以避險又放大獲利？｜財富新鏡界｜#鏡新聞",
-    "channel": "鏡新聞",
-    "channel_id": "UC4LjkybVKXCDlneVXlKAbmw",
-    "description": "全球AI投資熱潮持續推升台美日韓股，台股高檔震盪，盤面也開始分歧，槓桿型商品與高股息ETF同步放量，顯示市場一邊追逐 ...",
-    "published_at": "2026-07-12T13:30:21Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT48M1S",
+    "view_count": "1263"
   },
   {
     "video_id": "Y72W2ptahBM",
     "title": "後編 投資詐欺【会社に突入凸】絶対   なわけね〜だろ",
     "channel": "日常ミステリー",
     "channel_id": "UCfFo1Mt05dGxvCC3zJRNl_Q",
-    "description": "この動画では、[動画のテーマ]に隠された驚きの真実と、その裏に潜む人間模様を解き明かします。ぜひ最後までご覧ください。",
+    "description": "この動画では、[動画のテーマ]に隠された驚きの真実と、その裏に潜む人間模様を解き明かします。ぜひ最後までご覧ください。高評価とチャンネル登録もお願いします！\n\n#日常ミステリー, #人間模様, #真相解明, ##もしも話, #心理学, #教訓, #驚きの結末, #裏社会, #事件簿, #現代社会",
     "published_at": "2026-07-12T13:00:28Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT22M33S",
+    "view_count": "58"
   },
   {
     "video_id": "4lLQK4WsPuw",
     "title": "クレーム不可😳閲覧推奨しません🙇‍♂️",
     "channel": "超集中投資家JTくんch",
     "channel_id": "UCOJVK2AcLBCttUlZSrCelOg",
-    "description": "無責任な願望を投稿するチャンネルです（投資は自己判断で） ◇リンク 【海運入門動画】 ・なぜ期待？",
+    "description": "◆無責任な願望を投稿するチャンネルです（投資は自己判断で）\n◆リンク\n【海運入門動画】\n　・なぜ期待？\n　　https://youtu.be/-tSx-pbbW3A\n　・期待される根拠計算\n　　https://youtu.be/dy-A4kpeOBo\n【カップWITHハンドル説明動画】\n　https://youtu.be/JPCKEKn5ECE\n【FBX】\n　https://fbx.freightos.com/\n【CCFI】\n　https://www.sse.net.cn/index/singleIndex?indexType=ccfi\n【絵で見てPER解説】\n　①https://studio.youtube.com/video/a_lhBiII_cM/edit\n　②https://www.youtube.com/watch?v=a_lhBiII_cM\n【JT君のTwitter】\n　@mrx7MPkQr8Fnrbe\n【投資の森さん（動画内紹介チャート)】\n　http://msm.to/Ai0pZ09\n＃海運,＃COVER,＃株,＃高配当,#カバー＃ANYCOLOR＃投資家,\n◆投資は自己責任でお願いします。",
     "published_at": "2026-07-12T12:48:32Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT26M48S",
+    "view_count": "1391"
   },
   {
     "video_id": "RHxdh-8eF80",
     "title": "How I&#39;m Investing £500 Into Crypto Today (Step-by-Step)",
     "channel": "365 Days of Silver",
     "channel_id": "UCL8fXEe9gziNVGlSJEMyPow",
-    "description": "LIKE* and *HYPE* if you enjoyed the video! *Become a Channel Member* - *Join the 365 Club!* Support the channel and get ...",
+    "description": "*LIKE* and *HYPE* if you enjoyed the video!\n\n*Become a Channel Member* - *Join the 365 Club!*\nSupport the channel and get exclusive perks:\n\n👇🏻👇🏻👇🏻CLICK HERE TO JOIN👇🏻👇🏻👇🏻https://www.youtube.com/channel/UCL8fXEe9gziNVGlSJEMyPow/join\n\n⚠️ *Not Financial Advice*\nThis content is for educational & entertainment purposes only & should not be considered financial or investment advice. Always do your own research before making any investment decisions.\n\n*Thanks for watching and keep stacking!* \n\n—————————————————\n\n#crypto #investing #wealth",
     "published_at": "2026-07-12T12:30:06Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT21M29S",
+    "view_count": "165"
   },
   {
     "video_id": "zRBjtDCSH8Q",
     "title": "S P500が暴落をしても老後資金の取り崩しは大丈夫？この資産額あればリーマンショックでもOK",
     "channel": "資産アップ",
     "channel_id": "UCaDNOLY3izJu7C0L0nPoZzw",
-    "description": "当チャンネルは、資産形成・投資・FIREに関する情報を分かりやすくお届けすることを目的としています。 動画内で紹介する内容 ...",
+    "description": "当チャンネルは、資産形成・投資・FIREに関する情報を分かりやすくお届けすることを目的としています。\n\n動画内で紹介する内容は、情報提供および投資教育を目的としたものであり、特定の金融商品や投資手法の購入・売却を推奨するものではありません。\n\nシミュレーションやデータ分析は、過去の実績や公開情報をもとに作成しており、将来の利益や運用成果を保証するものではありません。\n\n投資には価格変動や元本割れなどのリスクがあります。最終的な投資判断は、ご自身の判断と責任においてお願いいたします。\n\n当チャンネルは、著作権・知的財産権・金融商品取引法などの関連法令を遵守し、正確で有益な情報発信に努めています。",
     "published_at": "2026-07-12T12:00:30Z",
-    "keyword": "投資"
+    "keyword": "投資",
+    "duration": "PT25M57S",
+    "view_count": "2819"
   },
   {
     "video_id": "fSEvFpPVeyU",
     "title": "NIO STOCK: 5 Signals You Need to Know Before Monday, July 13 🔔",
     "channel": "StockInvest.us",
     "channel_id": "UCCWXov3PHr0kX9WG543svBw",
-    "description": "We hold a negative evaluation for NIO stock. No stop-loss is set, why? Let's take a closer look to its technical analysis. ▪️ Check ...",
+    "description": "We hold a negative evaluation for NIO stock. No stop-loss is set, why? Let's take a closer look to its technical analysis. \n  \n▪️ Check the most recent NIO analysis at: https://stockinvest.us/stock/NIO\n❓ How to Buy NIO stock? https://stockinvest.us/how-to-buy-nio-stock\n  \nWe go over the NIO Inc. stock and give our stock price prediction (NIO). Our NIO stock price analysis and stock price forecast on NIO for Monday, July 13, 2026\n  \n▪️ Join us:\nX: https://twitter.com/StockInvestUS\n\n▪️ Disclaimer: We remind you that trading involves a high risk of losing money and that you should speak with a financial advisor before buying or selling any securities. You should not base your investment decision upon StockInvest.us. By using the information, you agree and are held liable for your own investment decisions.\n  \n© 2026 StockInvest.us\n  \n#NIO\n#TopStocks\n#StocksToBuy",
     "published_at": "2026-07-12T15:15:31Z",
-    "keyword": "テクニカル分析"
-  },
-  {
-    "video_id": "R6x1egvrvdo",
-    "title": "CAN SPY HIT $800 BEFORE A CORRECTION?",
-    "channel": "Money Making Market",
-    "channel_id": "UCvSkR2ipkO_UpyDdEgvCU6g",
-    "description": "Weekly Ranges and Market Hours updates: https://patreon.com/MoneyMakingMarket FULL TECHNICAL ANALYSIS COURSE: ...",
-    "published_at": "2026-07-12T14:44:56Z",
-    "keyword": "テクニカル分析"
-  },
-  {
-    "video_id": "--oHXdGolbI",
-    "title": "工作機械受注が過去最高！DMG森精機をAIが徹底分析",
-    "channel": "株っきゃないのAI分析ch【元大手証券マンの個別株解説】",
-    "channel_id": "UC7XiTBrX31L8gMx6zOPqWMg",
-    "description": "無料トライアルの登録はこちら：https://ifaiai.jp/?utm_source=youtube&utm_medium=social&utm_campaign=signup 私が動画で ...",
-    "published_at": "2026-07-12T14:39:17Z",
-    "keyword": "テクニカル分析"
-  },
-  {
-    "video_id": "v2H9j0H30-s",
-    "title": "CPI Week Strategy  SPY, QQQ &amp; IWM Technical Analysis July 13–17",
-    "channel": "Money Spence ",
-    "channel_id": "UCXK9vku1ar6Jku7FGfSjIUQ",
-    "description": "",
-    "published_at": "2026-07-12T15:32:27Z",
-    "keyword": "テクニカル分析"
-  },
-  {
-    "video_id": "XQ1HDyji8B0",
-    "title": "キオクシアから資金逃避！？需給改善で来週仕込む鉄板高配当株と即興銘柄分析【7月12日】",
-    "channel": "株の銘柄分析YouTuber【かつを】かたひじはらずに投資する",
-    "channel_id": "UCzD2tUZI0Yag0suFLn65rSw",
-    "description": "NEW!!かつをのオプション研究室【日本株】 https://www.youtube.com/channel/UCGUIpRkyXvTf8zWp2bIpNHA ライブのご視聴 ...",
-    "published_at": "2026-07-12T16:17:33Z",
-    "keyword": "銘柄分析"
+    "keyword": "テクニカル分析",
+    "duration": "PT11M35S",
+    "view_count": "111"
   },
   {
     "video_id": "R-w_hlvnjJU",
