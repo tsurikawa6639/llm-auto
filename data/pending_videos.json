@@ -325521,5 +325521,950 @@
     "description": "いつもご視聴いただき、ありがとうございます。 **「億を目指す投資術」**では、日本株・米国株・ETF・高配当株・NISA・資産 ...",
     "published_at": "2026-09-26T00:00:01Z",
     "keyword": "投資"
+  },
+  {
+    "video_id": "3X71C_s0jJQ",
+    "title": "Why trading feels impossible",
+    "channel": "Kyle Kyzen",
+    "channel_id": "UC24aSPZU8k51f-b-vqtzOYw",
+    "description": "Kyzen shares technical analysis, updates, trade ideas, trading education, and more. Join Kyzen: https://kyzentrading.my/ ...",
+    "published_at": "2026-09-26T08:49:39Z",
+    "keyword": "テクニカル分析"
+  },
+  {
+    "video_id": "fcUzFUPhEAw",
+    "title": "Could GOLD Rebound Next Week?",
+    "channel": "CIG Global",
+    "channel_id": "UCP8iHNKUNalEdnCBOEz_ruw",
+    "description": "Create your Bybit account here: https://partner.bybitglobal.com/b/dautucrypto7 Gold Near Key Support: Recovery or Further ...",
+    "published_at": "2026-09-26T06:58:02Z",
+    "keyword": "テクニカル分析"
+  },
+  {
+    "video_id": "sKp8wCbLtbg",
+    "title": "日経平均など、テクニスコ、GSE、キオクシア、南都銀行、プロクレアHD、TERRADRONE",
+    "channel": "日本株ナビゲーターAの株式投資研究所",
+    "channel_id": "UCQk61ts0Dp8GLmA1Saizi7A",
+    "description": "株式投資最新情報 スイングトレード、デイトレード 日経平均および個別株について分析を行いました。 サムネはAIで作成してみ ...",
+    "published_at": "2026-09-26T08:00:20Z",
+    "keyword": "テクニカル分析"
+  },
+  {
+    "video_id": "skQI8f2hyJM",
+    "title": "【FXテクニカル分析】プロ視点のフォーメーション分析｜肝は出来高を意識",
+    "channel": "【FXをはじめるなら】yenzo market",
+    "channel_id": "UCk-Jlsfh0cIfTTbB6U5xMaA",
+    "description": "【初月無料】オンラインサロンで指標分析やイベント解説を行っています https://community.camp-fire.jp/projects/view/662257 ...",
+    "published_at": "2026-09-26T08:00:18Z",
+    "keyword": "テクニカル分析"
+  },
+  {
+    "video_id": "TTR-f13dejE",
+    "title": "【ドル円】強い上昇に下げ材料が入る｜この流れを崩せるのか？　#FX #ドル円 #usdjpy #テクニカル分析",
+    "channel": "FX研究家　ちりつも",
+    "channel_id": "UC59QmljwcLTry65r8d_mllA",
+    "description": "2026年9月26日（土）】 今週のドル円は、上昇方向のテクニカルを積み上げる展開が続く中、 金曜日に片山財務相による円高方向 ...",
+    "published_at": "2026-09-26T07:00:17Z",
+    "keyword": "テクニカル分析"
+  },
+  {
+    "video_id": "2sQG_9LCuN4",
+    "title": "【カバー(5253)】好決算なのになぜ急落！？異常事態の裏側と『中長期目線での買い場』シナリオを徹底解説",
+    "channel": "KABU-LOG",
+    "channel_id": "UC4MwZv2UcDdiJx-pfaYxiuQ",
+    "description": "KABU-LOGチャンネルへようこそ！ 2026年9月26日 業績の上方修正と過去最高益ペースの進捗が発表されたにもかかわらず、 ...",
+    "published_at": "2026-09-26T08:30:07Z",
+    "keyword": "決算分析"
+  },
+  {
+    "video_id": "_HxYThHj0wo",
+    "title": "【NTT】ドコモ値上げで株価どうなる?!180円突破の成長戦略【日本株テンバガー候補2026】",
+    "channel": "テンバガー加藤 -日経完全解説-",
+    "channel_id": "UCWtXuJ0Fa9nqMBx_N8Tqnpg",
+    "description": "動画概要 NTTドコモが発表した料金改定が親会社であるNTTの業績や株価にどのような影響を与えるかを詳しく分析しています。",
+    "published_at": "2026-09-26T08:15:38Z",
+    "keyword": "投資戦略"
+  },
+  {
+    "video_id": "rRRBhePOeho",
+    "title": "サテライト個別銘柄投資戦略 第6回｜First Solar(FSLR)1日-10%急落の理由",
+    "channel": "s.o",
+    "channel_id": "UC5wCvpLoPo8hq7CI3c50mFQ",
+    "description": "【第6回】旭化成・レーザーテック・イビデン(日本株)、ナイキ・ペプシコ・マクドナルド・コレジウム薬品・ファースト ...",
+    "published_at": "2026-09-26T07:46:42Z",
+    "keyword": "投資戦略"
+  },
+  {
+    "video_id": "-xiddPhqXMY",
+    "title": "サテライト個別銘柄投資戦略 第7回｜NuScale(SMR)売上-81%、要警戒続く",
+    "channel": "s.o",
+    "channel_id": "UC5wCvpLoPo8hq7CI3c50mFQ",
+    "description": "【第7回】クレハ・大阪チタニウムテクノロジーズ・三菱重工業(日本株)、BWXテクノロジーズ・NuScale Power・ライト ...",
+    "published_at": "2026-09-26T07:46:43Z",
+    "keyword": "投資戦略"
+  },
+  {
+    "video_id": "7Z974_Pnuvc",
+    "title": "サテライト個別銘柄投資戦略 第5回｜Intuit(INTU)1ヶ月-17%、AI代替リスクの行方",
+    "channel": "s.o",
+    "channel_id": "UC5wCvpLoPo8hq7CI3c50mFQ",
+    "description": "【第5回】2周目のサイクル開始です。THK・キヤノン・クラレ(日本株)、AppLovin・Intuit・Salesforce・Bloom Energy・GitLab・ ...",
+    "published_at": "2026-09-26T07:46:40Z",
+    "keyword": "投資戦略"
+  },
+  {
+    "video_id": "VTOsL4gK17E",
+    "title": "サテライト個別銘柄投資戦略 第8回｜MicroStrategy 1週間+22%急伸",
+    "channel": "s.o",
+    "channel_id": "UC5wCvpLoPo8hq7CI3c50mFQ",
+    "description": "【第8回】ナブテスコ・信越化学工業・古野電気(日本株)、Life360・UiPath・SoFi・IonQ・MicroStrategy・Agnico Eagle ...",
+    "published_at": "2026-09-26T07:46:45Z",
+    "keyword": "投資戦略"
+  },
+  {
+    "video_id": "5d_zplXIXhc",
+    "title": "レバレッジ型（ブル・ベア）の投資信託・ETFを買ってはいけない3つの理由",
+    "channel": "投資成長研究所",
+    "channel_id": "UCNsDrfZy-LMJkAryprcY24g",
+    "description": "このチャンネルでは、個別株投資を中心に、資産を大きく成長させるための実践的な投資戦略や企業分析をわかりやすくお届けし ...",
+    "published_at": "2026-09-26T07:00:28Z",
+    "keyword": "投資戦略"
+  },
+  {
+    "video_id": "XzrPyNVi7AY",
+    "title": "【資産運用の王道】世界の常識はコアサテライト投資？「守りながら攻める」効率的な資産運用方法を投資家タイプ別に徹底解説",
+    "channel": "中村仁の株式投資アカデミー",
+    "channel_id": "UCwzagUFTBACQx262RpRaYIA",
+    "description": "チャンネル説明文 ＼動画で学ぶ、賢い株式投資と資産形成／ 中村仁の株式投資アカデミーへようこそ！ 株式市場、米国株、 ...",
+    "published_at": "2026-09-26T06:30:35Z",
+    "keyword": "投資戦略"
+  },
+  {
+    "video_id": "XwqrS-GIpGE",
+    "title": "【決定】2026年の新NISAの投資戦略はこうします！S&amp;P500で続行か、年初一括投資はアリかも公開",
+    "channel": " バンクアカデミー",
+    "channel_id": "UCLaD9uMeTAHZNYKDS0Ltcag",
+    "description": "\"【超初心者向け】これ一冊で完全理解！新NISAの設定方法と失敗しない銘柄選び！     質問や気になった点はコメント欄に ...",
+    "published_at": "2026-09-26T08:33:37Z",
+    "keyword": "投資戦略"
+  },
+  {
+    "video_id": "-K24hQgoKaE",
+    "title": "【伝説の運用者】ピーターリンチ×バフェット｜ティリングハスト流「負けない投資」５原則【S&amp;P500超え】",
+    "channel": "投資スタディ【資産運用の勉強】",
+    "channel_id": "UC-mxlDKpsG5sHcaKwH8S0Iw",
+    "description": "\"【投資初心者向け】初心者でも分かる！資産を安全に増やすための基本ステップ     質問があれば気軽にコメント欄でどうぞ！",
+    "published_at": "2026-09-26T08:42:43Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "2Qb6EHEgvy8",
+    "title": "今買うべき日本株3選｜業績・株主還元・割安感で厳選",
+    "channel": "日本株先読み【清風】",
+    "channel_id": "UC7C1FjzHZxu6M0T0AWmJNXw",
+    "description": "相場に風起つ、清風は先へ。皆さんこんにちは、清風です。今回は「今買うべき日本株」をテーマに、三井ハイテック、 ...",
+    "published_at": "2026-09-26T08:43:38Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "VrP0bSF36Uk",
+    "title": "【金はまだ割安か】世界のマネーを金で裏付けると金価格はいくらになるのか⧸ ドル離れ ⧸ 金価格高騰 #金本位制",
+    "channel": "投資スタディ【資産運用の勉強】",
+    "channel_id": "UC-mxlDKpsG5sHcaKwH8S0Iw",
+    "description": "\"【投資初心者向け】初心者でも分かる！資産を安全に増やすための基本ステップ     質問があれば気軽にコメント欄でどうぞ！",
+    "published_at": "2026-09-26T08:43:01Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "q4S5QZ8Adh8",
+    "title": "【金利2.24%】オルカン積立を止めて国債に乗り換えるべき！？30年ぶりの高金利時代に損しない資産配分【元本保証 投資】",
+    "channel": "野崎恒一【初心者でもわかる株式投資】",
+    "channel_id": "UCpxHemXE8pVatDAMGjrVJGg",
+    "description": "【野崎の公式LINE】 https://lin.ee/zxYfED5 さらに深く、具体的な投資戦略や無料特典を受け取りたい方は、公式LINEへご登録 ...",
+    "published_at": "2026-09-26T08:15:04Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "NiYfuoVez-U",
+    "title": "【デイトレ1分足】飛び乗り急騰の罠！MACD×RSIで高値掴みとダマシを100%回避！天井を察知する技術【朝30分シリーズVol.6】",
+    "channel": "だおの株で勝つためのテクニカル攻略",
+    "channel_id": "UCJiSrgcjApPn84R-7w293_A",
+    "description": "勢いよく上がっているから飛び乗ったら、そこが天井だった…」 「VWAPを上に抜けたのに、直後に空中分解してドカンと急落 ...",
+    "published_at": "2026-09-26T08:00:05Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "lymRqR0yTBM",
+    "title": "日本から買えるベトナム投資信託、選ぶ前に見るべき3つのこと",
+    "channel": "ベトナム経済研究会【ベトテク太郎】",
+    "channel_id": "UC9NmuWQowpq78O5uaJGepyg",
+    "description": "【note】 ベトナム経済研究会 https://note.com/gonviet 無料記事：毎日更新 スタンダードプラン：月980円 ...",
+    "published_at": "2026-09-26T08:00:39Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "HxBUjTnMB1s",
+    "title": "【大逆転！FANG+に並ぶ】楽天SCHD、最高の分配と基準価額　この高配当投資信託の将来はどうなる？楽天・シュワブ・高配当株式・米国ファンド（四半期決算型）",
+    "channel": "投資トレンド研究所",
+    "channel_id": "UCMPnLi598iK33n8KmDupLhw",
+    "description": "投資信託・ETF大好きな「投資トレンド研究所」です。 【自己紹介】 ・30代サラリーマン ・目標1 →→40代でサイドFIRE ...",
+    "published_at": "2026-09-26T08:00:20Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "02RMr0V4bfI",
+    "title": "【急反発】三菱UFJに何が起きた？日銀利上げ観測と短期・長期チャートから見える「次のステージ」を徹底解説【8306】",
+    "channel": "KABU-LOG",
+    "channel_id": "UC4MwZv2UcDdiJx-pfaYxiuQ",
+    "description": "KABU-LOGチャンネルへようこそ！ 2026年9月26日 本日、東証プライム市場で前日比+3.95%の急反発を見せ、市場の主役に ...",
+    "published_at": "2026-09-26T08:00:35Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "4VNYVNBFEtY",
+    "title": "株価1000円以下！2倍を狙う日本株5選｜増益の裏側と買い場",
+    "channel": "投資家CAFE",
+    "channel_id": "UC4L1oeTXpYL6LHD7IX8R3OQ",
+    "description": "最新の株式情報とおすすめ銘柄を毎日発信 日本株の最新情報、市場分析、投資戦略を分かりやすく解説しています。",
+    "published_at": "2026-09-26T08:00:12Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "K9YB8-4UwpQ",
+    "title": "【9984】ソフトバンクグループ株の真実。1.7兆円調達とアーム連動相場の行く末を徹底解剖！",
+    "channel": "KABU-LOG",
+    "channel_id": "UC4MwZv2UcDdiJx-pfaYxiuQ",
+    "description": "KABU-LOGチャンネルへようこそ！ 2026年9月26日 本日は、市場で極めて激しい値動きを見せている「ソフトバンク ...",
+    "published_at": "2026-09-26T07:45:11Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "dJhS_62cWEg",
+    "title": "NVIDIAがAI投資の保証人？ データセンター建設ラッシュで「最後に損するのは誰」｜NEXT投資ワード",
+    "channel": "Stock Arena 株式投資の迷宮",
+    "channel_id": "UCFFY072qzjDnmC_uA65zhQQ",
+    "description": "AIデータセンターの建設競争が加速する中、巨額の投資資金はどのように集められ、誰がそのリスクを負うのでしょうか。Oracle ...",
+    "published_at": "2026-09-26T07:44:01Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "OuDkMcdg7eY",
+    "title": "【5016】最高益でなぜ下落？JX金属の裏で動く「機関投資家の空売り」と3500円の攻防【今後のシナリオ】",
+    "channel": "KABU-LOG",
+    "channel_id": "UC4MwZv2UcDdiJx-pfaYxiuQ",
+    "description": "KABU-LOGチャンネルへようこそ！ 2026年9月26日 ご視聴ありがとうございます！今回は、直近の市場で極めて異質な値動きを ...",
+    "published_at": "2026-09-26T07:30:06Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "xP4iNSM86vo",
+    "title": "【衝撃】メガ10からテスラ除外！新組入マイクロン交代劇の裏側を解説#136",
+    "channel": "会社の後輩に教える米国株",
+    "channel_id": "UCKEtTbzuRoWP4sGSfpWpEuw",
+    "description": "2026年9月のメガ10インデックス定期入替を解説！ なぜテスラが除外され、マイクロンが選ばれたのか？ 独自の自動選定ルールと ...",
+    "published_at": "2026-09-26T07:00:16Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "DrMiAplIWnE",
+    "title": "【利回り3%超＋連続増配】NTT「不労所得マシン」の真実！放置で資産が雪だるま式に増える！",
+    "channel": "長期投資仙人",
+    "channel_id": "UCi1F4e6XCxFIZKTjnWmnTXg",
+    "description": "安定した資産形成を目指す皆様、長期投資仙人のチャンネルへようこそ。 本日は、1株170円台から投資可能な日本を代表する ...",
+    "published_at": "2026-09-26T07:00:25Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "X0pSv1Hh_bs",
+    "title": "株価ほぼ半値でもPER49倍。イオン株1300円は本当に買い時なのか？",
+    "channel": "カブトと考える株とお金",
+    "channel_id": "UCu_ktLBCGsGz2uHaEaEZO4w",
+    "description": "イオンの株価は、2026年1月の年初来高値2542円から1300円前後まで下落し、ほぼ半値になりました。 ここまで下がれば、 ...",
+    "published_at": "2026-09-26T06:43:05Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "iw1zdyD7sG8",
+    "title": "個別株と投資信託、何が違うの？",
+    "channel": "ねことじーまの「投資、そこから聞いていい?」",
+    "channel_id": "UC7SBQevDWLvtCnF2gBLWkew",
+    "description": "投資信託なら、一つでいろいろな会社に投資できるものもあります。 それなら、わざわざ個別株を買う理由はあるのでしょうか。",
+    "published_at": "2026-09-26T06:00:18Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "l5_olF-AzV0",
+    "title": "【雑学】投資が怖い人ほど知ってほしい「株式投資」の本当の仕組み",
+    "channel": "暇つぶしには深すぎる雑学",
+    "channel_id": "UCnW7HkbURUSXI3f7VZFJyOQ",
+    "description": "株って結局ギャンブルじゃないの？」 「大切なお金を減らすくらいなら、銀行に預けておいた方が安心…」 投資に対して、そんな ...",
+    "published_at": "2026-09-26T05:58:47Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "f7wRiZzOG4w",
+    "title": "【保存版】株で絶対覚えておきたい「良い自社株買い」と「悪い自社株買い」",
+    "channel": "投資スタディ【資産運用の勉強】",
+    "channel_id": "UC-mxlDKpsG5sHcaKwH8S0Iw",
+    "description": "\"【投資初心者向け】初心者でも分かる！資産を安全に増やすための基本ステップ     質問があれば気軽にコメント欄でどうぞ！",
+    "published_at": "2026-09-26T08:43:20Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "MLrKssLNDRI",
+    "title": "【2025年最新】初心者から経験者までよく分かるネット証券会社の選び方・使い分け",
+    "channel": "投資スタディ【資産運用の勉強】",
+    "channel_id": "UC-mxlDKpsG5sHcaKwH8S0Iw",
+    "description": "\"【投資初心者向け】初心者でも分かる！資産を安全に増やすための基本ステップ     質問があれば気軽にコメント欄でどうぞ！",
+    "published_at": "2026-09-26T08:42:19Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "vFa7UphKHKo",
+    "title": "【ベストセラー新刊】世界経済の「今」がわかる名著",
+    "channel": "投資スタディ【資産運用の勉強】",
+    "channel_id": "UC-mxlDKpsG5sHcaKwH8S0Iw",
+    "description": "\"【投資初心者向け】初心者でも分かる！資産を安全に増やすための基本ステップ     質問があれば気軽にコメント欄でどうぞ！",
+    "published_at": "2026-09-26T08:43:36Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "jKspMnN_07o",
+    "title": "【高配当株】四季報2026年４集秋号から選定‼️利益率が上昇した高配当の注目12銘柄【配当金】【不労所得】",
+    "channel": "サラリーマンKの高配当株投資で小遣いFIRE",
+    "channel_id": "UCOAweB2QsLp9WZwgtqO7Cng",
+    "description": "ご視聴いただきまして本当にありがとうございます！ 今回の動画では最高利回り５％！最新の四季報から！利益率改善度 ...",
+    "published_at": "2026-09-26T08:30:38Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "1LQgwLwsCc8",
+    "title": "【30代40代必見】新NISAで月5万円の不労所得！？ぶっちゃけ余裕です！",
+    "channel": "『資産形成学』30,40代の賢い資産の作り方",
+    "channel_id": "UCvn_QrIi6fCjRJeBuCWbkXQ",
+    "description": "僕とLINEでつながりませんか？】 ↓分部彰吾とつながる↓ https://lin.ee/wzktwcX ...",
+    "published_at": "2026-09-26T08:30:00Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "u9XCoyXkLrk",
+    "title": "【緊急解説】CXMTがヤバい？SOX指数が弱気相場入り・キオクシアが50％の大暴落…このまま保有して大丈夫か？【NASDAQ100⧸SOX⧸SMH⧸DRAM⧸200A】",
+    "channel": "米国株・半導体投資まとめ",
+    "channel_id": "UC9jCzhdobnrpf9dSHaHDPBA",
+    "description": "cxmt #資産運用 #ETF #米国株 #日本株 #オルカン #SP500 #NASDAQ100 #高配当株 #半導体株 #ゴールド投資 #株価暴落 #投資 ...",
+    "published_at": "2026-09-26T08:15:25Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "XvmzdvpAb-c",
+    "title": "地方銀行の今後の業界見通しと18社それぞれの目標株価や将来の配当利回りについてを総括して解説します",
+    "channel": "投資禅【Forget the money】",
+    "channel_id": "UCwARheOsV5giy3q56bPqlDg",
+    "description": "もっと株式投資の理解を深めたい方はメンバーシップをご検討下さい↓ https://www.youtube.com/@toushizen/membership ☆投資 ...",
+    "published_at": "2026-09-26T08:00:28Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "HwyrprGyEPg",
+    "title": "【円高到来】スワップ投資は大損か？下落相場でも負けないFXスイングトレード戦略",
+    "channel": "【FXアカデミー】FX初心者に分かりやすく丁寧に",
+    "channel_id": "UCOik7AOLcFxX9wNJP3D1MCQ",
+    "description": "【PR】口座開設で最大10000円がもらえるタイアッププログラムを実施中↓↓ https://ad.mtrf.net/5dae53Dceda2XD48/cl/?",
+    "published_at": "2026-09-26T07:15:08Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "2HYWmWfznx4",
+    "title": "タナベコンサルティンググループ(9644)/マツオカコーポレーション(3611) 第143回個人投資家向けIRセミナー",
+    "channel": "ログミーFinance公式チャンネル",
+    "channel_id": "UCPArS25kEorU6cjzEa-7FUw",
+    "description": "当セミナーは登壇企業の提供です。 ☆今後のIRセミナー開催情報 ...",
+    "published_at": "2026-09-26T06:04:39Z",
+    "keyword": "株式投資"
+  },
+  {
+    "video_id": "gnr6MbZIDDg",
+    "title": "馮小剛回應《抓特務》虧本：自己很痛心，很對不起投資方；回應「",
+    "channel": "小小白的娛樂日報",
+    "channel_id": "UCxGPpb0203WVzOPNxhn08Jg",
+    "description": "哈嘍大家好！ 這裡是#小小白的娛樂日報 每個人物背後，都有一段故事。 帶你一起走進人物背後的生活。 #秘探 #娛樂 #娛樂圈 ...",
+    "published_at": "2026-09-26T08:50:33Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "GXsoQ6_nUho",
+    "title": "❰獨家揭露犇亞證券 詐騙❱發現是假投資才驚醒，資金後續該如何正確處理？",
+    "channel": "Elisa Delacruz",
+    "channel_id": "UC0OQBbJVa0vfSlpkCStSgvQ",
+    "description": "被騙後不知道怎麼辦馬上聯絡反詐援助 Line：weety08。幫助查證與資金追討方向建議，協助您了解可採取的後續追回措施。 ❰獨家 ...",
+    "published_at": "2026-09-26T08:46:43Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "smgxFbbMezQ",
+    "title": "【週刊アクティブ】やはりここから上昇シナリオを狙っている某ファンド！ズボラ株投資",
+    "channel": "草食系投資家LoK Re:",
+    "channel_id": "UCxW8eO79brdkeqwTvO09sBg",
+    "description": "チャートマスター道場の詳細はこちら↓ https://chartmaster.club/ ◇ろっくの婚活事業詳細はこちら↓ ...",
+    "published_at": "2026-09-26T08:45:24Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "IsKJt0kno0s",
+    "title": "❰獨家揭露Neapolitan Mall 詐騙❱發現是假投資才驚醒，資金後續該如何正確處理？",
+    "channel": "Elisa Delacruz",
+    "channel_id": "UC0OQBbJVa0vfSlpkCStSgvQ",
+    "description": "被騙後不知道怎麼辦馬上聯絡反詐援助 Line：weety08。幫助查證與資金追討方向建議，協助您了解可採取的後續追回措施。 ❰獨家 ...",
+    "published_at": "2026-09-26T08:42:56Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "fq8wKDuG6fE",
+    "title": "❰獨家揭露MAJE 詐騙❱發現是假投資才驚醒，資金後續該如何正確處理？",
+    "channel": "Elisa Delacruz",
+    "channel_id": "UC0OQBbJVa0vfSlpkCStSgvQ",
+    "description": "被騙後不知道怎麼辦馬上聯絡反詐援助 Line：weety08。幫助查證與資金追討方向建議，協助您了解可採取的後續追回措施。 ❰獨家 ...",
+    "published_at": "2026-09-26T08:39:03Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "9ufBxn9Z6Rk",
+    "title": "【よくある質問】S&amp;P500とオルカンが最高値更新の今、新NISAで一括投資はナシ？",
+    "channel": " バンクアカデミー",
+    "channel_id": "UCLaD9uMeTAHZNYKDS0Ltcag",
+    "description": "\"【超初心者向け】これ一冊で完全理解！新NISAの設定方法と失敗しない銘柄選び！     質問や気になった点はコメント欄に ...",
+    "published_at": "2026-09-26T08:37:00Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "QA3zinyXx1Q",
+    "title": "【RCR】#6 円高って聞くけど投資に影響あるの？",
+    "channel": "住谷龍星",
+    "channel_id": "UCPvR3AGng24yx3ij3ZDLv6w",
+    "description": "",
+    "published_at": "2026-09-26T08:34:10Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "EMTILdkP_iQ",
+    "title": "❰獨家揭露瀚海數鏈詐騙❱發現是假投資才驚醒，資金後續該如何正確處理？",
+    "channel": "Elisa Delacruz",
+    "channel_id": "UC0OQBbJVa0vfSlpkCStSgvQ",
+    "description": "被騙後不知道怎麼辦馬上聯絡反詐援助 Line：weety08。幫助查證與資金追討方向建議，協助您了解可採取的後續追回措施。 ❰獨家 ...",
+    "published_at": "2026-09-26T08:33:58Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "jlE4QsAla-I",
+    "title": "❰獨家揭露PAN GOLD詐騙❱發現是假投資才驚醒，資金後續該如何正確處理？",
+    "channel": "Elisa Delacruz",
+    "channel_id": "UC0OQBbJVa0vfSlpkCStSgvQ",
+    "description": "被騙後不知道怎麼辦馬上聯絡反詐援助 Line：weety08。幫助查證與資金追討方向建議，協助您了解可採取的後續追回措施。 ❰獨家 ...",
+    "published_at": "2026-09-26T08:31:19Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "1fLg8LVxFU8",
+    "title": "8月投信基金規模16.44兆創新高!基金醫生端Q4三大投資錦囊!別被市場情緒牽著鼻子走 定期定額.定期不定額打造高獲利?【20260926(第4/4段)只要錢長大*鄭明娟(馮志源×朱岳中)】",
+    "channel": "非凡 股市現場",
+    "channel_id": "UCJcPWs0gpYMx_CghPdELUhw",
+    "description": "【股市維他命】資料一把抓https://www.youtube.com/channel/UCJcPWs0gpYMx_CghPdELUhw/join ○周六(09/26)只要錢長大企畫 ...",
+    "published_at": "2026-09-26T08:30:10Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "r4Aw94KVBFQ",
+    "title": "【最新】来週の日本株、リスクオン相場も雇用統計に注意。",
+    "channel": "トウシン | 日本株ちゃんねる",
+    "channel_id": "UClhsF9k783OGFLjK3SSjsAQ",
+    "description": "investing.com登録はこちら▽ https://www.investing-referral.com/toushin/ 【トウシン限定‼️】15%オフ紹介コード▽ 【toushin】 ...",
+    "published_at": "2026-09-26T08:30:16Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "i-ThGXthw-o",
+    "title": "あなたが買った瞬間に暴落し売った途端に急騰する理由とは？#株初心者 #迷信 #nisa #暴落 #暴騰",
+    "channel": "投資家ドクターKEIの資産運用術",
+    "channel_id": "UCH4ruDgpvozFNQVVqdFe2cg",
+    "description": "公式LINE登録で「新NISA初心者向けロードマップ」をプレゼント✨  ✨ 登録したらキーワード「NISA」と書いて送って下さい。",
+    "published_at": "2026-09-26T08:30:36Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "7XzA0033kEE",
+    "title": "❰獨家揭露OKX詐騙❱發現是假投資才驚醒，資金後續該如何正確處理？",
+    "channel": "Elisa Delacruz",
+    "channel_id": "UC0OQBbJVa0vfSlpkCStSgvQ",
+    "description": "被騙後不知道怎麼辦馬上聯絡反詐援助 Line：weety08。幫助查證與資金追討方向建議，協助您了解可採取的後續追回措施。 ❰獨家 ...",
+    "published_at": "2026-09-26T08:27:44Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "0ESVoE4QRxc",
+    "title": "❰獨家揭露三色球詐騙❱發現是假投資才驚醒，資金後續該如何正確處理？",
+    "channel": "Elisa Delacruz",
+    "channel_id": "UC0OQBbJVa0vfSlpkCStSgvQ",
+    "description": "被騙後不知道怎麼辦馬上聯絡反詐援助 Line：weety08。幫助查證與資金追討方向建議，協助您了解可採取的後續追回措施。 ❰獨家 ...",
+    "published_at": "2026-09-26T08:25:08Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "ABrI5Jj30Do",
+    "title": "❰獨家揭露Synapse Lattice詐騙❱發現是假投資才驚醒，資金後續該如何正確處理？",
+    "channel": "Elisa Delacruz",
+    "channel_id": "UC0OQBbJVa0vfSlpkCStSgvQ",
+    "description": "被騙後不知道怎麼辦馬上聯絡反詐援助 Line：weety08。幫助查證與資金追討方向建議，協助您了解可採取的後續追回措施。 ❰獨家 ...",
+    "published_at": "2026-09-26T08:22:54Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "JnAtZ8BpDN4",
+    "title": "ポンコツ投資日記　夏枯れの時期にスイングトレードで利確！　I made a profit from swing trading in the summer!",
+    "channel": "ポンコツ投資日記",
+    "channel_id": "UCzm7k17mhYtU-lDSPqOYaDg",
+    "description": "初めての夏枯れの相場で小型株にスイングトレードで挑戦！利益は少なくても貴重でした。During my first summer lull, I tried ...",
+    "published_at": "2026-09-26T08:24:26Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "VZbUpXN3LRE",
+    "title": "【古河電工・フジクラ・SBG】デイトレ＆スイングで1日+〇〇,〇〇〇円！？｜モメチン大学生 #1",
+    "channel": "【モメチン大学生】",
+    "channel_id": "UCA3q5a6scICCyPUGzPRv26w",
+    "description": "おはこんばんにちわ。モメチン大学生です。 ついに第1話、トレード始めました！ 動画投稿に関しては右も左も分かっていませ ...",
+    "published_at": "2026-09-26T08:20:03Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "12l8zh-7Rxw",
+    "title": "千檔台股基金大比拚 高息ETF近一季竄出?第三季以守代攻 第四季能續旺嗎?主動ETF持股太裸露 反成市場狙擊目標?怎麼追?【20260926(第3/4段)只要錢長大*鄭明娟(朱岳中)】",
+    "channel": "非凡 股市現場",
+    "channel_id": "UCJcPWs0gpYMx_CghPdELUhw",
+    "description": "【股市維他命】資料一把抓https://www.youtube.com/channel/UCJcPWs0gpYMx_CghPdELUhw/join ○周六(09/26)只要錢長大企畫 ...",
+    "published_at": "2026-09-26T08:20:09Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "XLDJRpovYik",
+    "title": "【大化けの初動か】データセクション(3905)に資金殺到！140億円の手付金がもたらす衝撃シナリオと潜むリスクを徹底解説",
+    "channel": "KABU-LOG",
+    "channel_id": "UC4MwZv2UcDdiJx-pfaYxiuQ",
+    "description": "KABU-LOGチャンネルへようこそ！ 2026年9月26日 本日の動画では、現在日本の株式市場で凄まじい熱狂を生み出している注目 ...",
+    "published_at": "2026-09-26T08:15:15Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "DrDlajD-EcQ",
+    "title": "【米国株 9/26】速報、AIが米政府サイトをハッキングし始めた",
+    "channel": "ばっちゃまの米国株",
+    "channel_id": "UCzZSnddt3xTL0V-ELJaMUFw",
+    "description": "PR. 僕が普段使っているセキュリティです：https://nordvpn.com/bacchama 出張先のWi-Fi、カフェ、ホテル、空港などの ...",
+    "published_at": "2026-09-26T08:15:28Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "zceccVBbojA",
+    "title": "投資家が確定申告をするかどうか判断する手順【特定口座・NISA別に解説】",
+    "channel": "はじめての投資チャンネル",
+    "channel_id": "UCr_Mvjg-sgQ1srkF9Ox7eQg",
+    "description": "【複数の投資口座をまとめて管理】マネーフォワード ME（無料プランあり）→ https://moneyforward.com/ 損益・配当・銀行残高 ...",
+    "published_at": "2026-09-26T08:00:03Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "VmE9uaQB42I",
+    "title": "【SNS型投資詐欺】2025年に1,834億円。有名人の広告からLINEの投資グループへ、が入口。「必ずもうかる」と言われた瞬間に詐欺。見分け方5つ",
+    "channel": "くらしぐらむ",
+    "channel_id": "UCcVcQO6JM826H24tkzNBMCQ",
+    "description": "2025年のSNS型投資詐欺とロマンス詐欺は15168件、被害額1834.3億円。1件あたり1213万円で、前の年から件数も被害額も4割 ...",
+    "published_at": "2026-09-26T08:00:28Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "vRdJdHPyx68",
+    "title": "【米中会談】「関税2ヶ月延長」の真実…！米中会談は材料出尽くし？金利5 1%下でのNASDAQ100・レバナス生存戦略』",
+    "channel": "ゼロから始める米国株生活",
+    "channel_id": "UCcMoyenUz2K2Lxci9TrxQ6Q",
+    "description": "【自己紹介・プロフィール】※「ゼロ株生活」 「ゼロ円から始める米国株生活」の【投資家】BeanSといいます(^^♪ タイトル ...",
+    "published_at": "2026-09-26T08:00:13Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "Y9kmFh9POWg",
+    "title": "利上げ後は上昇！【オルカン、S&amp;P500】",
+    "channel": "オルカン全力投資マン",
+    "channel_id": "UCX0e2DpLoO-DUnGz-lxVDAA",
+    "description": "利上げは一般的には株式相場に逆風と言われているが、実際のデータでは上昇傾向が強い！！ 0:00 オープニング 0:19 資産状況 ...",
+    "published_at": "2026-09-26T08:00:38Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "MsAosYS3fxw",
+    "title": "【4506_住友ファーマ】住友ファーマの復活は本物か？一時的な利益の先に成長基盤を築けるか",
+    "channel": "相場の答え合わせ",
+    "channel_id": "UCy1K33dXVGbW5vkfg3iDj3Q",
+    "description": "住友ファーマの再建を、米国事業や開発品の進展、利益の持続性から整理します。結論では、一時的な利益要因の後も利益の崖を ...",
+    "published_at": "2026-09-26T08:00:29Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "WIR1XCZIueg",
+    "title": "【純利益1兆円へ】伊藤忠商事が仕掛ける「ギア・チェンジ」とは？11年連続市場平均超えの王者が本気で買収・投資する未来を徹底解説",
+    "channel": "【投資ゆっくり解説】トシセンの決算・IR分析",
+    "channel_id": "UClkfmlXCcjgzaj9r8xUApgA",
+    "description": "伊藤忠商事が発表した「統合レポート2026」から、理念や精神論を完全排除。プロの投資家・アナリスト目線で「数字と資本政策 ...",
+    "published_at": "2026-09-26T08:00:35Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "rT5NzRbKDNk",
+    "title": "AIと本 要約【ロケット開発者と投資のプロが読み解くスペースX】小松伸多佳/後藤大亮/イーロン・マスク/日経BP",
+    "channel": "未熟なリバタリアンがAIソクラテスと思考実験してみた",
+    "channel_id": "UC0meQcO0Ov9HEc0OLTmHTYw",
+    "description": "本や映画、ゲームのブログ➡https://blues-book-blog.com/",
+    "published_at": "2026-09-26T07:56:04Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "Rjs6VC4Ua7w",
+    "title": "【9984 ソフトバンクG】フィジカルAI革命の「黒幕」！Armと74兆円規模の超生態系で世界を支配する投資戦略【株価・銘柄分析】",
+    "channel": "フリーターの投資日記",
+    "channel_id": "UCPPUaUC_VLq8gKPTGZ89AiA",
+    "description": "テクノロジーと株式市場の最前線を追いかける投資家の皆さん、こんにちは！ プロのアナリストが、今「フィジカルAI革命」の ...",
+    "published_at": "2026-09-26T07:45:20Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "4QUZVcwC3Y0",
+    "title": "【手芸】つまみ細工作ってみた/【投資】はじめての個別株取引",
+    "channel": "ふぃろぽんの人生折り返し",
+    "channel_id": "UCtEpH7SYhJ9a9FZ-Brn_Ntg",
+    "description": "昔趣味にしていたつまみ細工を久しぶりに作ってみました。便利なグッズも紹介しています。浴衣や着物にピッタリな髪飾りが ...",
+    "published_at": "2026-09-26T07:30:17Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "PtWo-EnBL4M",
+    "title": "AIファンド 今週の振り返りと来週の戦略｜勝者は？（クイン・デン・リサ）",
+    "channel": "AI Fund Lab",
+    "channel_id": "UCy6NxDvofyZYMcgy-Z5m2jA",
+    "description": "ローカルAIに日本株ファンドを仮想運用させる実験。9/21〜9/25 の週の振り返りと、来週の戦略です。 ・クイン：今週 -0.7%／ ...",
+    "published_at": "2026-09-26T07:13:28Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "AuWVIZ-OeNk",
+    "title": "【米国株,S&amp;P500】とんでもない情報が飛んできた。",
+    "channel": "ボゥ",
+    "channel_id": "UChftPBqaY7x-3VT98uSxc5Q",
+    "description": "【仕事のご依頼】 多くのご依頼をいただき、ありがとうございます。 金融・投資分野に限らず、幅広い分野のお仕事のご相談を ...",
+    "published_at": "2026-09-26T07:00:18Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "DGp9cJ2x7sg",
+    "title": "【パタヤコンドミニアム】「もし、パタヤのコンドミニアムを賃貸したら：投資利回り7％超‼️」④（アルカディアミレニアムタワー） #pattaya #パタヤ #不動産 ",
+    "channel": "パタヤコンドミニアム Now OK !! チャンネル",
+    "channel_id": "UCQ4ittcrbTZpwGgTQBnPHYg",
+    "description": "公式LINEはこちら‼️ ↓↓ http://lin.ee/1mNBgtg 物件に興味がある方がいらっしゃいましたら、①ロケーション・立地、②割安 ...",
+    "published_at": "2026-09-26T07:00:16Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "TpcJGH72Xqw",
+    "title": "不労所得と聞いてコインランドリー投資を始めたのに、地獄の日々が始まりリカバリーも厳しい状況に陥ってしまった…【ずんだもん&amp;ゆっくり解説】",
+    "channel": "Như Ngọc Võ Thị",
+    "channel_id": "UCZ7Je0vPMW7bvpaNzwBbCOw",
+    "description": "働くって、そもそも何なんだろう？」 私は、ごく普通の会社員です。 ……と言いたいところですが、正確には少し違います。",
+    "published_at": "2026-09-26T07:00:38Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "8nMRSzJz83E",
+    "title": "「P+投資藝術館🕌」正在直播！",
+    "channel": "P+投資藝術館🕌",
+    "channel_id": "UCecA-0W8O9TVwFtsgKjfeDA",
+    "description": "",
+    "published_at": "2026-09-26T06:55:20Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "fk69c_LaOeI",
+    "title": "【XRP】Bitgetハッキングで1億枚流出！なぜ価格は暴落しなかったのか？3つの真相と今後の注目ポイント【リップル 仮想通貨 最新】",
+    "channel": "OL投資家あすかのシゴオワ資産運用",
+    "channel_id": "UC3a-5guYawpvX5ODbf0y2tQ",
+    "description": "あすかの公式ライン   [https://lin.ee/6107LSe] ━━━━━━━━━━━━━━━━━━━━━━━ 今回は、投資家なら絶対に ...",
+    "published_at": "2026-09-26T06:45:24Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "_tqN9xTsLlA",
+    "title": "【強い！！】FANG+やメガ10, NASDAQ100の上昇が強すぎる...!!各ファンドの成績をまとめた結果！楽天テック12, 一歩テック, Zテック, 新NISA",
+    "channel": "【新NISA】全力資産形成チャンネル",
+    "channel_id": "UCygjNuIdLfAMg-eT9hHAeUg",
+    "description": "本動画ではSMTモメンタム,FANG+,メガ10,一歩テック,SP10の情報を公開しています！ 9月は不調？それを吹き飛ばす上昇が.",
+    "published_at": "2026-09-26T06:40:12Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "4XWXGHjA55g",
+    "title": "【本音】投資１年目に知りたかったこと５選【投資 新NISA】",
+    "channel": "パスタ男のFIRE道 (Pastao FIRE)",
+    "channel_id": "UCSILRmrC_HhkkBAsLzG1C5Q",
+    "description": "\"【サイドFIRE】月◯万円の不労所得！配当金生活までのリアルな実績公開！     みんなの投資状況もコメントで教えてね！",
+    "published_at": "2026-09-26T08:52:13Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "hzlLhcxQUZE",
+    "title": "【新NISA シミュレーション】40代~60代はコレを真似するだけでOKです！勝ち組の投資額を徹底検証！【老後資金⧸投資】",
+    "channel": "サラダのお金相談所 (Sarada Money Office)",
+    "channel_id": "UCMhmKNi0BK270IpyNYM3QfQ",
+    "description": "\"【お金の悩み解決】無理なく年間100万円貯める方法を徹底解説！     あなたのお金の悩みもコメントで教えてね！",
+    "published_at": "2026-09-26T08:46:25Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "awOpaIxup4M",
+    "title": "【円高株安】日銀の追加利上げ決定はナゼこんなにインパクトがあるの？投資は大丈夫？",
+    "channel": "コアラ先生【お金と投資",
+    "channel_id": "UCE3V6cqEVbVqOuoCgbe5OKw",
+    "description": "\"【新NISA】初心者必見！今すぐ始めるべきおすすめ銘柄と損しない運用術！     疑問や気になった点はコメント欄で聞いて ...",
+    "published_at": "2026-09-26T08:32:44Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "MlwJNw4Z4x0",
+    "title": "9月26日紐約驚爆！CGI演講結束後，投資人接連提告？驚人事態曝光！",
+    "channel": "王室獨家",
+    "channel_id": "UC9laMKhc6FAX9DPpSWNUSlQ",
+    "description": "哈里王子 #哈里 #梅根 #英國王室 #王室新聞 #皇室新聞 #柯林頓全球倡議 #Skift全球論壇 #戴安娜獎 #戴安娜王妃 #名人演講 #演講費 ...",
+    "published_at": "2026-09-26T08:27:20Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "jA5jbwDVJ3I",
+    "title": "【2chヒトコワ】俺が多大な投資してやった嫁と2人の娘に捨てられそう。（クズな人たち26）未解決まとめ【人怖】",
+    "channel": "人怖ファイル2ch",
+    "channel_id": "UC5gBRopT78vGkMIN0kCd1DA",
+    "description": "日常のすぐ隣に潜んでいた、狂気と悪意の記録。 【あらすじ】 ごく普通の生活を送っていた主人公。しかし、ある日を境に周囲で ...",
+    "published_at": "2026-09-26T08:24:19Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "rG9V9epcs2w",
+    "title": "75歳一人暮らし、投資ゼロで貯めた2000万円「特別なことは何もしていません」私が今も続けている7つのこと【老後の貯蓄】",
+    "channel": "60代からの知恵袋",
+    "channel_id": "UC7MULJkzTDxpIhzhhYNc19w",
+    "description": "ご視聴いただき、ありがとうございます。 今回は、これからの人生をより豊かに過ごすための「知っておきたい暮らしの知恵」 ...",
+    "published_at": "2026-09-26T08:18:20Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "Mw7-ZAR2QoY",
+    "title": "【2ch馴れ初め】穴埋めで合コンに参加したキオクシア投資家の俺　ゴミ収集員のふりをした結果",
+    "channel": "追憶2ch",
+    "channel_id": "UCzpPVlAcYUHhxwfBZANLuCg",
+    "description": "ご視聴いただき、ありがとうございます。 今回は、誰の胸の奥にもある「忘れられない面影」に光をあてた物語をお届けします。",
+    "published_at": "2026-09-26T08:15:07Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "bLYaxmNjAXc",
+    "title": "こどもNISA最強戦略！なぜFANG+で攻めても怖くない？600万円の配分を解説",
+    "channel": "ながらで聞くだけ投資チャンネル",
+    "channel_id": "UC6gpYqT-h8pkO-EdwNsE33g",
+    "description": "こどもNISAなら、最初の60万円は何に入れる？FANG+・NASDAQ100・S&P500を比較し、600万円の配分まで考えます。",
+    "published_at": "2026-09-26T08:00:09Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "6VEMe8UzNQM",
+    "title": "【LINE】私に毎日離婚届で脅してくる投資で1億稼いだ夫「逆らうなら今すぐこれ出すぞ？1人で生きてけねえだろ」私「いいよ」→迷わず記入して提出し1人で生きることにした結果www",
+    "channel": "Công Huỳnh",
+    "channel_id": "UCHKM1ez7KlxUqClDY8uF-FQ",
+    "description": "ご視聴いただき、誠にありがとうございます。 このチャンネルでは、日常の中で実際に起こった出来事や、 誰かの心に ...",
+    "published_at": "2026-09-26T08:00:20Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "rrThcH3Qkhs",
+    "title": "【打ち止め】新NISAの成長投資枠は1200万円まで！50代60代の使い方と、残り600万円の話",
+    "channel": "金脈記",
+    "channel_id": "UCA8OkXlpPi1iJ1FTqg3VjlA",
+    "description": "【資産形成・心地よい暮らしのお金術】 今回は、焦らず着実に資産を育み、将来の不安を安心に変えるための考え方をお届けし ...",
+    "published_at": "2026-09-26T07:55:52Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "9fbP16BOlUM",
+    "title": "【実は負けている】新NISAの積立投資が一括投資に勝てない本当の理由！貯金1000万円をどう入れるかで資産が変わる話を解説",
+    "channel": "金脈記",
+    "channel_id": "UCA8OkXlpPi1iJ1FTqg3VjlA",
+    "description": "【資産形成・心地よい暮らしのお金術】 今回は、焦らず着実に資産を育み、将来の不安を安心に変えるための考え方をお届けし ...",
+    "published_at": "2026-09-26T07:53:55Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "1uJO7Ad5u4Q",
+    "title": "2026年後半に待ち受けるリップルのヤバい変化！投資初心者はコレ備えないと危険です！",
+    "channel": "リップル分析チャンネル",
+    "channel_id": "UCbUj-BlGtIqx5MyDrEiL32A",
+    "description": "リップル #仮想通貨 #暗号資産 今回は、2026年のあと3か月で、リップルを持っている人の手元に来る日付を4つに絞ってお話し ...",
+    "published_at": "2026-09-26T07:39:13Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "53t0LIJv6wg",
+    "title": "【驚愕】2026年のこの時代に投資しない派35%、慎重派36%。大多数が守りに入る中で差をつける方法。【2chお金スレ・有益スレ】",
+    "channel": "【2ch有益】マネー速報",
+    "channel_id": "UCLQA8rfvAzWF42fAHnyJcPA",
+    "description": "\"【2ch有益スレ】ガチで人生変わったお金の使い方を発表していくｗｗｗ⚡   あなたの買ってよかったものもコメントで教えてね ...",
+    "published_at": "2026-09-26T07:32:07Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "F179Lg-S2LM",
+    "title": "キヤノンとは？稼ぎの柱と株主還元を投資家向け解説 【テーマ解説ラジオ】",
+    "channel": "daigo",
+    "channel_id": "UCiYGk-nofnNTHmQchjhU1ow",
+    "description": "テーマ解説: 0:00 この会社は何をしているのか 4:46 収益の柱はどこか 7:55 直近の業績はどうか 11:09 株主にどう還元しているか ...",
+    "published_at": "2026-09-26T07:21:12Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "uTVVsPNf0Lk",
+    "title": "每日交易直播｜CCG合約交易機器人與MDH全自動合約對沖 測試 #美股 #永續合約 #對沖 #okx",
+    "channel": "MoneyDeal",
+    "channel_id": "UCbrU_eh18R8Y-BwC5cpj6Gw",
+    "description": "更多內容請加入我詢問 - 聯絡方式:https://linktr.ee/moneydeal - CCR&CCG社群:https://reurl.cc/EpxA7n - MDHedge社 ...",
+    "published_at": "2026-09-26T07:17:07Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "IWII0AE5FlE",
+    "title": "６月２１日 ＃今週の貴金属価格展望　＃回復の予感　でも少し先　＃６月２２日のゴールド価格⧸シルバー価格予想　＃金投資　＃銀投資　＃インベスターＭ「金」「銀」ゴー！！",
+    "channel": "M3 Pros ビジネスチャンネル",
+    "channel_id": "UCfK5o0A4n_UuuHw_Q2xOQHw",
+    "description": "\"ビジネスに役立つ最新トレンドと成功のためのマインドセットを解説！  ✨ コメント欄でのご意見をお待ちしております！",
+    "published_at": "2026-09-26T07:18:11Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "eTFPtkOdn2w",
+    "title": "【分配金情報】2026年9月分配金情報＆銘柄一覧｜高金利で高配当は逆風？中身の業種で見る",
+    "channel": "カエルの投資 Vlog",
+    "channel_id": "UCq0uZ0XbrG1eR4cWXGhKwgA",
+    "description": "この動画について】 2026年9月の分配金情報と銘柄一覧です。今月はFOMCと日銀がそろって利上げし、米国10年国債の利回り ...",
+    "published_at": "2026-09-26T07:14:16Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "-ML2u7eIjP4",
+    "title": "週明け決算で株価暴落した売られすぎ高配当優待３選！",
+    "channel": "億を目指す投資術",
+    "channel_id": "UC7p1lXeiycY4LCjJyEd0RFA",
+    "description": "いつもご視聴いただき、ありがとうございます。 **「億を目指す投資術」**では、日本株・米国株・ETF・高配当株・NISA・資産 ...",
+    "published_at": "2026-09-26T07:15:35Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "0Ek-jUGrHu4",
+    "title": "燧原投資人故事：一張長桌、20頁PPT與漫長中場",
+    "channel": "Zap Pilot",
+    "channel_id": "UCou-tz6SvvcRfUakkIm1kkA",
+    "description": "Welcome to listen to Zap Podcast. Winter 2017, No. 392 Jianguo West Road, Xuehu District, Shanghai, was an old house hidden ...",
+    "published_at": "2026-09-26T07:07:33Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "DF8Qk_MFoho",
+    "title": "【いきなりエグい円高】1ドル152円台でも新NISA民は絶対に◯◯するな！労働者には「特大ボーナス」な理由",
+    "channel": "資産形成の現場",
+    "channel_id": "UCaPH9NQqCmG5gxLLJixu_eA",
+    "description": "働きながら、未来の資産を築く。」資産形成のリアルを本音で発信するチャンネルです。 【このチャンネルで話すこと】 ...",
+    "published_at": "2026-09-26T07:00:07Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "Ybo45kSWIW4",
+    "title": "&#39;26.09.26【週末投資吧】大盤 台積電 下週重殺嗎？散熱 設備 被動元件 最飆股？",
+    "channel": "九八新聞台",
+    "channel_id": "UCOc2A2GJ9-WhjZSUO3nVEgQ",
+    "description": "主持人：林昌興來賓：大來投顧分析師陳彥蓉主題：大盤台積電下週重殺嗎？散熱設備被動元件最飆股？ 節目時間：週 ...",
+    "published_at": "2026-09-26T07:00:06Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "bcXCwOeZfEE",
+    "title": "427. Britain’s capex crisis and how to fix it",
+    "channel": "Debunking Economics Podcast",
+    "channel_id": "UCunt5lzPcjrplFq4dN9yYYw",
+    "description": "30th October 2024 Ever wondered why Britain's roads are riddled with potholes, why the trains keep breaking down and why ...",
+    "published_at": "2026-09-26T07:00:02Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "Etey14UJY_A",
+    "title": "40代50代は新NISAとiDeCoどっちを優先すべき？併用メリットや課税の注意点も解説",
+    "channel": "長期投資アカデミー ",
+    "channel_id": "UCPKypXmESqdCFslru2ZkSnA",
+    "description": "長期投資アカデミー S&P500・オルカン・新NISA・インデックス投資など、長期的な資産形成に役立つ情報を分かりやすく発信し ...",
+    "published_at": "2026-09-26T07:00:32Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "HoE76UV8YyU",
+    "title": "【ZZZ】ベーグル計画・郊外 3M投資 12.82M ヘマタイト90便器あり｜M0W1 雅羽、M1W1 柚葉【ゼンゼロ】",
+    "channel": "かおP - ゲームとたまに音楽 -",
+    "channel_id": "UC4HENr2wrgpiK3OmYZkiVPw",
+    "description": "羽ちゃんごめ～～～～ん 励みになりますので高評価・Ch登録お願いします！ Twitch（配信）https://www.twitch.tv/kaopyyy Twitter ...",
+    "published_at": "2026-09-26T06:53:27Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "hTXEKPkOlc4",
+    "title": "「みんな投資で増やしてる」その言葉を信じた72歳の男性。老後資金1600万円をわずか半年で失った理由",
+    "channel": "愛の記憶",
+    "channel_id": "UCS_E7hxvuPSxCBF_0ZgyM8w",
+    "description": "心に響く恋愛や人生の物語をお届けします。 笑い、涙、感動、そして忘れられない瞬間をお楽しみください。 最後までぜひご覧 ...",
+    "published_at": "2026-09-26T06:47:38Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "5HN6jJt5eiw",
+    "title": "【3905】データセクション、1,399億円案件が初回入金で前進｜GPU資金調達と10月稼働を整理",
+    "channel": "賢明なる投資家チャンネル",
+    "channel_id": "UCxuaNO1tMtRo6y3WMaxnTog",
+    "description": "今日の動画のポイント記事（ブログ） 動画の内容を文字と図解でじっくり復習したい方はこちら ...",
+    "published_at": "2026-09-26T06:09:00Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "xzpyB3IDO-Y",
+    "title": "【老後資産MAX期】退職前後10年間に“金融ショック”が来ても慌てない3つの備え",
+    "channel": "日本投資分析研究所",
+    "channel_id": "UC42SwsfIwnn2z_btu1M4a9g",
+    "description": "【老後資産MAX期】退職前後10年間に“金融ショック”が来ても慌てない3つの備え 今回のテーマは、**「退職前後10年間に金融 ...",
+    "published_at": "2026-09-26T06:00:37Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "E82fsYsY-zM",
+    "title": "後編 投資詐欺【犯人の会社に突入しました】",
+    "channel": "裏社会の真相",
+    "channel_id": "UCUqq20Fe5nIOdt1g4J8-DcA",
+    "description": "今回の動画では、ひとりの人物の人生や仕事、これまでの経験について深く掘り下げます。成功の裏側、失敗から学んだこと、 ...",
+    "published_at": "2026-09-26T06:00:00Z",
+    "keyword": "投資"
+  },
+  {
+    "video_id": "gVFguJYEZ-o",
+    "title": "【衝撃の結果】暴落を受けてもFANG+が最強だった…（新nisa成長投資枠）",
+    "channel": "爆益投資チャンネル",
+    "channel_id": "UCh0Xjls_p2hiAnNOKAwC1cw",
+    "description": "爆益投資チャンネル｜チャンネル概要 資産を着実に増やし、未来の選択肢を広げるための投資情報を発信しています。 □ 運営 ...",
+    "published_at": "2026-09-26T06:00:22Z",
+    "keyword": "投資"
   }
 ]
